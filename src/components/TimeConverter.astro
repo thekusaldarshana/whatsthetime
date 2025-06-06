@@ -1,0 +1,92 @@
+---
+import { DateTime } from 'luxon';
+import { useState } from 'react';
+
+// Import zone list from local JSON
+
+const now = DateTime.now();
+const defaultFrom = 'Asia/Colombo';
+const defaultTo = 'America/New_York';
+---
+
+<div class="p-4 max-w-xl mx-auto bg-white dark:bg-gray-900 rounded-xl shadow-md">
+  <h2 class="text-xl font-semibold mb-4 text-center text-gray-800 dark:text-white">
+    Time Converter
+  </h2>
+
+  <div class="mb-4">
+    <label class="block text-sm text-gray-600 dark:text-gray-300">From:</label>
+    <select name="fromZone" class="w-full p-2 border rounded" id="fromZone">
+  <option>Loading zones...</option>
+</select>
+
+<select name="toZone" class="w-full p-2 border rounded" id="toZone">
+  <option>Loading zones...</option>
+</select>
+
+  </div>
+
+  <div class="mb-4">
+    <label class="block text-sm text-gray-600 dark:text-gray-300">Custom Time (24h, e.g. 14:30):</label>
+    <input type="time" class="w-full p-2 border rounded" id="customTime" />
+  </div>
+
+  <div class="mt-4 text-center">
+    <p class="text-lg text-gray-800 dark:text-white">
+      🕓 Converted Time: <strong id="convertedTime">[Choose time zones]</strong>
+    </p>
+  </div>
+</div>
+
+<script type="module">
+  import { DateTime } from 'https://cdn.skypack.dev/luxon';
+
+  const fromEl = document.getElementById('fromZone');
+  const toEl = document.getElementById('toZone');
+  const customEl = document.getElementById('customTime');
+  const outputEl = document.getElementById('convertedTime');
+
+  async function loadZones() {
+    const res = await fetch('/zones.json');
+    const zones = await res.json();
+
+    [fromEl, toEl].forEach(select => {
+      select.innerHTML = '';
+      zones.forEach(zone => {
+        const opt = document.createElement('option');
+        opt.value = zone;
+        opt.textContent = zone;
+        select.appendChild(opt);
+      });
+
+      // Set default selections
+      if (select === fromEl) select.value = 'Asia/Colombo';
+      if (select === toEl) select.value = 'America/New_York';
+    });
+
+    convert(); // Convert after zones are loaded
+  }
+
+  function convert() {
+    const from = fromEl.value;
+    const to = toEl.value;
+    const customTime = customEl.value;
+
+    const base = customTime
+      ? DateTime.fromISO(customTime, { zone: from })
+      : DateTime.now().setZone(from);
+
+    const target = base.setZone(to);
+    outputEl.innerText = target.toFormat('HH:mm (cccc)');
+  }
+
+  fromEl.addEventListener('change', convert);
+  toEl.addEventListener('change', convert);
+  customEl.addEventListener('input', convert);
+
+  setInterval(convert, 1000); // Real-time updates
+
+  // Load time zones on first load
+  loadZones();
+</script>
+
