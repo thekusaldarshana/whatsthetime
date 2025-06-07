@@ -15,32 +15,34 @@ import { DateTime } from 'luxon';
   <!-- Backdrop Overlay -->
 <div id="clockOverlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 hidden"></div>
 
-  <!-- <div class="mb-4">
-    <label class="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-1">From:</label>
-    <select name="fromZone" class="w-full p-2 rounded-md border border-yellow-300 dark:border-gray-600 
+  <!-- 🌐 From Zone -->
+<div class="relative w-full">
+  <label class="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-1">From:</label>
+  <input id="fromZoneInput" type="text" placeholder="Search zone..." 
+         class="w-full p-2 rounded-md border border-yellow-300 dark:border-gray-600 
          bg-white dark:bg-gray-900 text-yellow-900 dark:text-gray-100 
          focus:outline-none focus:ring-2 focus:ring-yellow-300 dark:focus:ring-green-500 
          focus:border-yellow-300 dark:focus:border-green-500 
-         transition duration-200 appearance-none relative z-10" id="fromZone">
-      <option>Loading zones...</option>
-    </select>
-  </div> -->
+         transition duration-200 appearance-none relative z-10" />
+  <ul id="fromZoneList"
+  class="absolute z-[999] bg-white dark:bg-gray-800 mt-1 rounded shadow-md border border-gray-300 dark:border-gray-600 w-full hidden overflow-auto max-h-60">
+</ul>
 
-  <div class="mb-4 relative">
-  <label class="block text-sm font-medium text-yellow-900 dark:text-gray-200 mb-1">From:</label>
-  <input id="fromZoneInput" type="text" placeholder="Search zone..." 
-         class="w-full p-2 rounded-md border border-yellow-300 dark:border-gray-600 bg-yellow-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 
-         focus:outline-none focus:ring-2 focus:ring-yellow-400 transition duration-200" />
-  <ul id="fromZoneList" class="absolute w-full bg-white dark:bg-gray-900 mt-1 rounded shadow max-h-60 overflow-y-auto z-10 hidden"></ul>
 </div>
 
-
-  <div class="mb-4 relative">
-  <label class="block text-sm font-medium text-yellow-900 dark:text-gray-200 mb-1">To:</label>
+<!-- 🌍 To Zone -->
+<div class="relative w-full">
+  <label class="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-1">To:</label>
   <input id="toZoneInput" type="text" placeholder="Search zone..." 
-         class="w-full p-2 rounded-md border border-yellow-300 dark:border-gray-600 bg-yellow-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 
-         focus:outline-none focus:ring-2 focus:ring-yellow-400 transition duration-200" />
-  <ul id="toZoneList" class="absolute w-full bg-white dark:bg-gray-900 mt-1 rounded shadow max-h-60 overflow-y-auto z-10 hidden"></ul>
+         class="w-full p-2 rounded-md border border-yellow-300 dark:border-gray-600 
+         bg-white dark:bg-gray-900 text-yellow-900 dark:text-gray-100 
+         focus:outline-none focus:ring-2 focus:ring-yellow-300 dark:focus:ring-green-500 
+         focus:border-yellow-300 dark:focus:border-green-500 
+         transition duration-200 appearance-none relative z-10" />
+  <ul id="toZoneList"
+  class="absolute z-[999] bg-white dark:bg-gray-800 mt-1 rounded shadow-md border border-gray-300 dark:border-gray-600 w-full hidden overflow-auto max-h-60">
+</ul>
+
 </div>
 
 
@@ -101,8 +103,9 @@ import { DateTime } from 'luxon';
 <script type="module">
   import { DateTime } from 'https://cdn.skypack.dev/luxon';
 
-  const fromEl = document.getElementById('fromZone');
-  const toEl = document.getElementById('toZone');
+  let fromEl, toEl;
+  let zones = [];
+
   const outputEl = document.getElementById('convertedTime');
   const clockInput = document.getElementById('clockInput');
   const clockPopup = document.getElementById('clockPopup');
@@ -120,62 +123,92 @@ import { DateTime } from 'luxon';
 
   let customEl = null;
 
-  async function loadZones() {
-  const res = await fetch('/zones.json');
-  const zones = await res.json();
-
-  [fromEl, toEl].forEach(select => {
-    select.innerHTML = '';
-    zones.forEach(zone => {
-      const opt = document.createElement('option');
-      opt.value = zone;
-      opt.textContent = zone;
-      select.appendChild(opt);
-    });
-  });
-
-  // 🌍 Detect user's local zone
-  let userZone = 'Asia/Colombo'; // fallback
-  try {
-    const detected = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    if (zones.includes(detected)) {
-      userZone = detected;
-    }
-  } catch (err) {
-    console.warn('Time zone detection failed, using fallback.');
-  }
-
-  fromEl.value = userZone;
-
-  // ⏰ Default "To" zone is GMT (Greenwich Mean Time)
-  toEl.value = zones.includes('Etc/GMT') ? 'Etc/GMT' : 'Europe/London';
-
-  convert();
-}
-
-function setupZoneSearch(inputId, listId, onSelect) {
+  function setupZoneSearch(inputId, listId, globalKey) {
   const input = document.getElementById(inputId);
   const list = document.getElementById(listId);
 
   input.addEventListener('input', () => {
-    const query = input.value.toLowerCase();
+    const query = input.value.toLowerCase().trim();
     const matches = zones.filter(z => z.toLowerCase().includes(query)).slice(0, 10);
-    list.innerHTML = matches.map(z => `<li class="p-2 hover:bg-yellow-100 dark:hover:bg-gray-700 cursor-pointer">${z}</li>`).join('');
-    list.classList.remove('hidden');
+
+    list.innerHTML = matches.map(z =>
+      `<li class="p-2 hover:bg-yellow-100 dark:hover:bg-gray-700 cursor-pointer">${z}</li>`
+    ).join('');
+
+    if (matches.length > 0) {
+      list.classList.remove('hidden');
+    } else {
+      list.classList.add('hidden');
+    }
   });
 
   list.addEventListener('click', (e) => {
     if (e.target.tagName === 'LI') {
-      input.value = e.target.textContent;
+      const selectedZone = e.target.textContent;
+      input.value = selectedZone;
       list.classList.add('hidden');
-      onSelect(e.target.textContent);
+
+      // ⛳ Update correct global reference directly
+      if (globalKey === 'from') fromEl = input;
+      if (globalKey === 'to') toEl = input;
+
+      convert();
     }
   });
 
   input.addEventListener('blur', () => {
-    setTimeout(() => list.classList.add('hidden'), 150);
-  });
+  // only hide if not hovering over list
+  setTimeout(() => {
+    if (!list.matches(':hover')) {
+      list.classList.add('hidden');
+    }
+  }, 150);
+});
+
 }
+
+
+
+async function loadZones() {
+  const res = await fetch('/zones.json');
+  zones = await res.json();
+
+  const fromInput = document.getElementById('fromZoneInput');
+  const toInput = document.getElementById('toZoneInput');
+
+  let userZone = 'Asia/Colombo';
+  try {
+    const detected = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (zones.includes(detected)) userZone = detected;
+  } catch {
+    console.warn('Time zone detection failed.');
+  }
+
+  fromInput.value = userZone;
+  toInput.value = 'Etc/GMT';
+
+  // Pass 'from' and 'to' flags to update globals correctly
+  setupZoneSearch('fromZoneInput', 'fromZoneList', 'from');
+  setupZoneSearch('toZoneInput', 'toZoneList', 'to');
+
+  fromEl = fromInput;
+  toEl = toInput;
+
+  convert();
+}
+
+clockInput.addEventListener('click', () => {
+  const isVisible = !clockPopup.classList.contains('hidden');
+
+  if (isVisible) {
+    clockPopup.classList.add('hidden');
+    clockOverlay.classList.add('hidden');
+  } else {
+    clockPopup.classList.remove('hidden');
+    clockOverlay.classList.remove('hidden');
+  }
+});
+
 
 
   function renderClockNumbers() {
@@ -277,25 +310,37 @@ setTimeout(() => {
   }
 
   function convert() {
-    const from = fromEl.value;
-    const to = toEl.value;
-    const hour = selectedHour % 12 + (isAM ? 0 : 12);
-    const base = DateTime.fromObject({ hour, minute: selectedMinute }, { zone: from });
-    const target = base.setZone(to);
-    outputEl.innerText = target.toFormat('hh:mm a (cccc)');
-    // document.getElementById('toCaption').innerHTML += `<span class="text-sm italic">${to},</span>`;
+  const from = fromEl?.value;
+  const to = toEl?.value;
+
+  console.log("🔎 from:", fromEl?.value);
+console.log("🔎 to:", toEl?.value);
+console.log("✅ zones.includes(from)?", zones.includes(fromEl?.value));
+
+
+  if (!from || !to || !zones.includes(from) || !zones.includes(to)) {
+    outputEl.innerText = "⚠️ Invalid zone selection";
+    return;
   }
 
-  clockInput.addEventListener('click', () => {
-  const isVisible = !clockPopup.classList.contains('hidden');
-  if (isVisible) {
-    clockPopup.classList.add('hidden');
-    clockOverlay.classList.add('hidden');
-  } else {
-    clockPopup.classList.remove('hidden');
-    clockOverlay.classList.remove('hidden');
+  const hour = selectedHour % 12 + (isAM ? 0 : 12);
+  const base = DateTime.fromObject({ hour, minute: selectedMinute }, { zone: from });
+
+  if (!base.isValid) {
+    outputEl.innerText = "⚠️ Invalid DateTime";
+    return;
   }
-});
+
+  const target = base.setZone(to);
+
+  if (!target.isValid) {
+    outputEl.innerText = "⚠️ Conversion failed";
+    return;
+  }
+
+  outputEl.innerText = target.toFormat('hh:mm a (cccc)');
+}
+
 
   clockOverlay.addEventListener('click', () => {
   clockPopup.classList.add('hidden');
