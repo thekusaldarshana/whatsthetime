@@ -19,6 +19,11 @@ module.exports = {
           'sans-serif',
         ],
       },
+      fontSize: {
+      'xxs': '0.65rem',
+      '3xl': '1.75rem',
+      'hero': '5rem',
+    },
       colors: {
         baseDark: '#0b0f19', // Deep modern dark
         glow: '#0fffc3',      // For green-glow effects

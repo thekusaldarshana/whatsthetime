@@ -7,7 +7,7 @@ import { DateTime } from 'luxon';
 
   <!-- 📅 Now Card -->
 <div id="nowCard" class="relative mb-5 p-4 rounded-xl text-white dark:text-white text-center transition duration-300">
-  <div class="relative z-10 text-lg font-medium" id="nowText">Loading current time...</div>
+  <div class="text-hero relative z-10 text-lg font-medium" id="nowText">Loading current time...</div>
   <div class="absolute inset-0 bg-black/10 dark:bg-black/30 backdrop-blur-sm z-0 rounded-xl"></div>
 </div>
 
@@ -137,7 +137,7 @@ import { DateTime } from 'luxon';
 
   fromEl.value = userZone;
 
-  // ⏱ Default "To" zone is GMT (Greenwich Mean Time)
+  // ⏰ Default "To" zone is GMT (Greenwich Mean Time)
   toEl.value = zones.includes('Etc/GMT') ? 'Etc/GMT' : 'Europe/London';
 
   convert();
@@ -215,6 +215,27 @@ function updateNowCard(userZone = Intl.DateTimeFormat().resolvedOptions().timeZo
 // Update immediately and then every 30 seconds
 updateNowCard();
 setInterval(updateNowCard, 30000);
+
+setTimeout(() => {
+  fetch('https://ipapi.co/json/')
+    .then(res => res.json())
+    .then(loc => {
+      const city = loc.city;
+      const country = loc.country_name;
+      const lat = loc.latitude;
+      const lon = loc.longitude;
+
+      // Then: fetch weather
+      fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`)
+        .then(res => res.json())
+        .then(weather => {
+          const temp = weather.current_weather.temperature;
+          const code = weather.current_weather.weathercode; // map this to emoji
+          document.getElementById('nowText').innerHTML += `<br /><span class="text-sm italic">📍 ${city}, ${country} — ${temp}°C</span>`;
+        });
+    });
+}, 1000); // delay by 1 second after everything else
+
 
 
   function updateClockHands() {
@@ -294,3 +315,5 @@ setInterval(updateNowCard, 30000);
   setInterval(convert, 1000);
   loadZones();
 </script>
+
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="thekusaldarshana" data-description="Support me on Buy me a coffee!" data-message="Thank you for Visiting. You can now buy me a Coffee." data-color="#40DCA5" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
