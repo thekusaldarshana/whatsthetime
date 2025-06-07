@@ -111,6 +111,7 @@ import { DateTime } from 'luxon';
 
 <script type="module">
   import { DateTime } from 'https://cdn.skypack.dev/luxon';
+  import { zoneAliases } from '../../src/lib/zoneAliases.js';
 
   let fromEl, toEl;
   let zones = [];
@@ -123,208 +124,184 @@ import { DateTime } from 'luxon';
   const minuteHand = document.getElementById('clockMinute');
   const toggleAMPM = document.getElementById('toggleAMPM');
   const setTime = document.getElementById('setTime');
-
   const resetTime = document.getElementById('resetTime');
 
   let selectedHour = 12;
   let selectedMinute = 0;
   let isAM = true;
 
-  let customEl = null;
-
   function setupZoneSearch(inputId, listId, globalKey) {
-  const input = document.getElementById(inputId);
-  const list = document.getElementById(listId);
+    const input = document.getElementById(inputId);
+    const list = document.getElementById(listId);
 
-  input.addEventListener('input', () => {
-    const query = input.value.toLowerCase().trim();
-    const matches = zones.filter(z => z.toLowerCase().includes(query)).slice(0, 10);
+    input.addEventListener('input', () => {
+      const query = input.value.toLowerCase().trim();
 
-    list.innerHTML = matches.map(z =>
-      `<li class="p-2 hover:bg-yellow-100 dark:hover:bg-gray-700 cursor-pointer">${z}</li>`
-    ).join('');
+      const aliasMatches = Object.keys(zoneAliases)
+        .filter(alias => alias.includes(query))
+        .map(alias => zoneAliases[alias]);
 
-    if (matches.length > 0) {
-      list.classList.remove('hidden');
+      const exactMatches = zones.filter(z => z.toLowerCase().includes(query));
+      const matches = [...new Set([...aliasMatches, ...exactMatches])].slice(0, 10);
+
+      list.innerHTML = matches
+        .map(z => `<li class="p-2 hover:bg-yellow-100 dark:hover:bg-gray-700 cursor-pointer">${z}</li>`)
+        .join('');
+
+      list.classList.toggle('hidden', matches.length === 0);
+    });
+
+    list.addEventListener('click', (e) => {
+      if (e.target.tagName === 'LI') {
+        const selected = e.target.textContent;
+        input.value = selected;
+
+        if (globalKey === 'from') fromEl = input;
+        if (globalKey === 'to') toEl = input;
+
+        convert();
+        list.classList.add('hidden');
+      }
+    });
+
+    input.addEventListener('blur', () => {
+      setTimeout(() => {
+        if (!list.matches(':hover')) {
+          list.classList.add('hidden');
+        }
+      }, 150);
+    });
+  }
+
+  async function loadZones() {
+    const res = await fetch('/zones.json');
+    zones = await res.json();
+
+    const fromInput = document.getElementById('fromZoneInput');
+    const toInput = document.getElementById('toZoneInput');
+
+    let userZone = 'Asia/Colombo';
+    try {
+      const detected = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      if (zones.includes(detected)) userZone = detected;
+    } catch {
+      console.warn('Time zone detection failed.');
+    }
+
+    fromInput.value = userZone;
+    toInput.value = 'Etc/GMT';
+
+    const now = DateTime.local().setZone(userZone);
+    selectedHour = now.hour % 12 || 12;
+    selectedMinute = now.minute;
+    isAM = now.hour < 12;
+    displayTime.innerText = now.toFormat("hh:mm a");
+    updateClockHands();
+
+    setupZoneSearch('fromZoneInput', 'fromZoneList', 'from');
+    setupZoneSearch('toZoneInput', 'toZoneList', 'to');
+
+    fromEl = fromInput;
+    toEl = toInput;
+
+    convert();
+  }
+
+  clockInput.addEventListener('click', () => {
+    const isVisible = !clockPopup.classList.contains('hidden');
+    if (isVisible) {
+      clockPopup.classList.add('hidden');
+      clockOverlay.classList.add('hidden');
     } else {
-      list.classList.add('hidden');
+      clockPopup.classList.remove('hidden');
+      clockOverlay.classList.remove('hidden');
     }
   });
-
-  list.addEventListener('click', (e) => {
-    if (e.target.tagName === 'LI') {
-      const selectedZone = e.target.textContent;
-      input.value = selectedZone;
-      list.classList.add('hidden');
-
-      // ⛳ Update correct global reference directly
-      if (globalKey === 'from') fromEl = input;
-      if (globalKey === 'to') toEl = input;
-
-      convert();
-    }
-  });
-
-  input.addEventListener('blur', () => {
-  // only hide if not hovering over list
-  setTimeout(() => {
-    if (!list.matches(':hover')) {
-      list.classList.add('hidden');
-    }
-  }, 150);
-});
-
-}
-
-
-
-async function loadZones() {
-  const res = await fetch('/zones.json');
-  zones = await res.json();
-
-  const fromInput = document.getElementById('fromZoneInput');
-  const toInput = document.getElementById('toZoneInput');
-
-  let userZone = 'Asia/Colombo';
-  try {
-    const detected = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    if (zones.includes(detected)) userZone = detected;
-  } catch {
-    console.warn('Time zone detection failed.');
-  }
-
-  fromInput.value = userZone;
-  toInput.value = 'Etc/GMT';
-
-  // 🕒 Set clock to user's current local time
-  const now = DateTime.local().setZone(userZone);
-  selectedHour = now.hour % 12 || 12;
-  selectedMinute = now.minute;
-  isAM = now.hour < 12;
-  displayTime.innerText = now.toFormat("hh:mm a");
-  updateClockHands();
-
-  // ✅ Zone search input setup
-  setupZoneSearch('fromZoneInput', 'fromZoneList', 'from');
-  setupZoneSearch('toZoneInput', 'toZoneList', 'to');
-
-  fromEl = fromInput;
-  toEl = toInput;
-
-  convert();
-}
-
-
-clockInput.addEventListener('click', () => {
-  const isVisible = !clockPopup.classList.contains('hidden');
-
-  if (isVisible) {
-    clockPopup.classList.add('hidden');
-    clockOverlay.classList.add('hidden');
-  } else {
-    clockPopup.classList.remove('hidden');
-    clockOverlay.classList.remove('hidden');
-  }
-});
-
-
 
   function renderClockNumbers() {
-  const container = document.getElementById('clockNumbers');
-  for (let i = 1; i <= 12; i++) {
-    const angle = i * 30;
-    const x = 50 + 42 * Math.cos((angle - 90) * Math.PI / 180);
-    const y = 50 + 42 * Math.sin((angle - 90) * Math.PI / 180);
+    const container = document.getElementById('clockNumbers');
+    for (let i = 1; i <= 12; i++) {
+      const angle = i * 30;
+      const x = 50 + 42 * Math.cos((angle - 90) * Math.PI / 180);
+      const y = 50 + 42 * Math.sin((angle - 90) * Math.PI / 180);
 
-    const num = document.createElement('div');
-    num.className = 'absolute text-sm text-yellow-800 dark:text-gray-200';
-    num.style.left = `${x}%`;
-    num.style.top = `${y}%`;
-    num.style.transform = 'translate(-50%, -50%)';
-    num.textContent = i;
-    container.appendChild(num);
+      const num = document.createElement('div');
+      num.className = 'absolute text-sm text-yellow-800 dark:text-gray-200';
+      num.style.left = `${x}%`;
+      num.style.top = `${y}%`;
+      num.style.transform = 'translate(-50%, -50%)';
+      num.textContent = i;
+      container.appendChild(num);
+    }
   }
-}
 
-renderClockNumbers();
+  renderClockNumbers();
 
-const nowText = document.getElementById('nowText');
+  function getEmoji(hour) {
+    if (hour >= 5 && hour < 12) return '🌤️';
+    if (hour >= 12 && hour < 17) return '☀️';
+    if (hour >= 17 && hour < 20) return '🌇';
+    return '🌙';
+  }
 
-function getEmoji(hour) {
-  if (hour >= 5 && hour < 12) return '🌤️';
-  if (hour >= 12 && hour < 17) return '☀️';
-  if (hour >= 17 && hour < 20) return '🌇';
-  return '🌙';
-}
+  function getWish(hour) {
+    if (hour >= 5 && hour < 12) return "It's a fresh morning to you! Have a nice day...";
+    if (hour >= 12 && hour < 17) return "Good afternoon! The best is yet to come...";
+    if (hour >= 17 && hour < 20) return "Good evening. What's going on?";
+    return "Good night! Hope you had a nice day!";
+  }
 
-function getWish(hour) {
-  if (hour >= 5 && hour < 12) return "It's a fresh morning to you! Have a nice day...";
-  if (hour >= 12 && hour < 17) return "Good afternoon! The best is yet to come...";
-  if (hour >= 17 && hour < 20) return "Good evening. What's going on?";
-  return "Good night! Hope you had a nice day!";
-}
+  function getTimePhase(hour) {
+    if (hour >= 5 && hour < 12) return 'morning';
+    if (hour >= 12 && hour < 17) return 'afternoon';
+    if (hour >= 17 && hour < 20) return 'evening';
+    return 'night';
+  }
 
-function getTimePhase(hour) {
-  if (hour >= 5 && hour < 12) return 'morning';
-  if (hour >= 12 && hour < 17) return 'afternoon';
-  if (hour >= 17 && hour < 20) return 'evening';
-  return 'night';
-}
+  function updateNowCard(userZone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Colombo') {
+    const now = DateTime.local().setZone(userZone);
+    const weekday = now.toFormat('cccc');
+    const date = now.toFormat('MMMM d');
+    const time = now.toFormat('hh:mm:ss a');
+    const emoji = getEmoji(now.hour);
+    const wish = getWish(now.hour);
+    const phase = getTimePhase(now.hour);
 
-function updateNowCard(userZone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Colombo') {
-  const now = DateTime.local().setZone(userZone);
-  const weekday = now.toFormat('cccc');
-  const date = now.toFormat('MMMM d');
-  const time = now.toFormat('hh:mm:ss a');
-  const emoji = getEmoji(now.hour);
-  const wish = getWish(now.hour);
-  const phase = getTimePhase(now.hour);
+    const nowCard = document.getElementById('nowCard');
+    const nowText = document.getElementById('nowText');
+    const wishText = document.getElementById('wishText');
+    const nowLocation = document.getElementById('nowLocation');
 
-  const nowCard = document.getElementById('nowCard');
-  const nowText = document.getElementById('nowText');
-  const wishText = document.getElementById('wishText');
-  const nowLocation = document.getElementById('nowLocation');
+    nowCard.style.backgroundImage = `url('/assets/${phase}.jpg')`;
+    nowCard.style.backgroundSize = 'cover';
+    nowCard.style.backgroundPosition = 'center';
+    nowCard.style.backgroundRepeat = 'no-repeat';
 
-  // Set image as background
-  nowCard.style.backgroundImage = `url('/assets/${phase}.jpg')`;
-  nowCard.style.backgroundSize = 'cover';
-  nowCard.style.backgroundPosition = 'center';
-  nowCard.style.backgroundRepeat = 'no-repeat';
+    nowText.innerHTML = `📅 ${weekday}, ${date} — ${time} — ${emoji}`;
+    wishText.innerHTML = `<span class="block italic text-sm mt-3 text-gray-200 dark:text-gray-200">${wish}</span>`;
+  }
 
-  nowText.innerHTML = `
-    📅 ${weekday}, ${date} — ${time} — ${emoji}`;
+  updateNowCard();
+  setInterval(updateNowCard, 1000);
 
-  wishText.innerHTML = `
-    <span class="block italic text-sm mt-3 text-gray-200 dark:text-gray-200">${wish}</span>
-  `;
-}
+  setTimeout(() => {
+    fetch('https://ipapi.co/json/')
+      .then(res => res.json())
+      .then(loc => {
+        const city = loc.city;
+        const country = loc.country_name;
+        const lat = loc.latitude;
+        const lon = loc.longitude;
 
-// Update immediately and then every second
-updateNowCard();
-setInterval(updateNowCard, 1000);
-
-// 🌍 Location + Weather (appends once and persists)
-setTimeout(() => {
-  fetch('https://ipapi.co/json/')
-    .then(res => res.json())
-    .then(loc => {
-      const city = loc.city;
-      const country = loc.country_name;
-      const lat = loc.latitude;
-      const lon = loc.longitude;
-
-      fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`)
-        .then(res => res.json())
-        .then(weather => {
-          const temp = weather.current_weather.temperature;
-          const locationEl = document.getElementById('nowLocation');
-          locationEl.innerText = `📍 ${city}, ${country} — ${temp}°C`;
-        });
-    });
-}, 1000);
- // delay by 1 second after everything else
-
-
+        fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`)
+          .then(res => res.json())
+          .then(weather => {
+            const temp = weather.current_weather.temperature;
+            const locationEl = document.getElementById('nowLocation');
+            locationEl.innerText = `📍 ${city}, ${country} — ${temp}°C`;
+          });
+      });
+  }, 1000);
 
   function updateClockHands() {
     hourHand.style.transform = `rotate(${(selectedHour % 12) * 30}deg)`;
@@ -332,55 +309,44 @@ setTimeout(() => {
   }
 
   function convert() {
-  const from = fromEl?.value;
-  const to = toEl?.value;
+    const from = fromEl?.value;
+    const to = toEl?.value;
 
-  console.log("🔎 from:", fromEl?.value);
-console.log("🔎 to:", toEl?.value);
-console.log("✅ zones.includes(from)?", zones.includes(fromEl?.value));
+    if (!from || !to || !zones.includes(from) || !zones.includes(to)) {
+      outputEl.innerText = "⚠️ Invalid zone selection";
+      return;
+    }
 
+    const hour = selectedHour % 12 + (isAM ? 0 : 12);
+    const base = DateTime.fromObject({ hour, minute: selectedMinute }, { zone: from });
 
-  if (!from || !to || !zones.includes(from) || !zones.includes(to)) {
-    outputEl.innerText = "⚠️ Invalid zone selection";
-    return;
+    if (!base.isValid) {
+      outputEl.innerText = "⚠️ Invalid DateTime";
+      return;
+    }
+
+    const target = base.setZone(to);
+    if (!target.isValid) {
+      outputEl.innerText = "⚠️ Conversion failed";
+      return;
+    }
+
+    outputEl.innerText = target.toFormat('hh:mm a (cccc)');
+
+    const diffMinutes = target.offset - base.offset;
+    const absMinutes = Math.abs(diffMinutes);
+    const hours = Math.floor(absMinutes / 60);
+    const minutes = absMinutes % 60;
+    const direction = diffMinutes > 0 ? "ahead of" : "behind";
+    const diffText = `${to} is ${hours ? `${hours} hour${hours !== 1 ? 's' : ''}` : ''}${minutes ? ` and ${minutes} minute${minutes !== 1 ? 's' : ''}` : ''} ${direction} ${from}`;
+
+    document.getElementById('timeDifference').innerText = `🕰️ ${diffText}`;
   }
-
-  const hour = selectedHour % 12 + (isAM ? 0 : 12);
-  const base = DateTime.fromObject({ hour, minute: selectedMinute }, { zone: from });
-
-  if (!base.isValid) {
-    outputEl.innerText = "⚠️ Invalid DateTime";
-    return;
-  }
-
-  const target = base.setZone(to);
-
-  if (!target.isValid) {
-    outputEl.innerText = "⚠️ Conversion failed";
-    return;
-  }
-
-  outputEl.innerText = target.toFormat('hh:mm a (cccc)');
-
-  // 🧠 Calculate time difference
-  const diffMinutes = target.offset - base.offset;
-  const absMinutes = Math.abs(diffMinutes);
-  const hours = Math.floor(absMinutes / 60);
-  const minutes = absMinutes % 60;
-  const direction = diffMinutes > 0 ? "ahead of" : "behind";
-
-  const diffText = `${to} is ${hours > 0 ? `${hours} hour${hours !== 1 ? 's' : ''}` : ''}${minutes > 0 ? ` and ${minutes} minute${minutes !== 1 ? 's' : ''}` : ''} ${direction} ${from}`;
-
-  document.getElementById('timeDifference').innerText = `🕰️ ${diffText}`;
-}
-
 
   clockOverlay.addEventListener('click', () => {
-  clockPopup.classList.add('hidden');
-  clockOverlay.classList.add('hidden');
-
-});
-
+    clockPopup.classList.add('hidden');
+    clockOverlay.classList.add('hidden');
+  });
 
   toggleAMPM.addEventListener('click', () => {
     isAM = !isAM;
@@ -397,15 +363,15 @@ console.log("✅ zones.includes(from)?", zones.includes(fromEl?.value));
   });
 
   resetTime.addEventListener('click', () => {
-  const now = DateTime.local();
-  selectedHour = now.hour % 12 || 12;
-  selectedMinute = now.minute;
-  isAM = now.hour < 12;
+    const now = DateTime.local();
+    selectedHour = now.hour % 12 || 12;
+    selectedMinute = now.minute;
+    isAM = now.hour < 12;
 
-  updateClockHands();
-  displayTime.innerText = now.toFormat('hh:mm a');
-  convert();
-});
+    updateClockHands();
+    displayTime.innerText = now.toFormat('hh:mm a');
+    convert();
+  });
 
   document.getElementById('clockFace').addEventListener('click', (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -427,14 +393,4 @@ console.log("✅ zones.includes(from)?", zones.includes(fromEl?.value));
 
   setInterval(convert, 1000);
   loadZones();
-</script>
-
-<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="thekusaldarshana" data-description="Support me on Buy me a coffee!" data-message="Thank you for Visiting. You can now buy me a Coffee." data-color="#40DCA5" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
-
-<script>
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/sw.js')
-      .then(reg => console.log('✅ Service Worker registered'))
-      .catch(err => console.error('Service Worker error:', err));
-  }
 </script>
