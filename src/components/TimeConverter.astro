@@ -3,7 +3,7 @@ import { DateTime } from 'luxon';
 ---
 
 <div class="p-6 max-w-2xl mx-auto bg-glass backdrop-blur-md rounded-xl shadow-glass border border-white/10 transition-all duration-500">
-  <h2 class="text-2xl font-semibold mb-4 text-center text-gray-800 dark:text-gray-200">🕓 Time Converter</h2>
+  <h2 class="text-2xl font-semibold mb-4 text-center text-gray-800 dark:text-blue-200">🕓 Global Time Converter</h2>
 
   <!-- 📅 Now Card -->
 <div id="nowCard" class="relative mb-5 p-4 rounded-xl text-white dark:text-white text-center transition duration-300">
@@ -17,7 +17,7 @@ import { DateTime } from 'luxon';
 
   <!-- 🌐 From Zone -->
 <div class="relative w-full">
-  <label class="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-1">From:</label>
+  <label class="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-2 mt-2">From:</label>
   <input id="fromZoneInput" type="text" placeholder="Search zone..." 
          class="w-full p-2 rounded-md border border-yellow-300 dark:border-gray-600 
          bg-white dark:bg-gray-900 text-yellow-900 dark:text-gray-100 
@@ -32,7 +32,7 @@ import { DateTime } from 'luxon';
 
 <!-- 🌍 To Zone -->
 <div class="relative w-full">
-  <label class="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-1">To:</label>
+  <label class="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-2 mt-5">To:</label>
   <input id="toZoneInput" type="text" placeholder="Search zone..." 
          class="w-full p-2 rounded-md border border-yellow-300 dark:border-gray-600 
          bg-white dark:bg-gray-900 text-yellow-900 dark:text-gray-100 
@@ -47,7 +47,7 @@ import { DateTime } from 'luxon';
 
 
   <div class="mb-4 relative">
-    <label class="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-1">Custom Time (12h):</label><div class="flex gap-2 items-center">
+    <label class="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-2 mt-5">Custom Time (12h):</label><div class="flex gap-2 items-center">
     <div class="flex-1 w-full p-2 rounded-md border border-yellow-300 dark:border-gray-600 bg-sunny-50 text-yellow-900 dark:bg-gray-800 dark:text-gray-100 
          focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 
          transition duration-200 appearance-none relative z-10 cursor-pointer" id="clockInput">
@@ -90,9 +90,9 @@ import { DateTime } from 'luxon';
     </div>
   </div>
 
-  <label class="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-1" id="toCaption">Converted to </label>
+  <label class="block text-sm font-medium text-gray-800 dark:text-gray-200 mt-6" id="toCaption">Converted to </label>
 
-  <div class="mt-6 px-4 py-3 rounded-xl bg-yellow-500 dark:bg-green-500 text-center shadow-md backdrop-blur-md hover:ring-2 hover:ring-glow transition duration-500">
+  <div class="mt-2 px-4 py-3 rounded-xl bg-yellow-500 dark:bg-green-500 text-center shadow-md backdrop-blur-md hover:ring-2 hover:ring-glow transition duration-500">
   <p class="text-xl sm:text-2xl font-semibold text-yellow-900 dark:text-white">
     ⏱ <strong id="convertedTime">[Choose time zones]</strong>
   </p>
@@ -187,7 +187,15 @@ async function loadZones() {
   fromInput.value = userZone;
   toInput.value = 'Etc/GMT';
 
-  // Pass 'from' and 'to' flags to update globals correctly
+  // 🕒 Set clock to user's current local time
+  const now = DateTime.local().setZone(userZone);
+  selectedHour = now.hour % 12 || 12;
+  selectedMinute = now.minute;
+  isAM = now.hour < 12;
+  displayTime.innerText = now.toFormat("hh:mm a");
+  updateClockHands();
+
+  // ✅ Zone search input setup
   setupZoneSearch('fromZoneInput', 'fromZoneList', 'from');
   setupZoneSearch('toZoneInput', 'toZoneList', 'to');
 
@@ -196,6 +204,7 @@ async function loadZones() {
 
   convert();
 }
+
 
 clockInput.addEventListener('click', () => {
   const isVisible = !clockPopup.classList.contains('hidden');
@@ -233,22 +242,22 @@ renderClockNumbers();
 const nowText = document.getElementById('nowText');
 
 function getEmoji(hour) {
-  if (hour >= 5 && hour < 11) return '🌤️';
-  if (hour >= 11 && hour < 17) return '☀️';
+  if (hour >= 5 && hour < 12) return '🌤️';
+  if (hour >= 12 && hour < 17) return '☀️';
   if (hour >= 17 && hour < 20) return '🌇';
   return '🌙';
 }
 
 function getWish(hour) {
-  if (hour >= 5 && hour < 11) return "It's a fresh morning to you! Have a nice day...";
-  if (hour >= 11 && hour < 17) return "Good afternoon! The best is yet to come...";
+  if (hour >= 5 && hour < 12) return "It's a fresh morning to you! Have a nice day...";
+  if (hour >= 12 && hour < 17) return "Good afternoon! The best is yet to come...";
   if (hour >= 17 && hour < 20) return "Good evening. What's going on?";
   return "Good night! Hope you had a nice day!";
 }
 
 function getTimePhase(hour) {
-  if (hour >= 5 && hour < 11) return 'morning';
-  if (hour >= 11 && hour < 17) return 'afternoon';
+  if (hour >= 5 && hour < 12) return 'morning';
+  if (hour >= 12 && hour < 17) return 'afternoon';
   if (hour >= 17 && hour < 20) return 'evening';
   return 'night';
 }
