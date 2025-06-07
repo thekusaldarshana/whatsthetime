@@ -35,8 +35,10 @@ whatsthetime
 │		├──TimeConverter.astro
 │	├──	pages
 │		├──index.astro
+│	├──	lib
+│		├──zoneAliases.js
 │	├──	styles
-│		├──/* global.css
+│		├──global.css
 ├──	.gitignore
 ├──	/* astro.config.mjs
 ├──	/* package-lock.json /* package.json <> README.md
