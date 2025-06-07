@@ -15,7 +15,7 @@ import { DateTime } from 'luxon';
   <!-- Backdrop Overlay -->
 <div id="clockOverlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 hidden"></div>
 
-  <div class="mb-4">
+  <!-- <div class="mb-4">
     <label class="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-1">From:</label>
     <select name="fromZone" class="w-full p-2 rounded-md border border-yellow-300 dark:border-gray-600 
          bg-white dark:bg-gray-900 text-yellow-900 dark:text-gray-100 
@@ -24,18 +24,25 @@ import { DateTime } from 'luxon';
          transition duration-200 appearance-none relative z-10" id="fromZone">
       <option>Loading zones...</option>
     </select>
-  </div>
+  </div> -->
 
-  <div class="mb-4">
-    <label class="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-1">To:</label>
-    <select name="toZone" class="w-full p-2 rounded-md border border-yellow-300 dark:border-gray-600 
-         bg-white dark:bg-gray-900 text-yellow-900 dark:text-gray-100 
-         focus:outline-none focus:ring-2 focus:ring-yellow-300 dark:focus:ring-green-500 
-         focus:border-yellow-300 dark:focus:border-green-500 
-         transition duration-200 appearance-none relative z-10" id="toZone">
-      <option>Loading zones...</option>
-    </select>
-  </div>
+  <div class="mb-4 relative">
+  <label class="block text-sm font-medium text-yellow-900 dark:text-gray-200 mb-1">From:</label>
+  <input id="fromZoneInput" type="text" placeholder="Search zone..." 
+         class="w-full p-2 rounded-md border border-yellow-300 dark:border-gray-600 bg-yellow-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 
+         focus:outline-none focus:ring-2 focus:ring-yellow-400 transition duration-200" />
+  <ul id="fromZoneList" class="absolute w-full bg-white dark:bg-gray-900 mt-1 rounded shadow max-h-60 overflow-y-auto z-10 hidden"></ul>
+</div>
+
+
+  <div class="mb-4 relative">
+  <label class="block text-sm font-medium text-yellow-900 dark:text-gray-200 mb-1">To:</label>
+  <input id="toZoneInput" type="text" placeholder="Search zone..." 
+         class="w-full p-2 rounded-md border border-yellow-300 dark:border-gray-600 bg-yellow-50 text-gray-900 dark:bg-gray-900 dark:text-gray-100 
+         focus:outline-none focus:ring-2 focus:ring-yellow-400 transition duration-200" />
+  <ul id="toZoneList" class="absolute w-full bg-white dark:bg-gray-900 mt-1 rounded shadow max-h-60 overflow-y-auto z-10 hidden"></ul>
+</div>
+
 
   <div class="mb-4 relative">
     <label class="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-1">Custom Time (12h):</label><div class="flex gap-2 items-center">
@@ -81,11 +88,14 @@ import { DateTime } from 'luxon';
     </div>
   </div>
 
-  <div class="mt-4 text-center">
-    <p class="text-2xl mb-4 text-center text-gray-800 dark:text-gray-200">
-      ⏱ <strong id="convertedTime">[Choose time zones]</strong>
-    </p>
-  </div>
+  <label class="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-1" id="toCaption">Converted to </label>
+
+  <div class="mt-6 px-4 py-3 rounded-xl bg-yellow-500 dark:bg-green-500 text-center shadow-md backdrop-blur-md hover:ring-2 hover:ring-glow transition duration-500">
+  <p class="text-xl sm:text-2xl font-semibold text-yellow-900 dark:text-white">
+    ⏱ <strong id="convertedTime">[Choose time zones]</strong>
+  </p>
+</div>
+
 </div>
 
 <script type="module">
@@ -143,6 +153,29 @@ import { DateTime } from 'luxon';
   convert();
 }
 
+function setupZoneSearch(inputId, listId, onSelect) {
+  const input = document.getElementById(inputId);
+  const list = document.getElementById(listId);
+
+  input.addEventListener('input', () => {
+    const query = input.value.toLowerCase();
+    const matches = zones.filter(z => z.toLowerCase().includes(query)).slice(0, 10);
+    list.innerHTML = matches.map(z => `<li class="p-2 hover:bg-yellow-100 dark:hover:bg-gray-700 cursor-pointer">${z}</li>`).join('');
+    list.classList.remove('hidden');
+  });
+
+  list.addEventListener('click', (e) => {
+    if (e.target.tagName === 'LI') {
+      input.value = e.target.textContent;
+      list.classList.add('hidden');
+      onSelect(e.target.textContent);
+    }
+  });
+
+  input.addEventListener('blur', () => {
+    setTimeout(() => list.classList.add('hidden'), 150);
+  });
+}
 
 
   function renderClockNumbers() {
@@ -250,6 +283,7 @@ setTimeout(() => {
     const base = DateTime.fromObject({ hour, minute: selectedMinute }, { zone: from });
     const target = base.setZone(to);
     outputEl.innerText = target.toFormat('hh:mm a (cccc)');
+    // document.getElementById('toCaption').innerHTML += `<span class="text-sm italic">${to},</span>`;
   }
 
   clockInput.addEventListener('click', () => {
