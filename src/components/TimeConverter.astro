@@ -7,7 +7,12 @@ import { DateTime } from 'luxon';
 
   <!-- 📅 Now Card -->
 <div id="nowCard" class="relative mb-5 p-4 rounded-xl text-white dark:text-white text-center transition duration-300">
-  <div class="text-hero relative z-10 text-lg font-medium" id="nowText">Loading current time...</div>
+  <div class="text-hero relative z-10 text-lg font-medium">
+  <div id="nowText">Loading current time...</div>
+  <div id="nowLocation" class="text-sm italic mt-1 text-gray-200 dark:text-gray-200"></div>
+  <div id="wishText"></div>
+</div>
+
   <div class="absolute inset-0 bg-black/10 dark:bg-black/30 backdrop-blur-sm z-0 rounded-xl"></div>
 </div>
 
@@ -92,11 +97,15 @@ import { DateTime } from 'luxon';
 
   <label class="block text-sm font-medium text-gray-800 dark:text-gray-200 mt-6" id="toCaption">Converted to </label>
 
-  <div class="mt-2 px-4 py-3 rounded-xl bg-yellow-500 dark:bg-green-500 text-center shadow-md backdrop-blur-md hover:ring-2 hover:ring-glow transition duration-500">
+  <div class="mt-6 px-4 py-3 rounded-xl bg-yellow-500 dark:bg-green-500 text-center shadow-md backdrop-blur-md hover:ring-2 hover:ring-glow transition duration-500">
   <p class="text-xl sm:text-2xl font-semibold text-yellow-900 dark:text-white">
     ⏱ <strong id="convertedTime">[Choose time zones]</strong>
   </p>
+  <p id="timeDifference" class="mt-2 text-md italic text-gray-800">
+    <!-- filled by JS -->
+  </p>
 </div>
+
 
 </div>
 
@@ -273,6 +282,8 @@ function updateNowCard(userZone = Intl.DateTimeFormat().resolvedOptions().timeZo
 
   const nowCard = document.getElementById('nowCard');
   const nowText = document.getElementById('nowText');
+  const wishText = document.getElementById('wishText');
+  const nowLocation = document.getElementById('nowLocation');
 
   // Set image as background
   nowCard.style.backgroundImage = `url('/assets/${phase}.jpg')`;
@@ -281,16 +292,18 @@ function updateNowCard(userZone = Intl.DateTimeFormat().resolvedOptions().timeZo
   nowCard.style.backgroundRepeat = 'no-repeat';
 
   nowText.innerHTML = `
-    📅 ${weekday}, ${date} — ${time} — ${emoji}
-    <br />
-    <span class="block italic text-sm mt-1 text-gray-200 dark:text-gray-200">${wish}</span>
+    📅 ${weekday}, ${date} — ${time} — ${emoji}`;
+
+  wishText.innerHTML = `
+    <span class="block italic text-sm mt-3 text-gray-200 dark:text-gray-200">${wish}</span>
   `;
 }
 
-// Update immediately and then every 30 seconds
+// Update immediately and then every second
 updateNowCard();
 setInterval(updateNowCard, 1000);
 
+// 🌍 Location + Weather (appends once and persists)
 setTimeout(() => {
   fetch('https://ipapi.co/json/')
     .then(res => res.json())
@@ -300,16 +313,16 @@ setTimeout(() => {
       const lat = loc.latitude;
       const lon = loc.longitude;
 
-      // Then: fetch weather
       fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`)
         .then(res => res.json())
         .then(weather => {
           const temp = weather.current_weather.temperature;
-          const code = weather.current_weather.weathercode; // map this to emoji
-          document.getElementById('nowText').innerHTML += `<br /><span class="text-sm italic">📍 ${city}, ${country} — ${temp}°C</span>`;
+          const locationEl = document.getElementById('nowLocation');
+          locationEl.innerText = `📍 ${city}, ${country} — ${temp}°C`;
         });
     });
-}, 1000); // delay by 1 second after everything else
+}, 1000);
+ // delay by 1 second after everything else
 
 
 
@@ -348,12 +361,24 @@ console.log("✅ zones.includes(from)?", zones.includes(fromEl?.value));
   }
 
   outputEl.innerText = target.toFormat('hh:mm a (cccc)');
+
+  // 🧠 Calculate time difference
+  const diffMinutes = target.offset - base.offset;
+  const absMinutes = Math.abs(diffMinutes);
+  const hours = Math.floor(absMinutes / 60);
+  const minutes = absMinutes % 60;
+  const direction = diffMinutes > 0 ? "ahead of" : "behind";
+
+  const diffText = `${to} is ${hours > 0 ? `${hours} hour${hours !== 1 ? 's' : ''}` : ''}${minutes > 0 ? ` and ${minutes} minute${minutes !== 1 ? 's' : ''}` : ''} ${direction} ${from}`;
+
+  document.getElementById('timeDifference').innerText = `🕰️ ${diffText}`;
 }
 
 
   clockOverlay.addEventListener('click', () => {
   clockPopup.classList.add('hidden');
   clockOverlay.classList.add('hidden');
+
 });
 
 
