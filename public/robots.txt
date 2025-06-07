@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://whatsthetime.vercel.app/sitemap.xml

@@ -1,0 +1,22 @@
+{
+  "name": "What's The Time",
+  "short_name": "WhatTime",
+  "description": "No #1 Fastest & Modern Global Time Converter",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#fde047",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/favicon-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/favicon-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
