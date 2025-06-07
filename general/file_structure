@@ -1,0 +1,43 @@
+whatsthetime/
+├── public/
+│   ├── favicon.svg
+│   ├── preview.png          ← for social sharing
+│   └── zones.json           ← 400+ time zone mappings
+├── src/
+│   ├── components/
+│   │   ├── TimeConverter.astro
+│   │   ├── MeetingScheduler.astro
+│   │   └── ShareExport.astro
+│   ├── layouts/
+│   │   └── BaseLayout.astro
+│   ├── pages/
+│   │   └── index.astro
+│   └── styles/
+│       └── global.css
+├── astro.config.mjs
+├── package.json
+└── tailwind.config.cjs
+
+
+
+in here:
+
+whatsthetime 
+├──	.astro
+├──	.vscode
+├──	general
+├──	node_modules
+├──	public
+│	├── <> favicon.svg
+│	├──/* zones.json
+├──	src
+│	├──components
+│		├──TimeConverter.astro
+│	├──	pages
+│		├──index.astro
+│	├──	styles
+│		├──/* global.css
+├──	.gitignore
+├──	/* astro.config.mjs
+├──	/* package-lock.json /* package.json <> README.md
+├──	/* tailwind.config.cjs /* tsconfig.json

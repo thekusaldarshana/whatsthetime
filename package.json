@@ -9,7 +9,12 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/tailwind": "^6.0.2",
+    "@tailwindcss/forms": "^0.5.10",
     "astro": "^5.9.0",
     "luxon": "^3.6.1"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.3"
   }
 }

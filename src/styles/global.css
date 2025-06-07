@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Invert time icon in dark mode for WebKit (Chrome, Safari, Edge) */
+.dark input[type="time"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80vw;
+  height: 80vw;
+  background: radial-gradient(circle, rgba(0,255,255,0.1), transparent 60%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+
+body {
+  font-family: theme('fontFamily.sans');
+  @apply bg-white text-gray-900 dark:bg-baseDark dark:text-white;
+  
+   overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Fade-in animation */
+#time-popup.show {
+  opacity: 0.1;
+  pointer-events: auto;
+}
+
+
+select {
+  background-image: url("data:image/svg+xml,%3Csvg fill='none' stroke='white' stroke-width='2' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+  padding-right: 2rem;
+}
+
+
+

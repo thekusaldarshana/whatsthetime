@@ -1,12 +1,72 @@
 ---
 import TimeConverter from "../components/TimeConverter.astro";
+import "../styles/global.css";
 ---
 
-<html lang="en">
+<html lang="en" class="scroll-smooth dark">
   <head>
-    <title>What'sTheTime</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>What's The Time</title>
   </head>
-  <body class="bg-gray-100 dark:bg-black">
-    <TimeConverter />
+
+  <body class="bg-[#fbfceb] text-[#1a1a1a] transition-colors duration-300 dark:bg-[#0b0f19] dark:text-white">
+
+    <!-- 🔘 Theme Toggle -->
+    <div class="flex justify-end px-4 py-3">
+      <button
+        id="theme-toggle"
+        class="px-3 py-1 rounded-full backdrop-blur bg-white/10 text-white border border-white/20 shadow-glass hover:scale-105 transition-all duration-300"
+      >
+        🌓
+      </button>
+    </div>
+
+    <!-- ⏱ Time Converter -->
+    <main class="px-4 animate-fadeIn">
+      <TimeConverter />
+    </main>
+
+    <!-- 🌙 Dark Mode Toggle Logic -->
+    <script>
+      const root = document.documentElement;
+      const themeToggle = document.getElementById('theme-toggle');
+      const userTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+      if (userTheme === 'dark' || (!userTheme && systemPrefersDark)) {
+        root.classList.add('dark');
+      }
+
+      themeToggle.addEventListener('click', () => {
+        root.classList.toggle('dark');
+        localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+      });
+    </script>
+
+    <style>
+      /* Optional green glow effect */
+      body::before {
+        content: '';
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80vw;
+        height: 80vw;
+        background: radial-gradient(circle, rgba(0, 255, 150, 0.08), transparent 60%);
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      select:focus,
+      input:focus,
+      button:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.6); /* Tailwind green-500 */
+        border-color: rgba(34, 197, 94, 1);
+      }
+    </style>
+
   </body>
 </html>
