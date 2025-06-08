@@ -21,8 +21,8 @@ module.exports = {
       },
       fontSize: {
       'xxs': '0.65rem',
-      '3xl': '1.75rem',
-      'hero': '5rem',
+      '3xl': '2rem',
+      'hero': '4rem',
     },
       colors: {
         baseDark: '#0b0f19', // Deep modern dark

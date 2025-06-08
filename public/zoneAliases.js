@@ -1,4 +1,3 @@
-// src/lib/zoneAliases.js
 export const zoneAliases = {
   "beijing": "Asia/Shanghai",
   "shanghai": "Asia/Shanghai",

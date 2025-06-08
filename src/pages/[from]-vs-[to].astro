@@ -1,0 +1,71 @@
+---
+// Astro frontmatter
+export const prerender = true;
+
+import { DateTime } from 'luxon';
+import { zoneAliases } from '../../public/zoneAliases.js';
+import Layout from '../layouts/Layout.astro';
+import TimeConverter from '../components/TimeConverter.astro';
+
+export async function getStaticPaths() {
+  const aliases = Object.keys(zoneAliases);
+  const paths = [];
+
+  for (const from of aliases) {
+    for (const to of aliases) {
+      if (from !== to) {
+        paths.push({ params: { from, to } });
+      }
+    }
+  }
+
+  return paths;
+}
+
+const { from, to } = Astro.params;
+
+const fromZone = zoneAliases[from.toLowerCase()];
+const toZone = zoneAliases[to.toLowerCase()];
+
+const now = DateTime.now();
+const fromTime = now.setZone(fromZone);
+const toTime = now.setZone(toZone);
+
+const diffMinutes = toTime.offset - fromTime.offset;
+const absMinutes = Math.abs(diffMinutes);
+const hours = Math.floor(absMinutes / 60);
+const minutes = absMinutes % 60;
+const direction = diffMinutes > 0 ? 'ahead of' : 'behind';
+
+const diffText = `${to} is ${hours ? `${hours} hour${hours !== 1 ? 's' : ''}` : ''}${minutes ? ` and ${minutes} minute${minutes !== 1 ? 's' : ''}` : ''} ${direction} ${from}`;
+---
+
+<Layout title={`Time in ${from} vs ${to}`} description={`Compare current time in ${from} and ${to}.`}>
+  <div class="p-6 max-w-2xl mx-auto bg-glass backdrop-blur-md rounded-xl border border-yellow-300 dark:border-white/10 transition-all duration-500">
+  <div class="p-6 max-w-2xl mx-auto bg-gray-400 backdrop-blur-md rounded-xl shadow-red border border-gray-300 dark:border-white/10 transition-all duration-500">
+    <h1 class="text-3xl font-bold text-center text-black/80 mt-1 mb-2">🕒 Time in {from} vs {to}</h1>
+
+    <div class="text-center text-lg text-black/80">
+      <p class="mt-3 mb-2"><strong>{from}:</strong> {fromTime.toFormat('hh:mm a')} ({fromZone})</p>
+      <p class="mt-3 mb-3"><strong>{to}:</strong> {toTime.toFormat('hh:mm a')} ({toZone})</p>
+    </div>
+  
+
+    <div class="text-center h-full text-xl mt-5 p-4 rounded-lg bg-black/80 text-green-100 shadow">
+      🕰️ {diffText}
+    </div>
+
+    </div>
+
+    <div class="mt-10 border-t pt-6">
+      <h2 class="text-xl font-semibold text-center mb-4">🛠️ Try Your Own Conversion</h2>
+      <TimeConverter />
+    </div>
+
+    <div class="text-sm text-center text-gray-600 dark:text-gray-400">
+      <a href="/" class="underline">Go back to homepage</a>
+    </div>
+  </div>
+</Layout>
+
+
