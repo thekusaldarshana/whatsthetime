@@ -132,40 +132,59 @@ import { DateTime } from 'luxon';
   let isAM = true;
 
   function setupZoneSearch(inputId, listId, globalKey) {
-    const input = document.getElementById(inputId);
-    const list = document.getElementById(listId);
+  const input = document.getElementById(inputId);
+  const list = document.getElementById(listId);
 
-    input.addEventListener('input', () => {
-      const query = input.value.toLowerCase().trim();
+  input.addEventListener('input', () => {
+    const query = input.value.toLowerCase().trim();
 
-      const aliasMatches = Object.keys(zoneAliases)
-        .filter(alias => alias.includes(query))
-        .map(alias => zoneAliases[alias]);
+    // Alias matches like "florida" → America/New_York
+    const aliasMatches = Object.entries(zoneAliases)
+      .filter(([alias]) => alias.includes(query))
+      .map(([alias, zone]) => ({ label: alias, value: zone }));
 
-      const exactMatches = zones.filter(z => z.toLowerCase().includes(query));
-      const matches = [...new Set([...aliasMatches, ...exactMatches])].slice(0, 10);
+    // Exact IANA zone matches like America/New_York
+    const exactMatches = zones
+      .filter(z => z.toLowerCase().includes(query))
+      .map(z => ({ label: z, value: z }));
 
-      list.innerHTML = matches
-        .map(z => `<li class="p-2 hover:bg-yellow-100 dark:hover:bg-gray-700 cursor-pointer">${z}</li>`)
-        .join('');
+    const combined = [...aliasMatches, ...exactMatches];
+    const uniqueMatches = [];
+    const seen = new Set();
 
-      list.classList.toggle('hidden', matches.length === 0);
-    });
-
-    list.addEventListener('click', (e) => {
-      if (e.target.tagName === 'LI') {
-        const selected = e.target.textContent;
-        input.value = selected;
-
-        if (globalKey === 'from') fromEl = input;
-        if (globalKey === 'to') toEl = input;
-
-        convert();
-        list.classList.add('hidden');
+    for (const match of combined) {
+      if (!seen.has(match.label)) {
+        seen.add(match.label);
+        uniqueMatches.push(match);
       }
-    });
+    }
 
-    input.addEventListener('blur', () => {
+    const topMatches = uniqueMatches.slice(0, 10);
+
+    list.innerHTML = topMatches
+      .map(match => `<li data-zone="${match.value}" class="p-2 hover:bg-yellow-100 dark:hover:bg-gray-700 cursor-pointer">${match.label} <span class="text-gray-400 text-xs">(${match.value})</span></li>`)
+      .join('');
+
+    list.classList.toggle('hidden', topMatches.length === 0);
+  });
+
+  list.addEventListener('click', (e) => {
+    if (e.target.closest('li')) {
+      const li = e.target.closest('li');
+      const zone = li.dataset.zone;
+      const label = li.textContent.split(' (')[0]; // Show "Florida" instead of full label
+
+      input.value = label;
+
+      if (globalKey === 'from') fromEl = { value: zone };
+      if (globalKey === 'to') toEl = { value: zone };
+
+      convert();
+      list.classList.add('hidden');
+    }
+  });
+
+  input.addEventListener('blur', () => {
       setTimeout(() => {
         if (!list.matches(':hover')) {
           list.classList.add('hidden');
@@ -173,6 +192,9 @@ import { DateTime } from 'luxon';
       }, 150);
     });
   }
+
+
+
 
   async function loadZones() {
     const res = await fetch('/zones.json');

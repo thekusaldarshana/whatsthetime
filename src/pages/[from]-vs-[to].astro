@@ -42,19 +42,23 @@ const diffText = `${to} is ${hours ? `${hours} hour${hours !== 1 ? 's' : ''}` : 
 
 <Layout title={`Time in ${from} vs ${to}`} description={`Compare current time in ${from} and ${to}.`}>
   <div class="p-6 max-w-2xl mx-auto bg-glass backdrop-blur-md rounded-xl border border-yellow-300 dark:border-white/10 transition-all duration-500">
-  <div class="p-6 max-w-2xl mx-auto bg-gray-400 backdrop-blur-md rounded-xl shadow-red border border-gray-300 dark:border-white/10 transition-all duration-500">
-    <h1 class="text-3xl font-bold text-center text-black/80 mt-1 mb-2">🕒 Time in {from} vs {to}</h1>
+    <div class="p-6 max-w-2xl mx-auto bg-gray-400 backdrop-blur-md rounded-xl shadow-red border border-gray-300 dark:border-white/10 transition-all duration-500">
+      <h1 class="text-3xl font-bold text-center text-black/80 mt-1 mb-2">🕒 Time in {from} vs {to}</h1>
 
-    <div class="text-center text-lg text-black/80">
-      <p class="mt-3 mb-2"><strong>{from}:</strong> {fromTime.toFormat('hh:mm a')} ({fromZone})</p>
-      <p class="mt-3 mb-3"><strong>{to}:</strong> {toTime.toFormat('hh:mm a')} ({toZone})</p>
-    </div>
-  
+      <div class="text-center text-lg text-black/80">
+        <p class="mt-3 mb-2">
+          <strong>{from}:</strong>
+          <span id="fromTime" data-zone={fromZone}>{fromTime.toFormat('hh:mm:ss a')}</span> ({fromZone})
+        </p>
+        <p class="mt-3 mb-3">
+          <strong>{to}:</strong>
+          <span id="toTime" data-zone={toZone}>{toTime.toFormat('hh:mm:ss a')}</span> ({toZone})
+        </p>
+      </div>
 
-    <div class="text-center h-full text-xl mt-5 p-4 rounded-lg bg-black/80 text-green-100 shadow">
-      🕰️ {diffText}
-    </div>
-
+      <div class="text-center h-full text-xl mt-5 p-4 rounded-lg bg-black/80 text-green-100 shadow">
+        <span id="diffText">🕰️ {diffText}</span>
+      </div>
     </div>
 
     <div class="mt-10 border-t pt-6">
@@ -62,10 +66,40 @@ const diffText = `${to} is ${hours ? `${hours} hour${hours !== 1 ? 's' : ''}` : 
       <TimeConverter />
     </div>
 
-    <div class="text-sm text-center text-gray-600 dark:text-gray-400">
+    <div class="text-sm text-center text-gray-600 dark:text-gray-400 mt-5">
       <a href="/" class="underline">Go back to homepage</a>
     </div>
   </div>
+
+  <script type="module">
+    import { DateTime } from 'https://cdn.skypack.dev/luxon';
+
+    const fromEl = document.getElementById('fromTime');
+    const toEl = document.getElementById('toTime');
+    const diffEl = document.getElementById('diffText');
+
+    const fromZone = fromEl.dataset.zone;
+    const toZone = toEl.dataset.zone;
+
+    function updateLiveClocks() {
+      const now = DateTime.now();
+      const fromTime = now.setZone(fromZone);
+      const toTime = now.setZone(toZone);
+
+      fromEl.textContent = fromTime.toFormat("hh:mm:ss a");
+      toEl.textContent = toTime.toFormat("hh:mm:ss a");
+
+      const diffMinutes = toTime.offset - fromTime.offset;
+      const abs = Math.abs(diffMinutes);
+      const hours = Math.floor(abs / 60);
+      const minutes = abs % 60;
+      const direction = diffMinutes > 0 ? 'ahead of' : 'behind';
+
+      const text = `${toZone} is ${hours ? `${hours} hour${hours !== 1 ? 's' : ''}` : ''}${minutes ? ` and ${minutes} minute${minutes !== 1 ? 's' : ''}` : ''} ${direction} ${fromZone}`;
+      diffEl.textContent = `🕰️ ${text}`;
+    }
+
+    updateLiveClocks();
+    setInterval(updateLiveClocks, 1000);
+  </script>
 </Layout>
-
-
