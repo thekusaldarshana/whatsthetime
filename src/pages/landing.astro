@@ -37,6 +37,18 @@ import Analytics from '@vercel/analytics/astro';
     <meta name="twitter:description" content="Convert time zones with elegance and accuracy." />
     <meta name="twitter:image" content="/og-preview.png" />
 
+    <style>
+      *::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+* {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+    </style>
+
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -144,7 +156,19 @@ import Analytics from '@vercel/analytics/astro';
   </div>
 </details>
 
-      </section>
+</section>
+
+<!-- Stats -->
+
+<section class="w-full mx-auto px-4 sm:px-6 py-12 text-center text-white">
+  <!-- <h2 class="text-3xl sm:text-4xl font-bold mb-8">🚀 Trusted by users worldwide</h2> -->
+  <div class="flex flex-wrap justify-center text-base sm:text-xl font-medium divide-x divide-white/20 py-6">
+    <div class="px-5 py-2">🌍 7.6k+ Locations</div>
+    <div class="px-5 py-2">⚡ Fast. Access Everything &lt; 1s</div>
+    <div class="px-5 py-2">🧩 Embeddable. Free Forever!</div>
+  </div>
+</section>
+
 
       <!-- Feature Highlights Section -->
 <section id="features" class="px-6 py-20 bg-gradient-to-br from-gray-950 to-black text-white">
@@ -201,10 +225,10 @@ import Analytics from '@vercel/analytics/astro';
       
 
       <!-- Embedding -->
-      <section class="px-4 py-12 sm:px-8 md:px-12 bg-gradient-to-r from-zinc-950 via-zinc-900 to-zinc-950 text-white rounded-2xl shadow-xl mt-20 max-w-4xl mx-auto">
+      <section id="embed" class="px-4 py-12 sm:px-8 md:px-12 bg-gradient-to-r from-zinc-950 via-zinc-900 to-zinc-950 text-white rounded-2xl shadow-xl mt-20 max-w-4xl mx-auto">
   <div class="mb-6 text-center">
-    <h2 class="text-3xl font-bold mb-2">🧩 Embed Time Converter Anywhere</h2>
-    <p class="text-slate-300">Let your audience convert time instantly on your blog, dashboard, or app. Just copy & paste this snippet! ⚡</p>
+    <h2 class="text-3xl font-bold mb-2">🧩 Get the Widget. It's Free!</h2>
+    <p class="text-slate-300">Embed Time Converter Anywhere to Let your audience convert time instantly on your blog, dashboard, or app. Just copy & paste this snippet! ⚡</p>
   </div>
 
   <div class="relative bg-[#09070d] border border-slate-700 rounded-xl p-4 font-mono text-sm overflow-x-auto">
@@ -214,18 +238,20 @@ import Analytics from '@vercel/analytics/astro';
       <span class="w-3 h-3 bg-green-500 rounded-full"></span>
     </div>
 
-    <button 
+    <button onclick="myFunction()"><button 
       class="absolute top-3 right-3 bg-slate-800 text-white px-3 py-1 rounded-md text-xs hover:bg-slate-700 transition"
       onclick="navigator.clipboard.writeText(`<iframe src='https://whatsthetime.online/embed' width='100%' height='400' style='border:none;' loading='lazy'></iframe>`)">
       📋 Copy
-    </button>
+    </button></button>
+
+    <div id="snackbar">Some text some message..</div>
 
 <pre class="text-md text-yellow- pt-8 whitespace-pre-wrap">
   <code>
     &lt;iframe 
         src="https://whatsthetime.online/embed"
         width="100%" 
-        height="400" 
+        height="100%" 
         style="border:none;" 
         loading="lazy"&gt;&lt;
       /iframe&gt;
@@ -234,7 +260,7 @@ import Analytics from '@vercel/analytics/astro';
   </div>
 
   <div class="mt-6 text-center">
-    <a href="/embed" class="inline-block bg-blue-600 hover:bg-blue-500 text-white font-semibold px-5 py-2 rounded-lg shadow-lg transition">🔗 Try the Embed Page</a>
+    <a href="/embed" class="inline-block bg-green-600 hover:bg-green-500 text-white font-semibold px-5 py-2 rounded-lg shadow-lg transition">🔗 Try the Embed Page</a>
   </div>
 </section>
 </section>
