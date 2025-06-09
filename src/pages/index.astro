@@ -9,85 +9,85 @@ import Analytics from '@vercel/analytics/astro'
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- ✅ Title -->
     <title>What's The Time – Global Time Converter</title>
 
-    <!-- ✅ Description -->
     <meta name="description" content="Easily convert time zones and view current times anywhere in the world with the No #1 Fastest Global Time Converter" />
-
-    <!-- ✅ SEO -->
     <meta name="robots" content="index, follow" />
     <meta name="google-site-verification" content="gKcYaMKLR1jRCwqQfkI-tf-7WGvBxfFvjliDoRtAV8o" />
     <meta name="theme-color" content="#fde047" />
     <meta name="google-adsense-account" content="ca-pub-6381695271630022">
 
-    <!-- ✅ Favicons -->
+    <!-- Favicons -->
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="manifest" href="/manifest.webmanifest" />
 
-    <!-- ✅ Open Graph -->
+    <!-- Open Graph -->
     <meta property="og:title" content="What's The Time" />
     <meta property="og:description" content="A beautifully crafted global time converter with a modern, sunny UI." />
-    <meta property="og:image" content="/og-preview.png" /> <!-- upload this image -->
+    <meta property="og:image" content="/og-preview.png" />
     <meta property="og:url" content="https://whatsthetime.vercel.app/" />
     <meta property="og:type" content="website" />
 
-    <!-- ✅ Twitter Card -->
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="What's The Time" />
     <meta name="twitter:description" content="Convert time zones with elegance and accuracy." />
     <meta name="twitter:image" content="/og-preview.png" />
 
     <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  "name": "What's The Time",
-  "url": "https://whatsthetime.vercel.app",
-  "description": "Convert time zones globally with a modern, beautiful tool.",
-  "applicationCategory": "Utility",
-  "operatingSystem": "All",
-  "browserRequirements": "Requires JavaScript",
-  "inLanguage": "en",
-  "author": {
-    "@type": "Person",
-    "name": "Kusal Darshana"
-  }
-}
-</script>
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "What's The Time",
+      "url": "https://whatsthetime.vercel.app",
+      "description": "Convert time zones globally with a modern, beautiful tool.",
+      "applicationCategory": "Utility",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript",
+      "inLanguage": "en",
+      "author": {
+        "@type": "Person",
+        "name": "Kusal Darshana"
+      }
+    }
+    </script>
   </head>
-
 
   <body class="bg-[#fbfceb] text-[#1a1a1a] transition-colors duration-300 dark:bg-[#0b0f19] dark:text-white">
 
     <header class="w-full px-4 py-2 flex items-center justify-between bg-white dark:bg-baseDark shadow-sm">
-  <div class="flex items-center gap-2">
-    <a href="/" class="text-2xl font-semibold text-grey-800 dark:text-green-500">⏱ What's The Time</a href="/">
-  </div>
+      <div class="flex items-center gap-2">
+        <a href="/" class="text-2xl font-semibold text-grey-800 dark:text-green-500">⏱ What's The Time</a>
+      </div>
+      <div class="flex justify-end px-4 py-3">
+        <button id="theme-toggle" class="px-3 py-1 rounded-full backdrop-blur bg-white/10 text-white border border-white/20 shadow-glass hover:scale-105 transition-all duration-300">
+          🌓
+        </button>
+      </div>
+    </header>
 
-  <!-- 🔘 Theme Toggle -->
-    <div class="flex justify-end px-4 py-3">
-      <button
-        id="theme-toggle"
-        class="px-3 py-1 rounded-full backdrop-blur bg-white/10 text-white border border-white/20 shadow-glass hover:scale-105 transition-all duration-300"
-      >
-        🌓
-      </button>
+    <!-- Converter + Ad Layout -->
+    <div class="flex flex-col lg:flex-row gap-6 px-4 mt-6 animate-fadeIn">
+      <!-- Converter Section -->
+      <main class="flex-1">
+        <TimeConverter />
+      </main>
+
+      <!-- Sponsored Ad Sidebar -->
+      <aside style="display: none;" id="sponsored-sidebar" class="w-full lg:w-72">
+        <div class="bg-yellow-50 dark:bg-gray-900 border border-yellow-300 dark:border-white/10 rounded-lg p-4 shadow text-sm text-gray-800 dark:text-gray-200">
+          <p class="font-semibold mb-2 text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">
+            Sponsored
+          </p>
+          <div id="sponsor-ad-slot" class="text-center min-h-[380px]"></div>
+        </div>
+      </aside>
     </div>
-</header>
 
-
-    
-
-    <!-- ⏱ Time Converter -->
-    <main class="px-4 animate-fadeIn">
-      <TimeConverter />
-    </main>
-
-    <!-- 🌙 Dark Mode Toggle Logic -->
+    <!-- Dark Mode Script -->
     <script>
       const root = document.documentElement;
       const themeToggle = document.getElementById('theme-toggle');
@@ -104,8 +104,36 @@ import Analytics from '@vercel/analytics/astro'
       });
     </script>
 
+    <!-- Delay Load Ad Script -->
+    <script>
+      let adLoaded = false;
+      function loadSidebarAd() {
+        if (adLoaded) return;
+        adLoaded = true;
+
+        const adScript = document.createElement('script');
+        adScript.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6381695271630022";
+        adScript.async = true;
+        adScript.crossOrigin = "anonymous";
+        document.head.appendChild(adScript);
+
+        const adSlot = document.createElement('ins');
+        adSlot.className = "adsbygoogle";
+        adSlot.style.display = "block";
+        adSlot.setAttribute("data-ad-client", "ca-pub-6381695271630022");
+        adSlot.setAttribute("data-ad-slot", "7062749097");
+        adSlot.setAttribute("data-ad-format", "auto");
+        adSlot.setAttribute("data-full-width-responsive", "true");
+
+        document.getElementById("sponsor-ad-slot").appendChild(adSlot);
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      }
+
+      window.addEventListener("scroll", loadSidebarAd, { once: true });
+      window.addEventListener("pointermove", loadSidebarAd, { once: true });
+    </script>
+
     <style>
-      /* Optional green glow effect */
       body::before {
         content: '';
         position: fixed;
@@ -123,20 +151,18 @@ import Analytics from '@vercel/analytics/astro'
       input:focus,
       button:focus {
         outline: none;
-        box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.6); /* Tailwind green-500 */
+        box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.6);
         border-color: rgba(34, 197, 94, 1);
       }
     </style>
-
   </body>
 
   <footer class="mt-10 text-center text-sm text-gray-600 dark:text-gray-400 py-6 border-t border-gray-200 dark:border-white/10">
-  <a href="/">&copy; whatsthetime. All rights reserved.</a>
-  <div class="flex justify-center gap-4 mt-2">
-    <!-- <a href="https://github.com/yourprofile" class="hover:underline" target="_blank">GitHub</a>
-    <a href="https://twitter.com/yourprofile" class="hover:underline" target="_blank">Twitter</a> -->
-    <!-- <a href="mailto:thekusaldarshana@gmail.com" class="hover:underline">Email</a> -->
-  </div>
-</footer>
-
+    <a href="/">&copy; whatsthetime. All rights reserved.</a>
+    <div class="flex justify-center gap-4 mt-2">
+      <!-- Social links if needed -->
+    </div>
+  </footer>
 </html>
+
+
