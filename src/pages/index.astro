@@ -2,6 +2,19 @@
 import TimeConverter from "../components/TimeConverter.astro";
 import "../styles/global.css";
 import Analytics from '@vercel/analytics/astro'
+
+const conversions = [
+  { from: "London", to: "New York" },
+  { from: "Tokyo", to: "Paris" },
+  { from: "Delhi", to: "New York" },
+  { from: "Sydney", to: "San Francisco" },
+  { from: "Berlin", to: "Chicago" },
+  { from: "Mumbai", to: "Toronto" },
+  { from: "Hong Kong", to: "Los Angeles" },
+  { from: "Cairo", to: "London" },
+  { from: "Beijing", to: "Dubai" },
+  { from: "Rome", to: "Houston" }
+];
 ---
 
 <html lang="en" class="scroll-smooth dark">
@@ -42,18 +55,28 @@ import Analytics from '@vercel/analytics/astro'
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "What's The Time",
-      "url": "https://whatsthetime.vercel.app",
-      "description": "Convert time zones globally with a modern, beautiful tool.",
+      "url": "https://whatsthetime.online",
+      "description": "Convert time zones globally with a modern, beautiful tool. Mobile optimized. responsive",
       "applicationCategory": "Utility",
       "operatingSystem": "All",
       "browserRequirements": "Requires JavaScript",
       "inLanguage": "en",
       "author": {
         "@type": "Person",
-        "name": "Kusal Darshana"
+        "name": "thekusaldarshana"
       }
     }
     </script>
+
+    <!-- <script data-noptimize="1" data-cfasync="false" data-wpfc-render="false">
+  (function () {
+      var script = document.createElement("script");
+      script.async = 1;
+      script.src = 'https://mn-tz.com/NDI0NDE2.js?t=424416';
+      document.head.appendChild(script);
+  })();
+</script> -->
+<Analytics />
   </head>
 
   <body class="bg-[#fbfceb] text-[#1a1a1a] transition-colors duration-300 dark:bg-[#0b0f19] dark:text-white">
@@ -62,6 +85,14 @@ import Analytics from '@vercel/analytics/astro'
       <div class="flex items-center gap-2">
         <a href="/" class="text-2xl font-semibold text-grey-800 dark:text-green-500">⏱ What's The Time</a>
       </div>
+      <div class="p-2 grid md:grid-cols-6 gap-10 items-center bg-white/10 rounded-full border border-white/50 bg-white/10">
+          <a href="#home" class="text-lg font-semibold tracking-tight">🏠</a>
+          <a href="#why" class="text-lg font-semibold tracking-tight">🌍</a>
+          <a href="#features" class="text-lg font-semibold tracking-tight">⚡</a>
+          <a href="#how" class="text-lg font-semibold tracking-tight">🚀</a>
+          <a href="#faq" class="text-lg font-semibold tracking-tight">❓</a>
+          <a href="#end" class="text-lg font-semibold tracking-tight">❤️</a>
+        </div>
       <div class="flex justify-end px-4 py-3">
         <button id="theme-toggle" class="px-3 py-1 rounded-full backdrop-blur bg-white/10 text-white border border-white/20 shadow-glass hover:scale-105 transition-all duration-300">
           🌓
@@ -71,10 +102,24 @@ import Analytics from '@vercel/analytics/astro'
 
     <!-- Converter + Ad Layout -->
     <div class="flex flex-col lg:flex-row gap-6 px-4 mt-6 animate-fadeIn">
+
       <!-- Converter Section -->
       <main class="flex-1">
         <TimeConverter />
       </main>
+
+      <!-- Popular -->
+      <div style="max-height: 650px; overflow: auto; display: none; overscroll-behavior: contain;scrollbar-width: none;">
+        <h1 class="text-3xl font-bold mb-6 text-center">🌍 Popular Time Conversions</h1>
+        <div class="grid sm:grid-cols-1 gap-4">
+      {conversions.map(({ from, to }) => (
+        <a href={`/${from.toLowerCase()}-vs-${to.toLowerCase()}`} class="block bg-white dark:bg-gray-900 rounded-lg shadow p-4 hover:shadow-lg transition">
+          <h2 class="text-lg font-semibold">🕒 {from} ↔ {to}</h2>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Compare current time in {from} and {to}</p>
+        </a>
+      ))}
+    </div>
+      </div>
 
       <!-- Sponsored Ad Sidebar -->
       <aside style="display: none;" id="sponsored-sidebar" class="w-full lg:w-72">

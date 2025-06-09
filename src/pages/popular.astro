@@ -1,0 +1,31 @@
+---
+// src/pages/popular.astro
+import Layout from '../layouts/Layout.astro';
+
+const conversions = [
+  { from: "London", to: "New York" },
+  { from: "Tokyo", to: "Paris" },
+  { from: "Delhi", to: "New York" },
+  { from: "Sydney", to: "San Francisco" },
+  { from: "Berlin", to: "Chicago" },
+  { from: "Mumbai", to: "Toronto" },
+  { from: "Hong Kong", to: "Los Angeles" },
+  { from: "Cairo", to: "London" },
+  { from: "Beijing", to: "Dubai" },
+  { from: "Rome", to: "Houston" }
+];
+---
+
+<Layout title="Popular Time Conversions" description="Browse most searched time conversions between cities.">
+  <div class="max-w-3xl mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold mb-6 text-center">🌍 Popular Time Conversions</h1>
+    <div class="grid sm:grid-cols-2 gap-4">
+      {conversions.map(({ from, to }) => (
+        <a href={`/${from.toLowerCase()}-vs-${to.toLowerCase()}`} class="block bg-white dark:bg-gray-900 rounded-lg shadow p-4 hover:shadow-lg transition">
+          <h2 class="text-lg font-semibold">🕒 {from} ↔ {to}</h2>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Compare current time in {from} and {to}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</Layout>

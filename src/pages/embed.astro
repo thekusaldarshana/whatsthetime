@@ -1,0 +1,496 @@
+---
+import TimeConverter from "../components/TimeConverter.astro";
+import "../styles/global.css";
+import Analytics from '@vercel/analytics/astro'
+
+import { DateTime } from 'luxon';
+---
+
+<html lang="en" class="scroll-smooth dark">
+  <html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>What's The Time | Global Time Converter</title>
+  </head>
+
+
+
+  <body class="bg-[#fbfceb] text-[#1a1a1a] transition-colors duration-300 dark:bg-[#0b0f19] dark:text-white">
+      
+
+    <div class="p-6 max-w-2xl mx-auto bg-glass backdrop-blur-md rounded-xl shadow-glass border border-white/10 transition-all duration-500">
+
+    <div class="flex justify-between items-center">
+      <h2 class="text-2xl font-semibold mb-4 text-center text-gray-800 dark:text-blue-200">🕓 Global Time Converter</h2>
+
+  <div class="flex justify-end px-4 py-3">
+        <button id="theme-toggle" class="px-3 py-1 rounded-full backdrop-blur bg-white/10 text-white border border-white/20 shadow-glass hover:scale-105 transition-all duration-300">
+          🌓
+        </button>
+      </div>    
+    </div>
+
+  <!-- 📅 Now Card -->
+<div id="nowCard" class="relative mb-5 p-4 rounded-xl text-white dark:text-white text-center transition duration-300">
+  <div class="text-hero relative z-10 text-lg font-medium">
+  <div id="nowText">Loading current time...</div>
+  <div id="nowLocation" class="text-sm italic mt-1 text-gray-200 dark:text-gray-200"></div>
+  <div id="wishText"></div>
+</div>
+
+  <div class="absolute inset-0 bg-black/10 dark:bg-black/30 backdrop-blur-sm z-0 rounded-xl"></div>
+</div>
+
+
+  <!-- Backdrop Overlay -->
+<div id="clockOverlay" class="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 hidden"></div>
+
+  <!-- 🌐 From Zone -->
+<div class="relative w-full">
+  <label class="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-2 mt-2">From:</label>
+  <input id="fromZoneInput" type="text" placeholder="Search zone..." 
+         class="w-full p-2 rounded-md border border-yellow-300 dark:border-gray-600 
+         bg-white dark:bg-gray-900 text-yellow-900 dark:text-gray-100 
+         focus:outline-none focus:ring-2 focus:ring-yellow-300 dark:focus:ring-green-500 
+         focus:border-yellow-300 dark:focus:border-green-500 
+         transition duration-200 appearance-none relative z-10" />
+  <ul id="fromZoneList"
+  class="absolute z-[999] bg-white dark:bg-gray-800 mt-1 rounded shadow-md border border-gray-300 dark:border-gray-600 w-full hidden overflow-auto max-h-60">
+</ul>
+
+</div>
+
+<!-- 🌍 To Zone -->
+<div class="relative w-full">
+  <label class="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-2 mt-5">To:</label>
+  <input id="toZoneInput" type="text" placeholder="Search zone..." 
+         class="w-full p-2 rounded-md border border-yellow-300 dark:border-gray-600 
+         bg-white dark:bg-gray-900 text-yellow-900 dark:text-gray-100 
+         focus:outline-none focus:ring-2 focus:ring-yellow-300 dark:focus:ring-green-500 
+         focus:border-yellow-300 dark:focus:border-green-500 
+         transition duration-200 appearance-none relative z-10" />
+  <ul id="toZoneList"
+  class="absolute z-[999] bg-white dark:bg-gray-800 mt-1 rounded shadow-md border border-gray-300 dark:border-gray-600 w-full hidden overflow-auto max-h-60">
+</ul>
+
+</div>
+
+
+  <div class="mb-4 relative">
+    <label class="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-2 mt-5">Custom Time (12h):</label><div class="flex gap-2 items-center">
+    <div class="flex-1 w-full p-2 rounded-md border border-yellow-300 dark:border-gray-600 bg-sunny-50 text-yellow-900 dark:bg-gray-800 dark:text-gray-100 
+         focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 
+         transition duration-200 appearance-none relative z-10 cursor-pointer" id="clockInput">
+      <span id="displayTime">Select Time</span>
+    </div>
+
+    <!-- Reset Button -->
+    <button
+      id="resetTime"
+      class="px-3 py-2 bg-yellow-100 dark:bg-white/10 text-yellow-900 dark:text-white rounded-lg shadow-md 
+      hover:scale-105 hover:ring-2 hover:ring-yellow-300 transition"
+    >
+      ⟳
+    </button>
+
+    <!-- Clock Popup -->
+    <div id="clockPopup" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 
+         w-[90vw] max-w-md bg-white dark:bg-gray-900 border border-yellow-300 dark:border-gray-600 
+         rounded-2xl p-6 shadow-2xl z-50 hidden backdrop-blur-md transition-all duration-300">
+
+  <div class="flex justify-center mb-2 text-yellow-800 dark:text-gray-200">Select Time</div>
+
+ <!-- Clock face with numbers -->
+  <div class="relative w-56 h-56 mx-auto flex items-center justify-center rounded-full bg-yellow-100 dark:bg-gray-800">
+  <div id="clockNumbers" class="absolute inset-0"></div>
+  <div id="clockFace" class="absolute inset-0 flex items-center justify-center">
+    <div id="clockHour" class="absolute w-1 h-16 bg-yellow-600 dark:bg-green-600 origin-[center_bottom] bottom-1/2 transform rotate-0 transition duration-300 rounded"></div>
+<div id="clockMinute" class="absolute w-0.5 h-24 bg-yellow-300 dark:bg-green-300 origin-[center_bottom] bottom-1/2 transform rotate-0 transition duration-300 rounded"></div>
+
+  </div>
+  <div id="centerDot" class="w-3 h-3 bg-yellow-600 dark:bg-green-600 rounded-full z-10"></div>
+
+
+</div>
+
+      <div class="flex justify-between items-center mt-4 px-4">
+        <button id="toggleAMPM" class="bg-yellow-100 dark:bg-white/10 text-yellow-900 dark:text-white px-4 py-2 rounded-lg shadow-md hover:scale-105 hover:ring-2 hover:ring-glow transition">AM</button>
+        <button id="setTime" class="bg-yellow-100 dark:bg-white/10 text-yellow-900 dark:text-white px-4 py-2 rounded-lg shadow-md hover:scale-105 hover:ring-2 hover:ring-glow transition">Set</button>
+      </div>
+    </div>
+  </div>
+
+  <label class="block text-sm font-medium text-gray-800 dark:text-gray-200 mt-6" id="toCaption">Converted to </label>
+
+  <div class="mt-6 px-4 py-3 rounded-xl bg-yellow-500 dark:bg-green-500 text-center shadow-md backdrop-blur-md hover:ring-2 hover:ring-glow transition duration-500">
+  <p class="text-xl sm:text-2xl font-semibold text-yellow-900 dark:text-white">
+    ⏱ <strong id="convertedTime">[Choose time zones]</strong>
+  </p>
+  <p id="timeDifference" class="mt-2 text-md italic text-gray-800">
+    <!-- filled by JS -->
+  </p>
+</div>
+
+<div class="mt-10 text-center text-sm text-gray-600 dark:text-gray-400 py-3 border-t border-gray-200 dark:border-white/10">
+    <a href="whatsthetime.online/landing">Made with ❤️ by &copy;whatsthetime.</a>
+  </div>
+
+</div>
+
+<script type="module">
+  import { DateTime } from 'https://cdn.skypack.dev/luxon';
+  import { zoneAliases } from '../../zoneAliases.js';
+
+  let fromEl, toEl;
+  let zones = [];
+
+  const outputEl = document.getElementById('convertedTime');
+  const clockInput = document.getElementById('clockInput');
+  const clockPopup = document.getElementById('clockPopup');
+  const displayTime = document.getElementById('displayTime');
+  const hourHand = document.getElementById('clockHour');
+  const minuteHand = document.getElementById('clockMinute');
+  const toggleAMPM = document.getElementById('toggleAMPM');
+  const setTime = document.getElementById('setTime');
+  const resetTime = document.getElementById('resetTime');
+
+  let selectedHour = 12;
+  let selectedMinute = 0;
+  let isAM = true;
+
+  function setupZoneSearch(inputId, listId, globalKey) {
+  const input = document.getElementById(inputId);
+  const list = document.getElementById(listId);
+
+  input.addEventListener('input', () => {
+    const query = input.value.toLowerCase().trim();
+
+    // Alias matches like "florida" → America/New_York
+    const aliasMatches = Object.entries(zoneAliases)
+      .filter(([alias]) => alias.includes(query))
+      .map(([alias, zone]) => ({ label: alias, value: zone }));
+
+    // Exact IANA zone matches like America/New_York
+    const exactMatches = zones
+      .filter(z => z.toLowerCase().includes(query))
+      .map(z => ({ label: z, value: z }));
+
+    const combined = [...aliasMatches, ...exactMatches];
+    const uniqueMatches = [];
+    const seen = new Set();
+
+    for (const match of combined) {
+      if (!seen.has(match.label)) {
+        seen.add(match.label);
+        uniqueMatches.push(match);
+      }
+    }
+
+    const topMatches = uniqueMatches.slice(0, 10);
+
+    list.innerHTML = topMatches
+      .map(match => `<li data-zone="${match.value}" class="p-2 hover:bg-yellow-100 dark:hover:bg-gray-700 cursor-pointer">${match.label} <span class="text-gray-400 text-xs">(${match.value})</span></li>`)
+      .join('');
+
+    list.classList.toggle('hidden', topMatches.length === 0);
+  });
+
+  list.addEventListener('click', (e) => {
+    if (e.target.closest('li')) {
+      const li = e.target.closest('li');
+      const zone = li.dataset.zone;
+      const label = li.textContent.split(' (')[0]; // Show "Florida" instead of full label
+
+      input.value = label;
+
+      if (globalKey === 'from') fromEl = { value: zone };
+      if (globalKey === 'to') toEl = { value: zone };
+
+      convert();
+      list.classList.add('hidden');
+    }
+  });
+
+  input.addEventListener('blur', () => {
+      setTimeout(() => {
+        if (!list.matches(':hover')) {
+          list.classList.add('hidden');
+        }
+      }, 150);
+    });
+  }
+
+
+
+
+  async function loadZones() {
+    const res = await fetch('/zones.json');
+    zones = await res.json();
+
+    const fromInput = document.getElementById('fromZoneInput');
+    const toInput = document.getElementById('toZoneInput');
+
+    let userZone = 'Asia/Colombo';
+    try {
+      const detected = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      if (zones.includes(detected)) userZone = detected;
+    } catch {
+      console.warn('Time zone detection failed.');
+    }
+
+    fromInput.value = userZone;
+    toInput.value = 'Etc/GMT';
+
+    const now = DateTime.local().setZone(userZone);
+    selectedHour = now.hour % 12 || 12;
+    selectedMinute = now.minute;
+    isAM = now.hour < 12;
+    displayTime.innerText = now.toFormat("hh:mm a");
+    updateClockHands();
+
+    setupZoneSearch('fromZoneInput', 'fromZoneList', 'from');
+    setupZoneSearch('toZoneInput', 'toZoneList', 'to');
+
+    fromEl = fromInput;
+    toEl = toInput;
+
+    convert();
+  }
+
+  clockInput.addEventListener('click', () => {
+    const isVisible = !clockPopup.classList.contains('hidden');
+    if (isVisible) {
+      clockPopup.classList.add('hidden');
+      clockOverlay.classList.add('hidden');
+    } else {
+      clockPopup.classList.remove('hidden');
+      clockOverlay.classList.remove('hidden');
+    }
+  });
+
+  function renderClockNumbers() {
+    const container = document.getElementById('clockNumbers');
+    for (let i = 1; i <= 12; i++) {
+      const angle = i * 30;
+      const x = 50 + 42 * Math.cos((angle - 90) * Math.PI / 180);
+      const y = 50 + 42 * Math.sin((angle - 90) * Math.PI / 180);
+
+      const num = document.createElement('div');
+      num.className = 'absolute text-sm text-yellow-800 dark:text-gray-200';
+      num.style.left = `${x}%`;
+      num.style.top = `${y}%`;
+      num.style.transform = 'translate(-50%, -50%)';
+      num.textContent = i;
+      container.appendChild(num);
+    }
+  }
+
+  renderClockNumbers();
+
+  function getEmoji(hour) {
+    if (hour >= 5 && hour < 12) return '🌤️';
+    if (hour >= 12 && hour < 17) return '☀️';
+    if (hour >= 17 && hour < 20) return '🌇';
+    return '🌙';
+  }
+
+  function getWish(hour) {
+    if (hour >= 5 && hour < 12) return "It's a fresh morning to you! Have a nice day...";
+    if (hour >= 12 && hour < 17) return "Good afternoon! The best is yet to come...";
+    if (hour >= 17 && hour < 20) return "Good evening. What's going on?";
+    return "Good night! Hope you had a nice day!";
+  }
+
+  function getTimePhase(hour) {
+    if (hour >= 5 && hour < 12) return 'morning';
+    if (hour >= 12 && hour < 17) return 'afternoon';
+    if (hour >= 17 && hour < 20) return 'evening';
+    return 'night';
+  }
+
+  function updateNowCard(userZone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Asia/Colombo') {
+    const now = DateTime.local().setZone(userZone);
+    const weekday = now.toFormat('cccc');
+    const date = now.toFormat('MMMM d');
+    const time = now.toFormat('hh:mm:ss a');
+    const emoji = getEmoji(now.hour);
+    const wish = getWish(now.hour);
+    const phase = getTimePhase(now.hour);
+
+    const nowCard = document.getElementById('nowCard');
+    const nowText = document.getElementById('nowText');
+    const wishText = document.getElementById('wishText');
+    const nowLocation = document.getElementById('nowLocation');
+
+    nowCard.style.backgroundImage = `url('/assets/${phase}.jpg')`;
+    nowCard.style.backgroundSize = 'cover';
+    nowCard.style.backgroundPosition = 'center';
+    nowCard.style.backgroundRepeat = 'no-repeat';
+
+    nowText.innerHTML = `📅 ${weekday}, ${date} — ${time} — ${emoji}`;
+    wishText.innerHTML = `<span class="block italic text-sm mt-3 text-gray-200 dark:text-gray-200">${wish}</span>`;
+  }
+
+  updateNowCard();
+  setInterval(updateNowCard, 1000);
+
+  setTimeout(() => {
+    fetch('https://ipapi.co/json/')
+      .then(res => res.json())
+      .then(loc => {
+        const city = loc.city;
+        const country = loc.country_name;
+        const lat = loc.latitude;
+        const lon = loc.longitude;
+
+        fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`)
+          .then(res => res.json())
+          .then(weather => {
+            const temp = weather.current_weather.temperature;
+            const locationEl = document.getElementById('nowLocation');
+            locationEl.innerText = `📍 ${city}, ${country} — ${temp}°C`;
+          });
+      });
+  }, 1000);
+
+  function updateClockHands() {
+    hourHand.style.transform = `rotate(${(selectedHour % 12) * 30}deg)`;
+    minuteHand.style.transform = `rotate(${selectedMinute * 6}deg)`;
+  }
+
+  function convert() {
+    const from = fromEl?.value;
+    const to = toEl?.value;
+
+    if (!from || !to || !zones.includes(from) || !zones.includes(to)) {
+      outputEl.innerText = "⚠️ Invalid zone selection";
+      return;
+    }
+
+    const hour = selectedHour % 12 + (isAM ? 0 : 12);
+    const base = DateTime.fromObject({ hour, minute: selectedMinute }, { zone: from });
+
+    if (!base.isValid) {
+      outputEl.innerText = "⚠️ Invalid DateTime";
+      return;
+    }
+
+    const target = base.setZone(to);
+    if (!target.isValid) {
+      outputEl.innerText = "⚠️ Conversion failed";
+      return;
+    }
+
+    outputEl.innerText = target.toFormat('hh:mm a (cccc)');
+
+    const diffMinutes = target.offset - base.offset;
+    const absMinutes = Math.abs(diffMinutes);
+    const hours = Math.floor(absMinutes / 60);
+    const minutes = absMinutes % 60;
+    const direction = diffMinutes > 0 ? "ahead of" : "behind";
+    const diffText = `${to} is ${hours ? `${hours} hour${hours !== 1 ? 's' : ''}` : ''}${minutes ? ` and ${minutes} minute${minutes !== 1 ? 's' : ''}` : ''} ${direction} ${from}`;
+
+    document.getElementById('timeDifference').innerText = `🕰️ ${diffText}`;
+  }
+
+  clockOverlay.addEventListener('click', () => {
+    clockPopup.classList.add('hidden');
+    clockOverlay.classList.add('hidden');
+  });
+
+  toggleAMPM.addEventListener('click', () => {
+    isAM = !isAM;
+    toggleAMPM.innerText = isAM ? 'AM' : 'PM';
+  });
+
+  setTime.addEventListener('click', () => {
+    const hour = selectedHour.toString().padStart(2, '0');
+    const min = selectedMinute.toString().padStart(2, '0');
+    displayTime.innerText = `${hour}:${min} ${isAM ? 'AM' : 'PM'}`;
+    clockPopup.classList.add('hidden');
+    clockOverlay.classList.add('hidden');
+    convert();
+  });
+
+  resetTime.addEventListener('click', () => {
+    const now = DateTime.local();
+    selectedHour = now.hour % 12 || 12;
+    selectedMinute = now.minute;
+    isAM = now.hour < 12;
+
+    updateClockHands();
+    displayTime.innerText = now.toFormat('hh:mm a');
+    convert();
+  });
+
+  document.getElementById('clockFace').addEventListener('click', (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const dx = e.clientX - cx;
+    const dy = e.clientY - cy;
+    const angle = Math.atan2(dy, dx) * (180 / Math.PI);
+    const distance = Math.sqrt(dx * dx + dy * dy);
+
+    if (distance < 60) {
+      selectedHour = Math.round((angle + 360 + 90) % 360 / 30) || 12;
+    } else {
+      selectedMinute = Math.round((angle + 360 + 90) % 360 / 6);
+    }
+
+    updateClockHands();
+  });
+
+  setInterval(convert, 1000);
+  loadZones();
+</script>
+
+
+      
+
+    <!-- Dark Mode Script -->
+    <script>
+      const root = document.documentElement;
+      const themeToggle = document.getElementById('theme-toggle');
+      const userTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+      if (userTheme === 'dark' || (!userTheme && systemPrefersDark)) {
+        root.classList.add('dark');
+      }
+
+      themeToggle.addEventListener('click', () => {
+        root.classList.toggle('dark');
+        localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+      });
+    </script>
+
+    
+
+    <style>
+      body::before {
+        content: '';
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80vw;
+        height: 80vw;
+        background: radial-gradient(circle, rgba(0, 255, 150, 0.08), transparent 60%);
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      select:focus,
+      input:focus,
+      button:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.6);
+        border-color: rgba(34, 197, 94, 1);
+      }
+    </style>
+  </body>
+</html>
+
+

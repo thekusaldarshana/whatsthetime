@@ -4,7 +4,7 @@ import tailwind from "@astrojs/tailwind";
 import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
-  site: "https://whatsthetime.vercel.app", // 👈 Required for sitemap
+  site: "https://whatsthetime.online",
   integrations: [
     tailwind(),
     sitemap(),
