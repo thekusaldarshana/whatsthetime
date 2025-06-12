@@ -1,0 +1,13 @@
+---
+import { getEntryBySlug } from 'astro:content';
+import { MarkdownContent } from 'astro/components';
+
+const { slug } = Astro.params;
+const post = await getEntryBySlug('blog', slug);
+---
+
+<article class="prose dark:prose-invert">
+  <h1>{post.data.title}</h1>
+  <p class="text-sm text-gray-500">{post.data.pubDate}</p>
+  <MarkdownContent content={post.body} />
+</article>
