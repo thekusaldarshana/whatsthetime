@@ -51,6 +51,7 @@ module.exports = {
     },
   },
   plugins: [
-    require('@tailwindcss/forms'), // Optional: enhances <input>, <select>, <textarea>
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/typography'),
   ],
 };

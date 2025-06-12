@@ -105,24 +105,39 @@ const { title = "What's The Time – Global Time Converter", description = "Easi
 
   <body class="bg-[#fbfceb] text-[#1a1a1a] transition-colors duration-300 dark:bg-[#0b0f19] dark:text-white">
 
-    <header class="w-full px-4 py-2 flex items-center justify-between bg-white dark:bg-baseDark shadow-sm">
-      <div class="flex items-center gap-2">
-        <a href="/" class="text-2xl font-semibold text-grey-800 dark:text-green-500">⏱ What's The Time</a>
-      </div>
+    <header class="w-full px-4 py-2 flex items-center justify-between bg-white dark:bg-baseDark shadow-sm relative z-50">
+  <!-- Title -->
+  <div class="flex items-center gap-2">
+    <a href="/" class="text-2xl font-semibold text-grey-800 dark:text-green-500">⏱ What's The Time</a>
+  </div>
 
-      <div class="p-2 grid md:grid-cols-4 gap-10 items-center bg-white/10 rounded-full border border-white/50 bg-white/10">
-          <a href="/landing" target="blank" class="text-lg font-semibold tracking-tight">About</a>
-          <a href="/popular" target="blank" class="text-lg font-semibold tracking-tight">Popular</a>
-          <a href="/landing#embed" target="blank" class="text-lg font-semibold tracking-tight">Widget</a>
-          <a href="https://www.coff.ee/thekusaldarshana" target="blank" class="text-lg font-semibold tracking-tight">Support</a>
-        </div>
+  <!-- Navigation links (middle bar) -->
+  <div class="p-2 grid md:grid-cols-5 gap-10 items-center bg-white/10 rounded-full border border-white/50 bg-white/10
+              hidden md:grid absolute md:static bottom-4 left-1/2 transform md:transform-none -translate-x-1/2 md:translate-x-0
+              w-[95%] md:w-auto mx-auto backdrop-blur-lg backdrop-saturate-150 shadow-lg md:shadow-none">
+    <a href="/landing" target="blank" class="text-lg font-semibold tracking-tight text-center">About</a>
+    <a href="/popular" target="blank" class="text-lg font-semibold tracking-tight text-center">Popular</a>
+    <a href="/landing#embed" target="blank" class="text-lg font-semibold tracking-tight text-center">Widget</a>
+    <a href="/blog" target="blank" class="text-lg font-semibold tracking-tight text-center">Blog</a>
+    <a href="https://www.coff.ee/thekusaldarshana" target="blank" class="text-lg font-semibold tracking-tight text-center">Support</a>
+  </div>
 
-      <div class="flex justify-end px-4 py-3">
-        <button id="theme-toggle" class="px-3 py-1 rounded-full backdrop-blur bg-white/10 text-white border border-white/20 shadow-glass hover:scale-105 transition-all duration-300">
-          🌓
-        </button>
-      </div>
-    </header>
+  <!-- Theme toggle -->
+  <div class="flex justify-end px-4 py-3">
+    <button id="theme-toggle" class="px-3 py-1 rounded-full backdrop-blur bg-white/10 text-white border border-white/20 shadow-glass hover:scale-105 transition-all duration-300">
+      🌓
+    </button>
+  </div>
+
+  <!-- Mobile Bottom Nav Buttons -->
+<div class="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 md:hidden px-4 py-2 bg-white/20 backdrop-blur-md border border-white/40 rounded-full flex gap-6 text-lg font-semibold tracking-tight shadow-lg">
+  <a href="/landing" target="blank" class="text-lg font-semibold tracking-tight text-center">About</a>
+    <a href="/popular" target="blank" class="text-lg font-semibold tracking-tight text-center">Popular</a>
+    <a href="/landing#embed" target="blank" class="text-lg font-semibold tracking-tight text-center">Widget</a>
+    <a href="/blog" target="blank" class="text-lg font-semibold tracking-tight text-center">Blog</a>
+    <a href="https://www.coff.ee/thekusaldarshana" target="blank" class="text-lg font-semibold tracking-tight text-center">Support</a>
+</div>
+</header>
 
     <!-- Layout with Sidebar Ad -->
     <div class="flex flex-col lg:flex-row gap-6 px-4 mt-6 animate-fadeIn">
@@ -213,6 +228,8 @@ const { title = "What's The Time – Global Time Converter", description = "Easi
         border-color: rgba(34, 197, 94, 1);
       }
     </style>
+
+    <script defer data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="thekusaldarshana" data-description="Support me on Buy me a coffee!" data-message="Glad to See you Here! Thank you for Visiting." data-color="#40DCA5" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
   </body>
 </html>
 
