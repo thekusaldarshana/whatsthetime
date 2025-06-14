@@ -2,6 +2,7 @@
 import TimeConverter from "../components/TimeConverter.astro";
 import "../styles/global.css";
 import Analytics from '@vercel/analytics/astro'
+import  SpeedInsights  from "@vercel/speed-insights/astro"
 
 const conversions = [
   { from: "London", to: "New York" },
@@ -114,6 +115,7 @@ const conversions = [
 
   <!-- Your existing analytics component -->
   <Analytics />
+  <SpeedInsights />
 </head>
 
 
@@ -260,12 +262,33 @@ const conversions = [
     <script type="text/javascript"> var infolinks_pid = 3437221; var infolinks_wsid = 0; </script> <script type="text/javascript" src="//resources.infolinks.com/js/infolinks_main.js"></script>
   </body>
 
-  <footer class="mt-10 text-center text-sm text-gray-600 dark:text-gray-400 py-6 border-t border-gray-200 dark:border-white/10">
-    <a href="/">&copy; whatsthetime. All rights reserved.</a>
-    <div class="flex justify-center gap-4 mt-2">
-      <!-- Social links if needed -->
-    </div>
-  </footer>
+  <!-- Footer -->
+    <footer class="border-t border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-[#111] text-sm py-10 px-4 mt-5 md:px-12">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-6 text-gray-600 dark:text-gray-400">
+        <div>
+          <p class="font-bold text-gray-800 dark:text-white mb-2">⏱ What's The Time</p>
+          <p class="max-w-md">Modern time converter helping global citizens work, meet, and plan across time zones. © 2025 whatsthetime. Made with ❤️ and ⚡ in Sri Lanka.</p>
+        </div>
+        <div class="flex gap-6 flex-wrap">
+          <div>
+            <p class="font-semibold text-gray-700 dark:text-white mb-1">Quick Links</p>
+            <ul class="space-y-1">
+              <li><a href="/" class="hover:underline">Home</a></li>
+              <li><a href="/blog" class="hover:underline">Blog</a></li>
+              <li><a href="/about" class="hover:underline">About</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="font-semibold text-gray-700 dark:text-white mb-1">Follow</p>
+            <ul class="space-y-1">
+              <li><a href="https://github.com/kusaldarshana/whatsthetime" target="_blank" class="hover:underline">GitHub</a></li>
+              <li><a href="https://twitter.com" class="hover:underline">X (Twitter)</a></li>
+              <li><a href="https://www.coff.ee/thekusaldarshana" class="hover:underline">Support US</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
 
   <script defer data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="thekusaldarshana" data-description="Support me on Buy me a coffee!" data-message="Glad to See you Here! Thank you for Visiting." data-color="#40DCA5" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
 </html>

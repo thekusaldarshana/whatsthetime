@@ -1,5 +1,7 @@
 ---
 import Analytics from '@vercel/analytics/astro'
+import  SpeedInsights  from "@vercel/speed-insights/astro"
+
 const { title = "What's The Time – Global Time Converter", description = "Easily convert time zones and view current times anywhere in the world with the No #1 Fastest Global Time Converter" } = Astro.props;
 ---
 
@@ -100,6 +102,7 @@ const { title = "What's The Time – Global Time Converter", description = "Easi
 
   <!-- Your existing analytics component -->
   <Analytics />
+  <SpeedInsights />
 </head>
 
 

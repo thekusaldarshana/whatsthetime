@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import TimeConverter from "../components/TimeConverter.astro";
 import Analytics from '@vercel/analytics/astro';
+import  SpeedInsights  from "@vercel/speed-insights/astro"
 ---
 
 <html lang="en" class="dark">
@@ -76,6 +77,7 @@ import Analytics from '@vercel/analytics/astro';
   </script>
 
   <Analytics />
+  <SpeedInsights />
 </head>
 
 
@@ -323,9 +325,32 @@ import Analytics from '@vercel/analytics/astro';
       </section>
 
       <!-- Footer -->
-      <footer class="text-center text-sm text-gray-400 py-8 bg-black">
-        © 2025 <span><a href="/">whatsthetime</a></span>. Made with ❤️ and ⚡ in Sri Lanka.
-      </footer>
+    <footer class="border-t border-gray-200 dark:border-white/10 bg-black text-sm py-10 px-4 md:px-12">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-6 text-gray-600 dark:text-gray-400">
+        <div>
+          <a href="/" class="font-bold text-gray-800 dark:text-white mb-2">⏱ What's The Time</a>
+          <p class="max-w-md">Modern time converter helping global citizens work, meet, and plan across time zones. <span> <a href="/">© 2025 whatsthetime.</a> </span> Made with ❤️ and ⚡ in Sri Lanka.</p>
+        </div>
+        <div class="flex gap-6 flex-wrap">
+          <div>
+            <p class="font-semibold text-gray-700 dark:text-white mb-1">Quick Links</p>
+            <ul class="space-y-1">
+              <li><a href="/" class="hover:underline">Home</a></li>
+              <li><a href="/blog" class="hover:underline">Blog</a></li>
+              <li><a href="/about" class="hover:underline">About</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="font-semibold text-gray-700 dark:text-white mb-1">Follow</p>
+            <ul class="space-y-1">
+              <li><a href="https://github.com/kusaldarshana/whatsthetime" target="_blank" class="hover:underline">GitHub</a></li>
+              <li><a href="https://twitter.com" class="hover:underline">X (Twitter)</a></li>
+              <li><a href="https://www.coff.ee/thekusaldarshana" class="hover:underline">Support US</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
     </section>
 
     <!-- Live Clock Script -->

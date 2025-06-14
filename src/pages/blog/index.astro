@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import "../../styles/global.css";
 const posts = await getCollection('blog');
 import Analytics from '@vercel/analytics/astro'
+import  SpeedInsights  from "@vercel/speed-insights/astro"
 ---
 
 <!DOCTYPE html>
@@ -78,6 +79,7 @@ import Analytics from '@vercel/analytics/astro'
   </script>
 
   <Analytics />
+  <SpeedInsights />
 </head>
 
   <body class="bg-white dark:bg-[#0f0f0f] text-gray-900 dark:text-white transition-colors duration-300 font-sans">
@@ -147,8 +149,8 @@ import Analytics from '@vercel/analytics/astro'
     <footer class="border-t border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-[#111] text-sm py-10 px-4 md:px-12">
       <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-6 text-gray-600 dark:text-gray-400">
         <div>
-          <p class="font-bold text-gray-800 dark:text-white mb-2">🌐 What's The Time</p>
-          <p class="max-w-md">Modern time converter helping global citizens work, meet, and plan across time zones. Made with ❤️ in Sri Lanka.</p>
+          <p class="font-bold text-gray-800 dark:text-white mb-2">⏱ What's The Time</p>
+          <p class="max-w-md">Modern time converter helping global citizens work, meet, and plan across time zones. © 2025 whatsthetime. Made with ❤️ and ⚡ in Sri Lanka.</p>
         </div>
         <div class="flex gap-6 flex-wrap">
           <div>
@@ -164,7 +166,7 @@ import Analytics from '@vercel/analytics/astro'
             <ul class="space-y-1">
               <li><a href="https://github.com/kusaldarshana/whatsthetime" target="_blank" class="hover:underline">GitHub</a></li>
               <li><a href="https://twitter.com" class="hover:underline">X (Twitter)</a></li>
-              <li><a href="https://buymeacoffee.com/kusal" class="hover:underline">Buy Me a Coffee</a></li>
+              <li><a href="https://www.coff.ee/thekusaldarshana" class="hover:underline">Support US</a></li>
             </ul>
           </div>
         </div>

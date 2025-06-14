@@ -1,6 +1,8 @@
 ---
 import { getEntryBySlug, getCollection } from 'astro:content';
 import "../../styles/global.css";
+import  SpeedInsights  from "@vercel/speed-insights/astro"
+import Analytics from '@vercel/analytics/astro'
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -21,8 +23,73 @@ const { Content } = await post.render();
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{post.data.title}</title>
-    <link rel="stylesheet" href="/styles/global.css" />
-  </head>
+    <link rel="stylesheet" href="/styles/global.css" /><meta name="robots" content="index, follow" />
+  <meta name="google-site-verification" content="gKcYaMKLR1jRCwqQfkI-tf-7WGvBxfFvjliDoRtAV8o" />
+  <meta name="theme-color" content="#fde047" />
+  <meta name="google-adsense-account" content="ca-pub-6381695271630022" />
+
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="What's The Time – Global Time Converter" />
+  <meta property="og:description" content="A modern, beautiful global time converter with a sunny UI and powerful features." />
+  <meta property="og:image" content="/og-preview.png" />
+  <meta property="og:url" content="https://whatsthetime.online/" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="What's The Time – Global Time Converter" />
+  <meta name="twitter:description" content="Convert time zones beautifully with a sunny, mobile-first experience." />
+  <meta name="twitter:image" content="/og-preview.png" />
+
+  <!-- Scrollbar Styling -->
+  <style>
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    html {
+      -ms-overflow-style: none; /* IE & Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+  </style>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "What's The Time",
+      "url": "https://whatsthetime.online",
+      "description": "Official Blog of What's The Time. Everything you should know about What's The Time and Modern Time converting. Join our blog to Discover more interests.",
+      "applicationCategory": "Utility",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript",
+      "inLanguage": "en",
+      "author": {
+        "@type": "Person",
+        "name": "thekusaldarshana"
+      }
+    }
+  </script>
+
+  <!-- Ad Script -->
+  <script data-noptimize="1" data-cfasync="false" data-wpfc-render="false">
+    (function () {
+      var script = document.createElement("script");
+      script.async = 1;
+      script.src = 'https://mn-tz.com/NDI0NDE2.js?t=424416';
+      document.head.appendChild(script);
+    })();
+  </script>
+
+  <Analytics />
+  <SpeedInsights />
+</head>
 
   <body class="bg-white dark:bg-black text-black dark:text-white">
 
@@ -97,7 +164,7 @@ const { Content } = await post.render();
             <ul class="space-y-1">
               <li><a href="https://github.com/kusaldarshana/whatsthetime" target="_blank" class="hover:underline">GitHub</a></li>
               <li><a href="https://twitter.com" class="hover:underline">X (Twitter)</a></li>
-              <li><a href="https://buymeacoffee.com/kusal" class="hover:underline">Buy Me a Coffee</a></li>
+              <li><a href="https://www.coff.ee/thekusaldarshana" class="hover:underline">Support US</a></li>
             </ul>
           </div>
         </div>
