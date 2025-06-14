@@ -87,11 +87,14 @@ const { Content } = await post.render();
     })();
   </script>
 
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6381695271630022"
+     crossorigin="anonymous"></script>
+
   <Analytics />
   <SpeedInsights />
 </head>
 
-  <body class="bg-white dark:bg-black text-black dark:text-white">
+  <body class="bg-white dark:bg-[#0f0f0f] text-black dark:text-white">
 
     <!-- Navbar -->
       <nav class="flex justify-between items-center px-6 py-4 shadow-lg sticky top-0 backdrop-blur-md z-50 bg-white/30 dark:bg-black/30">
@@ -130,6 +133,9 @@ const { Content } = await post.render();
     <a href="coff.ee/thekusaldarshana" target="_blank" class="text-lg font-semibold tracking-tight">❤️</a>
 </div>
 
+  <div class="flex flex-col lg:flex-row gap-6 px-4 mt-6 animate-fadeIn">
+
+
     <main class="prose prose-lg dark:prose-invert max-w-4xl mx-auto px-4 py-10">
       <article>
         <h1>{post.data.title}</h1>
@@ -141,6 +147,42 @@ const { Content } = await post.render();
         <Content />
       </article>
     </main>
+
+    <!-- Sponsored Ad Sidebar -->
+      <aside id="sponsored-sidebar" class="w-full lg:w-72">
+        <div class="bg-yellow-50 dark:bg-gray-900 border border-yellow-300 dark:border-white/10 rounded-lg p-4 shadow text-sm text-gray-800 dark:text-gray-200">
+          <p class="font-semibold mb-2 text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">
+            Sponsored
+          </p>
+          <div id="sponsor-ad-slot" class="text-center min-h-[380px]"></div>
+        </div>
+      </aside>
+    </div>
+
+  </div>
+
+
+  <!-- 🟨 Sponsored Inline Ad Card -->
+<div class="mt-8 mb-10 px-4 w-md">
+  <div class="bg-yellow-50 dark:bg-gray-900 border border-yellow-300 dark:border-white/10 rounded-lg p-4 shadow text-sm text-gray-800 dark:text-gray-200">
+    <p class="font-semibold mb-2 text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">
+      Sponsored
+    </p>
+    <div class="text-center min-h-[280px]">
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6381695271630022"
+        crossorigin="anonymous"></script>
+      <ins class="adsbygoogle"
+        style="display:block; text-align:center;"
+        data-ad-layout="in-article"
+        data-ad-format="fluid"
+        data-ad-client="ca-pub-6381695271630022"
+        data-ad-slot="7477596347"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  </div>
+</div>
 
 
     <!-- Footer -->
