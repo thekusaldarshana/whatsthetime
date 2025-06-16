@@ -6,7 +6,7 @@ tags: ["social media", "time zones", "marketing", "productivity", "best times"]
 image: "/blog/best-time-to-post-cover.jpg"
 ---
 
-![Cover](assets/sm.webp "What's The Time")
+![Placeholder Image 1](assets/sm.webp "What's The Time")
 
 Timing is everything — especially on social media.
 
