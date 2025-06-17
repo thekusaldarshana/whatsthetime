@@ -1,47 +1,84 @@
 ---
-// src/components/FeedbackForm.astro
+import { onMount } from 'astro/client';
 ---
-<form
-  action="https://formspree.io/f/YOUR_FORM_ID" 
-  method="POST"
-  class="max-w-lg mx-auto p-6 bg-white dark:bg-neutral-900 shadow-xl rounded-2xl space-y-4"
->
-  <h2 class="text-2xl font-bold text-center text-neutral-800 dark:text-white">We value your feedback 💬</h2>
 
-  <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300">
-    Name
-    <input
-      type="text"
-      name="name"
-      required
-      class="mt-1 block w-full rounded-md border border-neutral-300 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-900 dark:text-white p-2"
-    />
-  </label>
+<div>
+  <!-- 🟩 Feedback Popup -->
+  <div id="feedback-popup" style="
+    position: fixed;
+    bottom: -100%;
+    left: 20px;
+    width: 360px;
+    max-width: 90%;
+    border-radius: 12px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    background: white;
+    z-index: 9999;
+    overflow: hidden;
+    transition: bottom 0.6s ease-in-out;
+  ">
+    <!-- Header with close button -->
+    <div style="display: flex; justify-content: space-between; padding: 6px 12px; background: #01c671; color: #1d1d1d;">
+      <label class="font-semibold pt-1">Feedback</label>
+      <button id="close-feedback-btn" style="
+        background: transparent;
+        border: none;
+        font-weight: bold;
+        font-size: 20px;
+        cursor: pointer;
+        color: #1d1d1d;
+      ">×</button>
+    </div>
 
-  <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300">
-    Email
-    <input
-      type="email"
-      name="email"
-      required
-      class="mt-1 block w-full rounded-md border border-neutral-300 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-900 dark:text-white p-2"
-    />
-  </label>
+    <!-- OpnForm iframe -->
+    <iframe
+      style="border: none; width: 100%; height: 360px;"
+      id="website-feedback-form-qrpdvs"
+      src="https://opnform.com/forms/website-feedback-form-qrpdvs"
+    ></iframe>
+  </div>
 
-  <label class="block text-sm font-medium text-neutral-700 dark:text-neutral-300">
-    Your Feedback
-    <textarea
-      name="message"
-      rows="5"
-      required
-      class="mt-1 block w-full rounded-md border border-neutral-300 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-800 text-neutral-900 dark:text-white p-2"
-    ></textarea>
-  </label>
-
-  <button
-    type="submit"
-    class="w-full bg-blue-600 text-white font-semibold py-2 px-4 rounded-md hover:bg-blue-700 transition"
-  >
-    Submit
+  <!-- 🟨 Floating Feedback Button -->
+  <button id="feedback-button" style="
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: #01c671;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 18px;
+    font-size: 16px;
+    cursor: pointer;
+    z-index: 9999;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+  ">
+    💬 Feedback
   </button>
-</form>
+</div>
+
+<script type="module">
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const popup = document.getElementById("feedback-popup");
+      if (popup) popup.style.bottom = "20px";
+
+      const closeBtn = document.getElementById("close-feedback-btn");
+      const feedbackBtn = document.getElementById("feedback-button");
+
+      closeBtn?.addEventListener("click", () => {
+        popup.style.bottom = "-100%";
+        feedbackBtn.style.display = "block";
+      });
+
+      feedbackBtn?.addEventListener("click", () => {
+        popup.style.bottom = "20px";
+        feedbackBtn.style.display = "none";
+      });
+    }, 1000); // Delay popup show
+  });
+</script>
+
+<!-- ✅ Embed script after full load -->
+<script defer src="https://opnform.com/widgets/iframe.min.js"></script>

@@ -1,6 +1,7 @@
 ---
 import { getEntryBySlug, getCollection } from 'astro:content';
 import "../../styles/global.css";
+import Feedback from "../../components/Feedback.astro";
 import  SpeedInsights  from "@vercel/speed-insights/astro"
 import Analytics from '@vercel/analytics/astro'
 
@@ -166,6 +167,10 @@ const { Content } = await post.render();
       </aside>
     </div>
 
+    <!-- Elfsight Comments | Untitled Comments -->
+<script defer src="https://static.elfsight.com/platform/platform.js" async></script>
+<div class="elfsight-app-ed915833-520e-46a7-b447-36d602cfe6b5" data-elfsight-app-lazy></div>
+
   </div>
 
 
@@ -190,6 +195,8 @@ const { Content } = await post.render();
     </div>
   </div>
 </div>
+
+<Feedback />
 
 
     <!-- Footer -->

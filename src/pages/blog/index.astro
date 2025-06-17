@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import "../../styles/global.css";
+import Feedback from "../../components/Feedback.astro";
 const posts = await getCollection('blog');
 import Analytics from '@vercel/analytics/astro'
 import  SpeedInsights  from "@vercel/speed-insights/astro"
@@ -173,6 +174,7 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
   </div>
 </div>
 
+<Feedback />
 
     <!-- Footer -->
     <footer class="border-t border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-[#111] text-sm py-10 px-4 md:px-12">

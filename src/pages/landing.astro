@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import TimeConverter from "../components/TimeConverter.astro";
+import Feedback from "../components/Feedback.astro";
 import Analytics from '@vercel/analytics/astro';
 import  SpeedInsights  from "@vercel/speed-insights/astro"
 ---
@@ -146,8 +147,8 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
           <h2 class="text-3xl font-bold mb-10">🌍 Why What's The Time?</h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             <div class="bg-white/5 p-6 rounded-xl shadow">
-              <h3 class="font-semibold text-lg mb-2">🎯 Minimalist, Modern UI</h3>
-              <p class="text-sm text-gray-300">No clutter. Just an elegant interface focused on clarity and speed.</p>
+              <h3 class="font-semibold text-lg mb-2">🎯 Minimalist, Modern UI + Responsive Design</h3>
+              <p class="text-sm text-gray-300">No clutter. Just an elegant interface focused on clarity and speed. Also responsive for any device.</p>
             </div>
             <div class="bg-white/5 p-6 rounded-xl shadow">
               <h3 class="font-semibold text-lg mb-2">🕰️ Analog Clock Picker</h3>
@@ -162,12 +163,24 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
               <p class="text-sm text-gray-300">Emoji, context, and time-based styling make your now pop.</p>
             </div>
             <div class="bg-white/5 p-6 rounded-xl shadow">
+              <h3 class="font-semibold text-lg mb-2">🌍 World Clock Cards</h3>
+              <p class="text-sm text-gray-300">You can Instantly see the current time of Popular Cities in World Clock Cards.</p>
+            </div>
+            <div class="bg-white/5 p-6 rounded-xl shadow">
               <h3 class="font-semibold text-lg mb-2">⚡ Fast & SEO-Friendly</h3>
               <p class="text-sm text-gray-300">Built with Astro. Blazing fast, pre-rendered, and optimized for discovery.</p>
             </div>
             <div class="bg-white/5 p-6 rounded-xl shadow">
               <h3 class="font-semibold text-lg mb-2">🔗 Shareable URLs</h3>
               <p class="text-sm text-gray-300">Copy/paste any time conversion as a link.</p>
+            </div>
+            <div class="bg-white/5 p-6 rounded-xl shadow">
+              <h3 class="font-semibold text-lg mb-2">📚 Blog</h3>
+              <p class="text-sm text-gray-300">You are accessible to Everything you need to Know about Time Zone Conversion. And about more Productivity Tips.</p>
+            </div>
+            <div class="bg-white/5 p-6 rounded-xl shadow">
+              <h3 class="font-semibold text-lg mb-2">✔ Ask Anything</h3>
+              <p class="text-sm text-gray-300">Feel free to ask anything, Suggest what you want more. Just leave a Feedback using Button at left-bottom.</p>
             </div>
           </div>
         </div>
@@ -331,6 +344,8 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
         <a href="/" class="inline-block px-6 py-3 mt-2 bg-white text-indigo-600 hover:text-gray-100 font-semibold rounded-full shadow hover:bg-black/80 transition-all duration-500">Get Started →</a>
       </section>
 
+      <Feedback />
+
       <!-- Footer -->
     <footer class="border-t border-gray-200 dark:border-white/10 bg-black text-sm py-10 px-4 md:px-12">
       <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-6 text-gray-600 dark:text-gray-400">
@@ -338,6 +353,7 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
           <a href="/" class="font-bold text-gray-800 dark:text-white mb-2">⏱ What's The Time</a>
           <p class="max-w-md">Modern time converter helping global citizens work, meet, and plan across time zones. <span> <a href="/">© 2025 whatsthetime.</a> </span> Made with ❤️ and ⚡ in Sri Lanka.</p>
         </div>
+
         <div class="flex gap-6 flex-wrap">
           <div>
             <p class="font-semibold text-gray-700 dark:text-white mb-1">Quick Links</p>
@@ -359,6 +375,12 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
             </ul>
           </div>
         </div>
+        <!-- Share -->
+        <div class="mt-10">
+        <label class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">Share Now</label>
+        <script src="https://cdn.commoninja.com/sdk/latest/commonninja.js" defer></script>
+<div class="commonninja_component pid-592a7477-6acb-4336-8e8e-38271c7b5e5b max-w-60"></div>
+      </div>
       </div>
     </footer>
     </section>

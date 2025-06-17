@@ -1,21 +1,10 @@
 ---
 import TimeConverter from "../components/TimeConverter.astro";
+import Feedback from "../components/Feedback.astro";
+import WorldClockCards from '../components/WorldClockCards.astro';
 import "../styles/global.css";
 import Analytics from '@vercel/analytics/astro'
 import  SpeedInsights  from "@vercel/speed-insights/astro"
-
-const conversions = [
-  { from: "London", to: "New York" },
-  { from: "Tokyo", to: "Paris" },
-  { from: "Delhi", to: "New York" },
-  { from: "Sydney", to: "San Francisco" },
-  { from: "Berlin", to: "Chicago" },
-  { from: "Mumbai", to: "Toronto" },
-  { from: "Hong Kong", to: "Los Angeles" },
-  { from: "Cairo", to: "London" },
-  { from: "Beijing", to: "Dubai" },
-  { from: "Rome", to: "Houston" }
-];
 ---
 
 <html lang="en" class="scroll-smooth dark">
@@ -151,36 +140,25 @@ const conversions = [
   </div>
 
   <!-- Mobile Bottom Nav Buttons -->
-<div class="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 md:hidden px-4 py-2 bg-white/20 backdrop-blur-md border border-white/40 rounded-full flex gap-6 text-lg font-semibold tracking-tight shadow-lg">
+<div class="fixed top-10 mt-6 mb-5 mx-auto left-1/2 transform -translate-x-1/2 z-50 md:hidden px-4 py-2 bg-white/20 backdrop-blur-md border border-white/40 rounded-full flex gap-6 text-lg font-semibold tracking-tight shadow-lg">
   <a href="/landing" target="blank" class="text-lg font-semibold tracking-tight text-center">About</a>
     <a href="/popular" target="blank" class="text-lg font-semibold tracking-tight text-center">Popular</a>
     <a href="/landing#embed" target="blank" class="text-lg font-semibold tracking-tight text-center">Widget</a>
     <a href="/blog" target="blank" class="text-lg font-semibold tracking-tight text-center">Blog</a>
-    <a href="https://www.coff.ee/thekusaldarshana" target="blank" class="text-lg font-semibold tracking-tight text-center">Support</a>
+    <a href="https://www.coff.ee/thekusaldarshana" target="blank" class="text-lg font-semibold tracking-tight text-center">❤️</a>
 </div>
 </header>
 
-
     <!-- Converter + Ad Layout -->
     <div class="flex flex-col lg:flex-row gap-6 px-4 mt-6 animate-fadeIn">
+
+      <!-- Mobile: WorldClockCards below, Desktop: on the left -->
+  <WorldClockCards />
 
       <!-- Converter Section -->
       <main class="flex-1">
         <TimeConverter />
       </main>
-
-      <!-- Popular -->
-      <div style="max-height: 650px; overflow: auto; display: none; overscroll-behavior: contain;scrollbar-width: none;">
-        <h1 class="text-3xl font-bold mb-6 text-center">🌍 Popular Time Conversions</h1>
-        <div class="grid sm:grid-cols-1 gap-4">
-      {conversions.map(({ from, to }) => (
-        <a href={`/${from.toLowerCase()}-vs-${to.toLowerCase()}`} class="block bg-white dark:bg-gray-900 rounded-lg shadow p-4 hover:shadow-lg transition">
-          <h2 class="text-lg font-semibold">🕒 {from} ↔ {to}</h2>
-          <p class="text-sm text-gray-600 dark:text-gray-400">Compare current time in {from} and {to}</p>
-        </a>
-      ))}
-    </div>
-      </div>
 
       <!-- Sponsored Ad Sidebar -->
       <aside id="sponsored-sidebar" class="w-full lg:w-72">
@@ -262,9 +240,8 @@ const conversions = [
       }
     </style>
 
-    <!-- Ads -->
 
-    <script type="text/javascript"> var infolinks_pid = 3437221; var infolinks_wsid = 0; </script> <script type="text/javascript" src="//resources.infolinks.com/js/infolinks_main.js"></script>
+    <Feedback/>
   </body>
 
   <!-- Footer -->

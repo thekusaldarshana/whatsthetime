@@ -1,0 +1,109 @@
+---
+const clocks = [
+  { city: 'New York', timezone: 'America/New_York' },
+  { city: 'Los Angeles', timezone: 'America/Los_Angeles' },
+  { city: 'Chicago', timezone: 'America/Chicago' },
+  { city: 'Houston', timezone: 'America/Chicago' },
+  { city: 'Toronto', timezone: 'America/Toronto' },
+  { city: 'Mexico City', timezone: 'America/Mexico_City' },
+  { city: 'Sao Paulo', timezone: 'America/Sao_Paulo' },
+  { city: 'Buenos Aires', timezone: 'America/Argentina/Buenos_Aires' },
+  { city: 'London', timezone: 'Europe/London' },
+  { city: 'Paris', timezone: 'Europe/Paris' },
+  { city: 'Berlin', timezone: 'Europe/Berlin' },
+  { city: 'Madrid', timezone: 'Europe/Madrid' },
+  { city: 'Rome', timezone: 'Europe/Rome' },
+  { city: 'Moscow', timezone: 'Europe/Moscow' },
+  { city: 'Istanbul', timezone: 'Europe/Istanbul' },
+  { city: 'Cairo', timezone: 'Africa/Cairo' },
+  { city: 'Johannesburg', timezone: 'Africa/Johannesburg' },
+  { city: 'Nairobi', timezone: 'Africa/Nairobi' },
+  { city: 'Dubai', timezone: 'Asia/Dubai' },
+  { city: 'Riyadh', timezone: 'Asia/Riyadh' },
+  { city: 'Mumbai', timezone: 'Asia/Kolkata' },
+  { city: 'Delhi', timezone: 'Asia/Kolkata' },
+  { city: 'Kolkata', timezone: 'Asia/Kolkata' },
+  { city: 'Bangkok', timezone: 'Asia/Bangkok' },
+  { city: 'Jakarta', timezone: 'Asia/Jakarta' },
+  { city: 'Singapore', timezone: 'Asia/Singapore' },
+  { city: 'Hong Kong', timezone: 'Asia/Hong_Kong' },
+  { city: 'Shanghai', timezone: 'Asia/Shanghai' },
+  { city: 'Beijing', timezone: 'Asia/Shanghai' },
+  { city: 'Seoul', timezone: 'Asia/Seoul' },
+  { city: 'Tokyo', timezone: 'Asia/Tokyo' },
+  { city: 'Osaka', timezone: 'Asia/Tokyo' },
+  { city: 'Sydney', timezone: 'Australia/Sydney' },
+  { city: 'Melbourne', timezone: 'Australia/Melbourne' },
+  { city: 'Auckland', timezone: 'Pacific/Auckland' },
+  { city: 'Honolulu', timezone: 'Pacific/Honolulu' },
+  { city: 'Anchorage', timezone: 'America/Anchorage' },
+  { city: 'Denver', timezone: 'America/Denver' },
+  { city: 'Phoenix', timezone: 'America/Phoenix' },
+  { city: 'Bogota', timezone: 'America/Bogota' },
+  { city: 'Lima', timezone: 'America/Lima' },
+  { city: 'Caracas', timezone: 'America/Caracas' },
+  { city: 'Tehran', timezone: 'Asia/Tehran' },
+  { city: 'Baghdad', timezone: 'Asia/Baghdad' },
+  { city: 'Jerusalem', timezone: 'Asia/Jerusalem' },
+  { city: 'Kathmandu', timezone: 'Asia/Kathmandu' },
+  { city: 'Hanoi', timezone: 'Asia/Bangkok' },
+  { city: 'Manila', timezone: 'Asia/Manila' }
+];
+---
+
+<div
+  id="world-clock-cards"
+  class="scrollable-world-clocks flex flex-row gap-4 overflow-x-auto p-4 sm:flex-col sm:overflow-x-hidden sm:overflow-y-auto max-h-[125vh]"
+>
+  {clocks.map(({ city, timezone }) => (
+    <div
+      class="min-w-[180px] sm:min-w-0 bg-white dark:bg-black/20 border border-pink-300 dark:border-teal-800 rounded-2xl shadow p-4 transition duration-300"
+      data-timezone={timezone}
+      data-city={city}
+      key={timezone}
+    >
+      <h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">{city}</h3>
+      <p class="text-sm text-gray-600 dark:text-gray-400">{timezone}</p>
+      <p class="text-2xl font-mono text-pink-900 dark:text-teal-200 time-display">Loading...</p>
+    </div>
+  ))}
+</div>
+
+<!-- Load Luxon CDN *before* the client script -->
+<script src="https://cdn.jsdelivr.net/npm/luxon@3/build/global/luxon.min.js" client:load></script>
+
+<script type="module" client:load>
+  const DateTime = window.luxon.DateTime;
+
+  function updateClocks() {
+    const container = document.getElementById('world-clock-cards');
+    if (!container) return;
+    const cards = container.querySelectorAll('[data-timezone]');
+
+    cards.forEach(card => {
+      const timezone = card.getAttribute('data-timezone');
+      const timeEl = card.querySelector('.time-display');
+      if (!timeEl || !timezone) return;
+
+      const now = DateTime.now().setZone(timezone);
+      timeEl.textContent = now.toFormat('hh:mm a');
+    });
+  }
+
+  updateClocks();
+  setInterval(updateClocks, 60 * 1000);
+</script>
+
+<style>
+  .scrollable-world-clocks::-webkit-scrollbar {
+    height: 6px;
+    width: 2px;
+  }
+  .scrollable-world-clocks::-webkit-scrollbar-thumb {
+    background: #999;
+    border-radius: 4px;
+  }
+  .scrollable-world-clocks::-webkit-scrollbar-thumb:hover {
+    background: #666;
+  }
+</style>
