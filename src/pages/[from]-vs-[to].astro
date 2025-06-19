@@ -7,7 +7,7 @@ import Layout from '../layouts/Layout.astro';
 import TimeConverter from '../components/TimeConverter.astro';
 
 export async function getStaticPaths() {
-  const aliases = Object.keys(zoneAliases).slice(0, 110);
+  const aliases = Object.keys(zoneAliases);
   const paths = [];
 
   for (const from of aliases) {

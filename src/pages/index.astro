@@ -18,12 +18,12 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 
   <!-- Favicons & Manifest -->
-  <link rel="icon" type="image/png" href="/public/favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/svg+xml" href="/public/favicon.svg" />
-<link rel="shortcut icon" href="/public/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="/public/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-title" content="whatsthetime" />
-<link rel="manifest" href="/public/site.webmanifest" />
+<link rel="manifest" href="/site.webmanifest" />
 
   <!-- Theme + Verification + Ads -->
   <meta name="theme-color" content="#fde047" />
@@ -121,16 +121,70 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
     <a href="/" class="text-2xl font-semibold text-grey-800 dark:text-green-500">⏱ What's The Time</a>
   </div>
 
-  <!-- Navigation links (middle bar) -->
-  <div class="p-2 grid md:grid-cols-5 gap-10 items-center bg-white/10 rounded-full border border-white/50 bg-white/10
-              hidden md:grid absolute md:static bottom-4 left-1/2 transform md:transform-none -translate-x-1/2 md:translate-x-0
-              w-[95%] md:w-auto mx-auto backdrop-blur-lg backdrop-saturate-150 shadow-lg md:shadow-none">
-    <a href="/landing" target="blank" class="text-lg font-semibold tracking-tight text-center">About</a>
-    <a href="/popular" target="blank" class="text-lg font-semibold tracking-tight text-center">Popular</a>
-    <a href="/landing#embed" target="blank" class="text-lg font-semibold tracking-tight text-center">Widget</a>
-    <a href="/blog" target="blank" class="text-lg font-semibold tracking-tight text-center">Blog</a>
-    <a href="https://www.coff.ee/thekusaldarshana" target="blank" class="text-lg font-semibold tracking-tight text-center">Support</a>
+  <!-- Desktop Nav Buttons -->
+  <div class="hidden md:grid md:grid-cols-5 gap-10 items-center px-4 py-2 bg-white/10 backdrop-blur-md border border-white/50 rounded-full">
+  <div class="relative group">
+    <a href="/landing" target="_blank" class="text-lg font-semibold tracking-tight hover:scale-110">🏠</a>
+    <div class="tooltip">Home</div>
   </div>
+  <div class="relative group">
+    <a href="/popular" class="text-lg font-semibold tracking-tight">🌍</a>
+    <div class="tooltip">Popular</div>
+  </div>
+  
+
+  <!-- Desktop Tools Dropdown -->
+      <div class="relative group cursor-pointer">
+        <button class="flex items-center gap-1 text-lg font-semibold tracking-tight">
+          🛠️ 
+          <svg
+            class="w-4 h-4 transform transition-transform duration-300 group-hover:rotate-180"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+
+        <div
+          class="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 bg-white dark:bg-gray-900 backdrop-blur-md border border-white/20 rounded-xl shadow-xl scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transform transition-all duration-300 origin-top z-50"
+        >
+          <a
+            href="/"
+            target="_blank"
+            class="block px-4 py-3 hover:bg-gray-100 dark:hover:bg-white/10 text-sm font-medium rounded-t-xl"
+          >
+            ⏱ Converter
+          </a>
+          <a
+            href="/landing#embed"
+            class="block px-4 py-3 hover:bg-gray-100 dark:hover:bg-white/10 text-sm font-medium rounded-t-xl"
+          >
+            🧩 Widget
+          </a>
+          <a
+            href="/meeting-planner"
+            target="_blank"
+            class="block px-4 py-3 hover:bg-gray-100 dark:hover:bg-white/10 text-sm font-medium rounded-b-xl"
+          >
+            📅 Meeting Planner
+          </a>
+        </div>
+      </div>
+
+
+  
+  <div class="relative group">
+    <a href="/blog" target="_blank" class="text-lg font-semibold tracking-tight">📚</a>
+    <div class="tooltip">Blog</div>
+  </div>
+  <div class="relative group">
+    <a href="https://coff.ee/thekusaldarshana" target="_blank" class="text-lg font-semibold tracking-tight">❤️</a>
+    <div class="tooltip">Support</div>
+  </div>
+</div>
 
   <!-- Theme toggle -->
   <div class="flex justify-end px-4 py-3">
@@ -140,11 +194,68 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
   </div>
 
   <!-- Mobile Bottom Nav Buttons -->
-<div class="fixed bottom-10 mb-4 mx-auto left-1/2 transform -translate-x-1/2 z-50 md:hidden px-4 py-2 bg-white/20 backdrop-blur-md border border-whites/40 rounded-full flex gap-6 text-lg font-semibold tracking-tight shadow-lg">
-  <a href="/landing" target="blank" class="text-lg font-semibold tracking-tight text-center">About</a>
-    <a href="/popular" target="blank" class="text-lg font-semibold tracking-tight text-center">Popular</a>
-    <a href="/landing#embed" target="blank" class="text-lg font-semibold tracking-tight text-center">Widget</a>
-    <a href="/blog" target="blank" class="text-lg font-semibold tracking-tight text-center">Blog</a>
+<div class="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 md:hidden px-4 py-2 bg-white/20 backdrop-blur-md border border-white/40 rounded-full flex gap-6 text-lg font-semibold tracking-tight shadow-lg">
+  <div class="relative group">
+    <a href="/landing" target="_blank" class="text-lg font-semibold tracking-tight hover:scale-110">🏠</a>
+    <div class="tooltip">Home</div>
+  </div>
+  <div class="relative group">
+    <a href="/popular" class="text-lg font-semibold tracking-tight">🌍</a>
+    <div class="tooltip">Popular</div>
+  </div>
+  
+
+  <!-- Desktop Tools Dropdown -->
+      <div class="relative group cursor-pointer">
+        <button class="flex items-center gap-1 text-lg font-semibold tracking-tight">
+          🛠️ 
+          <svg
+            class="w-4 h-4 transform transition-transform duration-300 group-hover:rotate-180"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+
+        <div
+          class="absolute bottom-4 mb-2 left-1/2 -translate-x-1/2 mt-2 w-48 bg-white dark:bg-gray-900 backdrop-blur-md border border-white/20 rounded-xl shadow-xl scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transform transition-all duration-300 z-50"
+        >
+          <a
+            href="/"
+            target="_blank"
+            class="block px-4 py-3 hover:bg-gray-100 dark:hover:bg-white/10 text-sm font-medium rounded-t-xl"
+          >
+            ⏱ Converter
+          </a>
+          <a
+            href="/landing#embed"
+            class="block px-4 py-3 hover:bg-gray-100 dark:hover:bg-white/10 text-sm font-medium rounded-t-xl"
+          >
+            🧩 Widget
+          </a>
+          <a
+            href="/meeting-planner"
+            target="_blank"
+            class="block px-4 py-3 hover:bg-gray-100 dark:hover:bg-white/10 text-sm font-medium rounded-b-xl"
+          >
+            📅 Meeting Planner
+          </a>
+        </div>
+      </div>
+
+
+  
+  <div class="relative group">
+    <a href="/blog" target="_blank" class="text-lg font-semibold tracking-tight">📚</a>
+    <div class="tooltip">Blog</div>
+  </div>
+  <div class="relative group">
+    <a href="https://coff.ee/thekusaldarshana" target="_blank" class="text-lg font-semibold tracking-tight">❤️</a>
+    <div class="tooltip">Support</div>
+  </div>
 </div>
 </header>
 
@@ -171,7 +282,7 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
     </div>
 
     <!-- Dark Mode Script -->
-    <script>
+    <script defer>
       const root = document.documentElement;
       const themeToggle = document.getElementById('theme-toggle');
       const userTheme = localStorage.getItem('theme');

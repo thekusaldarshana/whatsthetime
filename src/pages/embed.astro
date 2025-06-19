@@ -1,7 +1,8 @@
 ---
 import TimeConverter from "../components/TimeConverter.astro";
 import "../styles/global.css";
-import Analytics from '@vercel/analytics/astro'
+import Analytics from '@vercel/analytics/astro';
+import SpeedInsights from "@vercel/speed-insights/astro";
 
 import { DateTime } from 'luxon';
 ---
@@ -450,7 +451,7 @@ import { DateTime } from 'luxon';
       
 
     <!-- Dark Mode Script -->
-    <script>
+    <script defer>
       const root = document.documentElement;
       const themeToggle = document.getElementById('theme-toggle');
       const userTheme = localStorage.getItem('theme');
@@ -490,6 +491,9 @@ import { DateTime } from 'luxon';
         border-color: rgba(34, 197, 94, 1);
       }
     </style>
+
+    <Analytics />
+    <SpeedInsights />
   </body>
 </html>
 

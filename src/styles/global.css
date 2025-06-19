@@ -44,5 +44,21 @@ select {
   padding-right: 2rem;
 }
 
+.tooltip {
+    @apply absolute left-1/2 -translate-x-1/2 bg-zinc-900 text-xs text-white px-2 py-1 rounded backdrop-blur-md shadow-md whitespace-nowrap opacity-0 pointer-events-none transition-all duration-200;
+    bottom: -2.7rem;
+  }
+
+  @media (max-width: 768px) {
+    .tooltip {
+      bottom: auto;
+      top: -2.7rem;
+    }
+  }
+
+  .group:hover .tooltip {
+    @apply opacity-100;
+  }
+
 
 

@@ -84,8 +84,6 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6381695271630022"
      crossorigin="anonymous"></script>
 
-  <Analytics />
-  <SpeedInsights />
 </head>
 
   <body class="bg-white dark:bg-[#0f0f0f] text-gray-900 dark:text-white transition-colors duration-300 font-sans">
@@ -95,13 +93,58 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
   <a href="/" class="text-2xl font-bold tracking-tight">⏱ What's The Time</a>
 
   <!-- Desktop Nav Buttons -->
-  <div class="hidden md:grid md:grid-cols-6 gap-10 items-center px-4 py-2 bg-white/10 backdrop-blur-md border border-white/50 rounded-full">
-    <a href="/landing" target="_blank"  class="text-lg font-semibold tracking-tight hover:scale-110">🏠</a>
-    <a href="/" target="_blank" class="text-lg font-semibold tracking-tight">⏱</a>
-    <a href="/popular" target="_blank" class="text-lg font-semibold tracking-tight">🌍</a>
-    <a href="/blog" class="text-lg font-semibold tracking-tight">📚</a>
-    <a href="/landing#faq" target="_blank" class="text-lg font-semibold tracking-tight">❓</a>
-    <a href="https://www.coff.ee/thekusaldarshana" target="_blank" class="text-lg font-semibold tracking-tight">❤️</a>
+  <div class="p-2 grid md:grid-cols-5 gap-10 items-center bg-white/10 rounded-full border border-white/50 bg-white/10
+              hidden md:grid absolute md:static bottom-4 left-1/2 transform md:transform-none -translate-x-1/2 md:translate-x-0
+              w-[95%] md:w-auto mx-auto backdrop-blur-lg backdrop-saturate-150 shadow-lg md:shadow-none">
+    <a href="/landing" target="blank" class="text-lg font-semibold tracking-tight text-center">About</a>
+    <a href="/popular" target="blank" class="text-lg font-semibold tracking-tight text-center">Popular</a>
+    
+    <!-- Desktop Tools Dropdown -->
+      <div class="relative group cursor-pointer">
+        <button class="flex items-center gap-1 text-lg font-semibold tracking-tight">
+          Tools
+          <svg
+            class="w-4 h-4 transform transition-transform duration-300 group-hover:rotate-180"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+
+        <div
+          class="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 bg-white dark:bg-zinc-900 backdrop-blur-md border border-white/20 rounded-xl shadow-xl scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transform transition-all duration-300 origin-top z-50"
+        >
+          <a
+            href="/landing#embed"
+            target="_blank"
+            class="block px-4 py-3 hover:bg-gray-100 dark:hover:bg-white/10 text-sm font-medium rounded-t-xl"
+          >
+            ⏱ Converter
+          </a>
+          <a
+            href="/landing#embed"
+            target="_blank"
+            class="block px-4 py-3 hover:bg-gray-100 dark:hover:bg-white/10 text-sm font-medium rounded-t-xl"
+          >
+            🧩 Widget
+          </a>
+          <a
+            href="/meeting-planner"
+            target="_blank"
+            class="block px-4 py-3 hover:bg-gray-100 dark:hover:bg-white/10 text-sm font-medium rounded-b-xl"
+          >
+            📅 Meeting Planner
+          </a>
+        </div>
+      </div>
+
+
+
+    <a href="/blog" class="text-lg font-semibold tracking-tight text-center">Blog</a>
+    <a href="https://www.coff.ee/thekusaldarshana" target="blank" class="text-lg font-semibold tracking-tight text-center">Support</a>
   </div>
 
   <div class="flex gap-3">
@@ -117,14 +160,73 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
 </nav>
 
 <!-- Mobile Bottom Nav Buttons -->
-<div class="fixed bottom-10 mb-4 mx-auto left-1/2 transform -translate-x-1/2 z-50 md:hidden px-4 py-2 bg-white/20 backdrop-blur-md border border-white/40 rounded-full flex gap-6 text-lg font-semibold tracking-tight shadow-lg">
-  <a href="/landing" target="_blank"  class="text-lg font-semibold tracking-tight hover:scale-110">🏠</a>
-    <a href="/" target="_blank" class="text-lg font-semibold tracking-tight">⏱</a>
-    <a href="/popular" target="_blank" class="text-lg font-semibold tracking-tight">🌍</a>
-    <a href="/blog" class="text-lg font-semibold tracking-tight">📚</a>
-    <a href="/landing#faq" target="_blank" class="text-lg font-semibold tracking-tight">❓</a>
-    <a href="coff.ee/thekusaldarshana" target="_blank" class="text-lg font-semibold tracking-tight">❤️</a>
+<div class="fixed bottom-10 mb-4 mx-auto left-1/2 transform -translate-x-1/2 z-50 md:hidden px-4 py-2 bg-white/20 backdrop-blur-md border border-whites/40 rounded-full flex gap-6 text-lg font-semibold tracking-tight shadow-lg">
+  <a href="/landing" target="blank" class="text-lg font-semibold tracking-tight text-center">About</a>
+    <a href="/popular" target="blank" class="text-lg font-semibold tracking-tight text-center">Popular</a>
+    
+    <!-- Tools Dropdown Button for Mobile -->
+      <div class="relative">
+        <button
+          onclick="toggleMobileToolsDropdown()"
+          class="flex items-center gap-1 text-lg font-semibold tracking-tight"
+        >
+          Tools
+          <svg
+            id="mobileToolsArrow"
+            class="w-4 h-4 transform transition-transform duration-300"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+
+        <div
+          id="mobileToolsDropdown"
+          class="hidden flex-col absolute bottom-full left-1/2 -translate-x-1/2 bg-white/80 dark:bg-zinc-900 backdrop-blur-md border border-white/30 rounded-xl shadow-lg text-center z-50 transform transition-all duration-300"
+        >
+          <a
+            href="/landing#embed"
+            target="_blank"
+            class="px-4 py-3 text-sm font-medium rounded-xl"
+          >
+            Converter
+          </a>
+          <a
+            href="/landing#embed"
+            target="_blank"
+            class="px-4 py-3 text-sm font-medium rounded-xl"
+          >
+            Widget
+          </a>
+          <a
+            href="/meeting-planner"
+            target="_blank"
+            class="px-2 py-3 text-sm font-medium rounded-xl mt-2"
+          >
+            MeetingPlanner
+          </a>
+        </div>
+      </div>
+
+
+    <a href="/blog" class="text-lg font-semibold tracking-tight text-center">Blog</a>
 </div>
+
+<script defer is:inline>
+  let mobileToolsOpen = false;
+  function toggleMobileToolsDropdown() {
+    const dropdown = document.getElementById("mobileToolsDropdown");
+    const arrow = document.getElementById("mobileToolsArrow");
+    mobileToolsOpen = !mobileToolsOpen;
+    dropdown.classList.toggle("hidden", !mobileToolsOpen);
+    dropdown.classList.toggle("scale-100", mobileToolsOpen);
+    dropdown.classList.toggle("opacity-100", mobileToolsOpen);
+    arrow.classList.toggle("rotate-180", mobileToolsOpen);
+  }
+</script>
         
 
     <!-- Blog Posts -->
@@ -251,5 +353,9 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
     </script>
 
     <script defer data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="thekusaldarshana" data-description="Support me on Buy me a coffee!" data-message="Glad to See you Here! Thank you for Visiting." data-color="#40DCA5" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+
+    <!-- Analytics components -->
+  <Analytics />
+  <SpeedInsights />
   </body>
 </html>
