@@ -1,10 +1,10 @@
 ---
 title: "How to Schedule Remote Team Meetings Across Time Zones 🌐📅"
 description: "Struggling to coordinate meetings with teammates worldwide? Learn proven strategies to schedule remote meetings across time zones without the headaches."
-pubDate: "2025-06-17"
+pubDate: "2025-06-19"
 author: "Kusal Darshana"
 tags: ["time zones", "remote work", "team productivity", "timezone tools"]
-image: "/blog/assets/schedule-meeting.webp"
+image: "blog/assets/remote.avif"
 ---
 
 ![Remote Work](assets/remote.avif)

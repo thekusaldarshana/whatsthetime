@@ -4,7 +4,7 @@ description: "Traveling the world while working? Here's how digital nomads can m
 pubDate: "2025-06-17"
 author: "Kusal Darshana"
 tags: ["digital nomads", "time zones", "remote work", "travel productivity"]
-image: "/blog/assets/digital-nomad-timezones.webp"
+image: "blog/assets/dn.webp"
 ---
 
 ![Remote Work](assets/dn.webp)

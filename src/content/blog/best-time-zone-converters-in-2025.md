@@ -1,9 +1,9 @@
 ---
 title: "The Top 7 Free Time Converting Tools in 2025"
 description: "Discover the top 7 time converting tools of 2025, including a breakdown of their features, accuracy, and user experience with detailed pros and cons."
-pubDate: "2025-06-13"
+pubDate: "2025-06-19"
 tags: ["time zones", "tools", "productivity", "timezone converter", "best of", "2025"]
-image: "/blog/scr.webp"
+image: "/blog/assets/scr.webp"
 ---
 
 Time zone headaches are a familiar pain, aren't they? Especially now in 2025, with more of us working remotely, collaborating with global teams, and connecting with people across continents. It can feel like you need a PhD just to figure out if you're calling your colleague in London at a reasonable hour or waking them up in the middle of the night!

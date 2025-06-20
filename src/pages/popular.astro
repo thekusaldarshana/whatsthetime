@@ -1,112 +1,50 @@
 ---
-// src/pages/popular.astro
 import Layout from '../layouts/Layout.astro';
+import { popular as conversions } from '../lib/popular.js';
 
-const conversions = [
-  { from: "Colombo", to: "New York" },
-  { from: "Tokyo", to: "Paris" },
-  { from: "Tokyo", to: "New York" },
-  { from: "Sydney", to: "San Francisco" },
-  { from: "Berlin", to: "Chicago" },
-  { from: "Mumbai", to: "Toronto" },
-  { from: "Hong Kong", to: "Los Angeles" },
-  { from: "Cairo", to: "London" },
-  { from: "Beijing", to: "Dubai" },
-  { from: "Rome", to: "Houston" },
-  { from: "Jeju", to: "Seoul" },
-  { from: "Melbourne", to: "Sydney" },
-  { from: "Rio de Janeiro", to: "São Paulo" },
-  { from: "Sapporo", to: "Tokyo" },
-  { from: "Fukuoka", to: "Tokyo" },
-  { from: "Chicago", to: "New York" },
-  { from: "Hanoi", to: "Ho Chi Minh City" },
-  { from: "Dublin", to: "London" },
-  { from: "Amsterdam", to: "London" },
-  { from: "Antalya", to: "Istanbul" },
-  { from: "Edinburgh", to: "London" },
-  { from: "Istanbul", to: "Moscow" },
-  { from: "Istanbul", to: "Dubai" },
-  { from: "Vancouver", to: "Victoria" },
-  { from: "Jeddah", to: "Cairo" },
-  { from: "New Delhi", to: "Heathrow" },
-  { from: "Los Angeles", to: "Chicago" },
-  { from: "Toronto", to: "Montreal" },
-  { from: "Mexico City", to: "Bogotá" },
-  { from: "São Paulo", to: "Buenos Aires" },
-  { from: "Bangkok", to: "Singapore" },
-  { from: "Jakarta", to: "Kuala Lumpur" },
-  { from: "Seoul", to: "Beijing" },
-  { from: "Hong Kong", to: "Shanghai" },
-  { from: "Tokyo", to: "Osaka" },
-  { from: "Sydney", to: "Auckland" },
-  { from: "Honolulu", to: "Los Angeles" },
-  { from: "Anchorage", to: "Denver" },
-  { from: "Phoenix", to: "Denver" },
-  { from: "Bogotá", to: "Lima" },
-  { from: "Caracas", to: "Bogotá" },
-  { from: "Tehran", to: "Dubai" },
-  { from: "Baghdad", to: "Istanbul" },
-  { from: "Jerusalem", to: "London" },
-  { from: "Kathmandu", to: "Delhi" },
-  { from: "Manila", to: "Hong Kong" },
-  { from: "Hanoi", to: "Beijing" },
-  { from: "Lisbon", to: "Madrid" },
-  { from: "Barcelona", to: "Paris" },
-  { from: "Athens", to: "Rome" },
-  { from: "Cancún", to: "Miami" },
-  { from: "Vancouver", to: "Los Angeles" },
-  { from: "Las Vegas", to: "New York" },
-  { from: "Miami", to: "New York" },
-  { from: "Washington D.C.", to: "London" },
-  { from: "San Francisco", to: "Tokyo" },
-  { from: "Detroit", to: "Toronto" },
-  { from: "Atlanta", to: "London" },
-  { from: "Dallas", to: "Mexico City" },
-  { from: "Lima", to: "Santiago" },
-  { from: "Buenos Aires", to: "London" },
-  { from: "Cape Town", to: "London" },
-  { from: "Copenhagen", to: "Berlin" },
-  { from: "Stockholm", to: "London" },
-  { from: "Zurich", to: "New York" },
-  { from: "Munich", to: "Dubai" },
-  { from: "Frankfurt", to: "New York" },
-  { from: "Vienna", to: "London" },
-  { from: "Budapest", to: "Paris" },
-  { from: "Warsaw", to: "Berlin" },
-  { from: "Moscow", to: "London" },
-  { from: "Dubai", to: "Sydney" },
-  { from: "Abu Dhabi", to: "London" },
-  { from: "Doha", to: "London" },
-  { from: "Singapore", to: "London" },
-  { from: "Seoul", to: "Los Angeles" },
-  { from: "Shanghai", to: "Sydney" },
-  { from: "Beijing", to: "New York" },
-  { from: "Delhi", to: "London" },
-  { from: "Mumbai", to: "Dubai" },
-  { from: "Kolkata", to: "Dubai" },
-  { from: "Bangkok", to: "London" },
-  { from: "Jakarta", to: "Sydney" },
-  { from: "Manila", to: "San Francisco" },
-  { from: "Hong Kong", to: "Dubai" },
-  { from: "Tokyo", to: "Los Angeles" },
-  { from: "Sydney", to: "London" },
-  { from: "Auckland", to: "Los Angeles" },
-  { from: "Melbourne", to: "Dubai" },
-  { from: "Cape Town", to: "Dubai" },
-  { from: "Nairobi", to: "Dubai" }
-];
+
+
+function toSlug(name) {
+  return name.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]/g, '');
+}
 ---
 
 <Layout title="Popular Time Conversions" description="Browse most searched time conversions between cities.">
   <div class="max-w-3xl mx-auto px-4 py-8">
     <h1 class="text-3xl font-bold mb-6 text-center">🌍 Popular Time Conversions</h1>
-    <div class="grid sm:grid-cols-2 gap-4">
-      {conversions.map(({ from, to }) => (
-        <a href={`/${from.toLowerCase()}-vs-${to.toLowerCase()}`} class="block bg-white dark:bg-gray-900 rounded-lg shadow p-4 hover:shadow-lg transition">
-          <h2 class="text-lg font-semibold">🕒 {from} ↔ {to}</h2>
-          <p class="text-sm text-gray-600 dark:text-gray-400">Compare current time in {from} and {to}</p>
-        </a>
-      ))}
+
+    <div class="my-10 flex justify-center">
+      <input
+        id="searchInput"
+        type="text"
+        placeholder="🔍 Search..."
+        class="w-full max-w-lg px-4 py-2 rounded-xl border border-gray-300 dark:border-white/20 bg-white/80 dark:bg-zinc-900 text-zinc-800 dark:text-white focus:outline-none focus:ring-sm focus:ring-blue-400"
+      />
+    </div>
+
+    <div id="conversionList" class="grid sm:grid-cols-2 gap-4">
+      {conversions.map(({ from, to }) => {
+        const href = `/${toSlug(from)}-vs-${toSlug(to)}`;
+        return (
+          <a href={href} class="block bg-white dark:bg-gray-900 rounded-lg shadow p-4 hover:shadow-lg transition" data-title={`${from.toLowerCase()} ${to.toLowerCase()}`}>
+            <h2 class="text-lg font-semibold">🕒 {from} ↔ {to}</h2>
+            <p class="text-sm text-gray-600 dark:text-gray-400">Compare current time in {from} and {to}</p>
+          </a>
+        );
+      })}
     </div>
   </div>
+
+  <script is:inline>
+    const input = document.getElementById('searchInput');
+    const cards = document.querySelectorAll('#conversionList > a');
+
+    input?.addEventListener('input', () => {
+      const q = input.value.toLowerCase();
+      cards.forEach(card => {
+        const t = card.dataset.title;
+        card.style.display = t.includes(q) ? 'block' : 'none';
+      });
+    });
+  </script>
 </Layout>

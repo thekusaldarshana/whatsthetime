@@ -4,6 +4,7 @@ description: "Time zones were created to bring order—but in a remote-first wor
 author: "Kusal Darshana"
 pubDate: "2025-06-17"
 tags: ["Time Zones", "DST", "Remote Work", "World Clock", "Productivity"]
+image: "/blog/assets/mess.webp"
 ---
 
 Ever sent a meeting invitation for **3 PM**, only to have half your team show up three hours early and the other half three hours late? 🤦‍♀️ If you've ever worked with people across the country or around the world, you've likely felt the headache of navigating the complex web of time zones.
@@ -13,6 +14,8 @@ But have you ever stopped to wonder **how we ended up with this system in the fi
 Let’s take a journey through the past, present, and future of time conversion!
 
 ---
+
+![mess](assets/mess.webp)
 
 ## 🚂 A Brief History of Time (Zones)
 

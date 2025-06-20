@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import TimeConverter from "../components/TimeConverter.astro";
+import MeetingPlanner from "../components/MeetingPlanner.jsx";
 import Feedback from "../components/Feedback.astro";
 import Analytics from '@vercel/analytics/astro';
 import  SpeedInsights  from "@vercel/speed-insights/astro"
@@ -11,7 +12,7 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>What's The Time Official Product Page | About US | A Beautiful Global Time Converter with all the modern Features and the Greates User Friendly Environment Ever</title>
+  <title>The Ultimate Time Zone Companion - WhatsTheTime.online | World's No 1 Global Time Converter with all the modern Features and the Greates User Friendly Environment Ever</title>
   <meta name="description" content="Convert time zones instantly with the world's most elegant and accurate global time converter. Fast, modern, and mobile-friendly." />
   <meta name="robots" content="index, follow" />
   <meta name="google-site-verification" content="gKcYaMKLR1jRCwqQfkI-tf-7WGvBxfFvjliDoRtAV8o" />
@@ -315,14 +316,14 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
           </div>
         </div>
         <details class="p-6 mt-10 mb-10 max-w-2xl mx-auto bg-glass backdrop-blur-md rounded-xl shadow-glass border border-white/10 transition-all duration-500 group">
-  <summary class="cursor-pointer text-lg font-medium list-none flex items-center justify-between text-white group-open:text-indigo-300">
-    Want to Have a Try, Just Right Now?
-    <span class="ml-2 transition-transform duration-300 group-open:rotate-90">▶</span>
-  </summary>
-  <div class="mt-10 mb-10">
-    <TimeConverter />
-  </div>
-</details>
+          <summary class="cursor-pointer text-lg font-medium list-none flex items-center justify-between text-white group-open:text-indigo-300">
+            Want to Have a Try, Just Right Now?
+            <span class="ml-2 transition-transform duration-300 group-open:rotate-90">▶</span>
+          </summary>
+          <div class="mt-10 mb-10">
+            <TimeConverter />
+          </div>
+        </details>
 
 </section>
 
@@ -376,6 +377,12 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
       <div>
         <h3 class="text-2xl font-bold mb-4">Global Meeting Planner & Scheduler</h3>
         <p class="text-gray-300 text-lg">Our Latest Product, <a href="/meeting-planner">Here you go</a>. Plan and Schedule International Meetings across time zones effortlesly. Yes, It's compatible with any Device.</p>
+        <button
+  onclick="window.open('/meeting-planner', '_blank');"
+  class="mt-6 px-4 py-2 bg-green-300 dark:bg-purple-400 text-black dark:text-zinc-950 rounded font-medium hover:bg-green-400 dark:hover:bg-purple-500 transition transition-transform duration-700"
+>
+  Schedule a Meeting Now
+</button>
       </div>
     </div>
   </div>

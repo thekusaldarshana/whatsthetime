@@ -1,5 +1,6 @@
 ---
 import TimeConverter from "../components/TimeConverter.astro";
+import NewsFeed from '../components/NewsFeed.astro';
 import Feedback from "../components/Feedback.astro";
 import WorldClockCards from '../components/WorldClockCards.astro';
 import "../styles/global.css";
@@ -12,7 +13,7 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
   <!-- Primary Meta -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Time Zone Converter & World Clock | What's The Time</title>
+  <title>Time Zone Converter, Meeting Planner & World Clock | What's The Time</title>
   <meta name="description" content="Instantly convert between time zones, check the current local time anywhere in the world, and schedule international meetings with our accurate and easy‑to‑use world clock." />
   <link rel="canonical" href="https://whatsthetime.online/" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
@@ -24,6 +25,11 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-title" content="whatsthetime" />
 <link rel="manifest" href="/site.webmanifest" />
+<!-- Splide CDN CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.3/dist/css/splide.min.css"
+  />
 
   <!-- Theme + Verification + Ads -->
   <meta name="theme-color" content="#fde047" />
@@ -280,6 +286,41 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
         </div>
       </aside>
     </div>
+
+    <section class="mt-10 pt-10">
+      <h3 class="text-hero text-neutral-800 dark:text-white/90 font-bold text-center">News</h3>
+        <NewsFeed />
+      </section>
+
+
+      <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.3/dist/js/splide.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    new Splide('#latest-slider', {
+      perPage: 3.5,
+      gap: '1rem',
+      pagination: false,
+      arrows: true,
+      breakpoints: {
+        1024: { perPage: 2.5 },
+        768: { perPage: 1.2 }
+      }
+    }).mount();
+
+    new Splide('#popular-slider', {
+      perPage: 3.5,
+      gap: '1rem',
+      pagination: false,
+      arrows: true,
+      breakpoints: {
+        1024: { perPage: 2.5 },
+        768: { perPage: 1.2 }
+      }
+    }).mount();
+  });
+</script>
+
+
 
     <!-- Dark Mode Script -->
     <script defer>

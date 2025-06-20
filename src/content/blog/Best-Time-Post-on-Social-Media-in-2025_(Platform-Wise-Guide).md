@@ -1,9 +1,9 @@
 ---
 title: "Best Time to Post on Social Media in 2025 (Platform-Wise Guide)"
 description: "Discover the best times to post on Instagram, X (Twitter), LinkedIn, and more — based on 2025's engagement patterns and time zones."
-pubDate: "2025-06-16"
+pubDate: "2025-06-17"
 tags: ["social media", "time zones", "marketing", "productivity", "best times"]
-image: "/blog/best-time-to-post-cover.jpg"
+image: "blog/assets/sm1.webp"
 ---
 
 ![Placeholder Image 1](assets/sm.webp "What's The Time")

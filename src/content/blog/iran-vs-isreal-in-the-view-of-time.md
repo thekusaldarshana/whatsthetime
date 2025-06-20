@@ -3,7 +3,7 @@ title: "The Shifting Time Zone: Why the Gap Between Israel and Iran Changes"
 description: "Discover the surprising reason the time difference between Israel and Iran isn't constant. It’s a fascinating look at Daylight Saving Time and national policy."
 pubDate: "2025-06-18"
 tags: ["time zones", "world time", "daylight saving", "geopolitics", "iran", "israel"]
-image: "/blog/israel-iran-time-difference-cover.jpg"
+image: "blog/assets/ivsi.webp"
 ---
 
 ![Iran-vs-Isreal](assets/ivsi.webp)

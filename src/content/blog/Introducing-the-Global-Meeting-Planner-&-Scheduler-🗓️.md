@@ -1,9 +1,10 @@
 ---
 title: "Introducing the Global Meeting Planner & Scheduler 🗓️"
 description: "Plan meetings across time zones effortlessly with the new meeting scheduler tool at What’s The Time. Built for remote teams, fast and mobile-first."
-pubDate: "2025-06-19"
+pubDate: "2025-06-20"
 author: "Kusal Darshana"
 tags: ["launch", "updates", "tools", "remote", "global", "meeting","scheduler","Planner","time","management"]
+image: "blog/assets/meetp.webp"
 ---
 
 We’re excited to introduce a new tool to the What's The Time family!
