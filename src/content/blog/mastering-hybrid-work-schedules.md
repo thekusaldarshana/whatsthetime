@@ -1,7 +1,7 @@
 ---
 title: "Mastering Hybrid Work Schedules: The Future of Global Teams in 2025 🌍"
 description: "Explore how hybrid work is reshaping global team collaboration, the challenges of time zones, and strategies to stay productive in 2025’s evolving work culture."
-pubDate: "2025-06-28"
+pubDate: "2025-06-21"
 author: "What's The Time Team"
 tags: ["hybrid work", "remote work", "global teams", "productivity", "time zones", "2025 trends", "meeting planning"]
 image: "/blog/assets/hybrid-work-2025.webp"
@@ -35,7 +35,9 @@ Coordinating global teams is often like solving a Rubik’s cube with time. A ma
 - **Delayed feedback cycles**
 - **Meeting fatigue from early/late calls**
 
-One of the key skills of successful hybrid teams today is **time zone awareness**. That’s why many are turning to tools like the [Global Meeting Planner](https://whatsthetime.online) — which helps identify the best meeting time for all participants.
+One of the key skills of successful hybrid teams today is **time zone awareness**. That’s why many are turning to tools like the [Global Meeting Planner](/meeting-planner) — which helps identify the best meeting time for all participants.
+
+<iframe src='https://whatsthetime.online/metEmbed' width='100%' height='500' style='border:none;' loading='lazy'></iframe>
 
 ---
 
@@ -81,6 +83,8 @@ Some teams establish 2–4 overlapping hours across time zones as their daily �
 - 📆 **Smart calendar overlays** allow side-by-side views of everyone’s availability.
 
 Don’t forget to explore free tools like [What’s The Time Converter](https://whatsthetime.online) to quickly compare any two cities or time zones in seconds.
+
+<iframe src='https://whatsthetime.online/embed' width='100%' height='400' style='border:none;' loading='lazy'></iframe>
 
 ---
 
@@ -151,7 +155,7 @@ Hybrid work isn’t the future — it’s the present. And time zones, once seen
 
 Your team’s ability to **respect, understand, and work around time differences** will define your success in this new era.
 
-If you're building a team, leading meetings, or just trying to stay sane across time zones, make sure to try our [Global Meeting Planner](https://whatsthetime.online). It’s built for exactly this future.
+If you're building a team, leading meetings, or just trying to stay sane across time zones, make sure to try our [Global Meeting Planner](/meeting-planner). It’s built for exactly this future.
 
 Let’s master time, together.
 
