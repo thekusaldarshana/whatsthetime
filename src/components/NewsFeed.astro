@@ -1,0 +1,149 @@
+---
+// BlogSlider.astro
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog');
+
+const latest = allPosts
+  .filter(post => post.data.pubDate)
+  .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
+  .slice(0, 10);
+---
+
+<!-- Placeholder -->
+<div 
+  id="blog-slider-placeholder"
+  class="min-h-[500px] flex justify-center items-center text-gray-500 dark:text-gray-400"
+  data-latest={JSON.stringify(latest)}
+>
+  Loading Feed...
+</div>
+
+<!-- Inline Script -->
+<script is:inline>
+  function createSlider(posts, id) {
+    let html = `
+      <section class="px-6 py-10 w-full">
+        <h2 class="text-2xl font-bold mb-4">⚡ Latest</h2>
+        <div class="relative">
+          <button 
+            aria-label="Scroll Left"
+            class="slider-btn-left absolute left-0 top-1/2 -translate-y-1/2 bg-neutral-900/50 text-white dark:bg-blue-600 p-2 rounded-full z-10 hover:bg-black transition"
+            data-slider-id="${id}"
+          >◀︎</button>
+
+          <div id="slider-${id}" class="flex overflow-x-auto scroll-smooth space-x-4 snap-x snap-mandatory scrollbar-hide">
+    `;
+
+    posts.forEach(post => {
+      html += `
+        <div class="snap-start flex-shrink-0 w-[300px]">
+          <a href="/blog/${post.slug}" target="_blank" class="block bg-white/70 dark:bg-white/10 border dark:border-white/10 rounded-xl shadow p-4 hover:shadow-lg transition h-[350px] overflow-hidden">
+            <img src="${post.data.image || '/default-blog.jpg'}" alt="${post.data.title}" class="rounded-md h-40 w-full object-cover mb-3" loading="lazy" />
+            <h3 class="text-lg font-semibold line-clamp-2">${post.data.title}</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mt-1 line-clamp-3">${post.data.excerpt || post.data.description || ''}</p>
+          </a>
+        </div>
+      `;
+    });
+
+    html += `
+          </div>
+          <button 
+            aria-label="Scroll Right"
+            class="slider-btn-right absolute right-0 top-1/2 -translate-y-1/2 bg-neutral-900/50 text-white dark:bg-blue-600 p-2 rounded-full z-10 hover:bg-black transition"
+            data-slider-id="${id}"
+          >▶︎</button>
+        </div>
+      </section>
+    `;
+    return html;
+  }
+
+  function scrollLeft(id) {
+    const el = document.getElementById(`slider-${id}`);
+    if (el) el.scrollBy({ left: -el.clientWidth * 0.8, behavior: 'smooth' });
+  }
+
+  function scrollRight(id) {
+    const el = document.getElementById(`slider-${id}`);
+    if (el.scrollLeft + el.clientWidth >= el.scrollWidth - 10) {
+      el.scrollTo({ left: 0, behavior: 'smooth' }); // Loop to start
+    } else {
+      el.scrollBy({ left: el.clientWidth * 0.8, behavior: 'smooth' });
+    }
+  }
+
+  function enableSwipe(id) {
+    const slider = document.getElementById(`slider-${id}`);
+    if (!slider) return;
+    let startX, scrollStart, isDown = false;
+
+    slider.addEventListener('touchstart', (e) => {
+      isDown = true;
+      startX = e.touches[0].pageX;
+      scrollStart = slider.scrollLeft;
+    });
+    slider.addEventListener('touchend', () => isDown = false);
+    slider.addEventListener('touchmove', (e) => {
+      if (!isDown) return;
+      const x = e.touches[0].pageX;
+      slider.scrollLeft = scrollStart - (x - startX);
+    });
+  }
+
+  function loadSlider() {
+    try {
+      const placeholder = document.getElementById('blog-slider-placeholder');
+      if (!placeholder) return;
+
+      const latest = JSON.parse(placeholder.dataset.latest);
+      placeholder.innerHTML = createSlider(latest, 'latest');
+      placeholder.classList.remove('flex', 'justify-center', 'items-center');
+
+      document.querySelectorAll('.slider-btn-left').forEach(btn =>
+        btn.addEventListener('click', () => scrollLeft(btn.dataset.sliderId))
+      );
+      document.querySelectorAll('.slider-btn-right').forEach(btn =>
+        btn.addEventListener('click', () => scrollRight(btn.dataset.sliderId))
+      );
+
+      enableSwipe('latest');
+
+      setInterval(() => scrollRight('latest'), 7000);
+    } catch (err) {
+      console.error('Slider load error:', err);
+    }
+  }
+
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(loadSlider, { timeout: 2000 });
+  } else {
+    window.addEventListener('DOMContentLoaded', () => setTimeout(loadSlider, 1500));
+  }
+</script>
+
+<style is:global>
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+</style>
+
+<style>
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+  .line-clamp-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+</style>

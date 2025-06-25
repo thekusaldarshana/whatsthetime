@@ -1,0 +1,421 @@
+---
+import Analytics from '@vercel/analytics/astro';
+import SpeedInsights from "@vercel/speed-insights/astro";
+import Feedback from "../components/Feedback.astro";
+import "../styles/global.css";
+
+const {
+  title = "What's The Time – Global Time Converter, World Clock Meeting Planner & Scheduler",
+  description = "Easily convert time zones and view current times anywhere in the world with the No #1 Fastest Global Time Converter"
+} = Astro.props;
+---
+
+<html lang="en" class="scroll-smooth dark">
+<head>
+  <!-- Primary Meta -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href="https://whatsthetime.online/" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+
+  <!-- Favicons & Manifest (no /public) -->
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="whatsthetime" />
+  <link rel="manifest" href="/site.webmanifest" />
+
+  <!-- Theme + Verification + Ads -->
+  <meta name="theme-color" content="#fde047" />
+  <meta name="google-site-verification" content="gKcYaMKLR1jRCwqQfkI-tf-7WGvBxfFvjliDoRtAV8o" />
+  <meta name="google-adsense-account" content="ca-pub-6381695271630022" />
+
+  <!-- Open Graph for Social Sharing -->
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content="https://whatsthetime.online/" />
+  <meta property="og:site_name" content="What's The Time" />
+  <meta property="og:type" content="WebApplication" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:image" content="https://whatsthetime.online/og-preview.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="A preview of the What's The Time global time converter interface." />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content="https://whatsthetime.online/og-preview.png" />
+  <meta name="twitter:image:alt" content="A preview of the What's The Time global time converter interface." />
+
+  <!-- JSON-LD Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "What's The Time",
+    "url": "https://whatsthetime.online/",
+    "description": "An accurate and easy‑to‑use time zone converter, international meeting planner & scheduler and world clock to check local times globally. Mobile optimized, Compatible with any device.",
+    "applicationCategory": "Utilities",
+    "operatingSystem": "All",
+    "browserRequirements": "Requires JavaScript and a modern web browser.",
+    "inLanguage": "en-US",
+    "screenshot": "https://whatsthetime.online/og-preview.png",
+    "featureList": [
+      "Global Time Zone Conversion",
+      "World Clock Display",
+      "Meeting Scheduler Across Time Zones",
+      "Daylight Saving Time Awareness"
+    ],
+    "author": {
+      "@type": "Organization",
+      "name": "What's The Time",
+      "url": "https://whatsthetime.online/"
+    },
+    "mainEntity": {
+      "@type": "WebSite",
+      "url": "https://whatsthetime.online/",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://whatsthetime.online/?search={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+  }
+  </script>
+
+  <!-- Preconnects -->
+  <link rel="preconnect" href="https://mn-tz.com" crossorigin />
+  <link rel="preconnect" href="https://cmp.gatekeeperconsent.com" crossorigin />
+  <link rel="preconnect" href="https://the.gatekeeperconsent.com" crossorigin />
+  <link rel="preconnect" href="//www.ezojs.com" crossorigin />
+
+  <!-- Async Ads & Consent -->
+<!-- Disabled
+  <script async src="https://mn-tz.com/NDI0NDE2.js?t=424416" data-noptimize="1" data-cfasync="false" data-wpfc-render="false"></script>
+  <script async src="https://cmp.gatekeeperconsent.com/min.js" data-cfasync="false"></script>
+  <script async src="https://the.gatekeeperconsent.com/cmp.min.js" data-cfasync="false"></script>
+  <script async src="//www.ezojs.com/ezoic/sa.min.js"></script>
+  <script>
+    window.ezstandalone = window.ezstandalone || {};
+    ezstandalone.cmd = ezstandalone.cmd || [];
+  </script>
+
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6381695271630022" crossorigin="anonymous"></script>
+ -->
+</head>
+
+
+  <body class="bg-[#fbfceb] text-[#1a1a1a] transition-colors duration-300 dark:bg-[#0b0f19] dark:text-white">
+
+    <header class="w-full px-4 py-2 flex items-center justify-between bg-white dark:bg-baseDark shadow-sm relative z-50">
+  <!-- Title -->
+  <div class="flex items-center gap-2">
+    <a href="/" class="text-2xl font-semibold text-grey-800 dark:text-green-500">⏱ What's The Time</a>
+  </div>
+
+  <!-- Desktop Nav Buttons -->
+  <div class="hidden md:grid md:grid-cols-5 gap-10 items-center px-4 py-2 bg-white/10 backdrop-blur-md border border-white/50 rounded-full">
+  <div class="relative group">
+    <a href="/landing" target="_blank" class="text-lg font-semibold tracking-tight hover:scale-110">🏠</a>
+    <div class="tooltip">Home</div>
+  </div>
+  <div class="relative group">
+    <a href="/popular" target="_blank" class="text-lg font-semibold tracking-tight">🌍</a>
+    <div class="tooltip">Popular</div>
+  </div>
+  
+
+  <!-- Desktop Tools Dropdown -->
+      <div class="relative group cursor-pointer">
+        <button class="flex items-center gap-1 text-lg font-semibold tracking-tight">
+          🛠️ 
+          <svg
+            class="w-4 h-4 transform transition-transform duration-300 group-hover:rotate-180"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+
+        <div
+          class="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 bg-white dark:bg-gray-900 backdrop-blur-md border border-white/20 rounded-xl shadow-xl scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transform transition-all duration-300 origin-top z-50"
+        >
+          <a
+            href="/"
+            target="_blank"
+            class="block px-4 py-3 hover:bg-gray-100 dark:hover:bg-white/10 text-sm font-medium rounded-t-xl"
+          >
+            ⏱ Converter
+          </a>
+          <a
+            href="/landing#embed"
+            class="block px-4 py-3 hover:bg-gray-100 dark:hover:bg-white/10 text-sm font-medium rounded-t-xl"
+          >
+            🧩 Widget
+          </a>
+          <a
+            href="/meeting-planner"
+            target="_blank"
+            class="block px-4 py-3 hover:bg-gray-100 dark:hover:bg-white/10 text-sm font-medium rounded-b-xl"
+          >
+            📅 Meeting Planner
+          </a>
+        </div>
+      </div>
+
+
+  
+  <div class="relative group">
+    <a href="/blog" target="_blank" class="text-lg font-semibold tracking-tight">📚</a>
+    <div class="tooltip">Blog</div>
+  </div>
+  <div class="relative group">
+    <a href="https://coff.ee/thekusaldarshana" target="_blank" class="text-lg font-semibold tracking-tight">❤️</a>
+    <div class="tooltip">Support</div>
+  </div>
+</div>
+
+  <!-- Theme toggle -->
+  <div class="flex justify-end px-4 py-3">
+    <button id="theme-toggle" class="px-3 py-1 rounded-full backdrop-blur bg-white/10 text-white border border-white/20 shadow-glass hover:scale-105 transition-all duration-300">
+      🌓
+    </button>
+  </div>
+
+  <!-- Mobile Bottom Nav Buttons -->
+<div class="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 md:hidden px-4 py-2 bg-white/20 backdrop-blur-md border border-white/40 rounded-full flex gap-6 text-lg font-semibold tracking-tight shadow-lg">
+  <div class="relative group">
+    <a href="/landing" target="_blank" class="text-lg font-semibold tracking-tight hover:scale-110">🏠</a>
+    <div class="tooltip">Home</div>
+  </div>
+  <div class="relative group">
+    <a href="/popular" class="text-lg font-semibold tracking-tight">🌍</a>
+    <div class="tooltip">Popular</div>
+  </div>
+  
+
+  <!-- Desktop Tools Dropdown -->
+      <div class="relative group cursor-pointer">
+        <button class="flex items-center gap-1 text-lg font-semibold tracking-tight">
+          🛠️ 
+          <svg
+            class="w-4 h-4 transform transition-transform duration-300 group-hover:rotate-180"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+
+        <div
+          class="absolute bottom-4 mb-2 left-1/2 -translate-x-1/2 mt-2 w-48 bg-white dark:bg-gray-900 backdrop-blur-md border border-white/20 rounded-xl shadow-xl scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transform transition-all duration-300 z-50"
+        >
+          <a
+            href="/"
+            target="_blank"
+            class="block px-4 py-3 hover:bg-gray-100 dark:hover:bg-white/10 text-sm font-medium rounded-t-xl"
+          >
+            ⏱ Converter
+          </a>
+          <a
+            href="/landing#embed"
+            class="block px-4 py-3 hover:bg-gray-100 dark:hover:bg-white/10 text-sm font-medium rounded-t-xl"
+          >
+            🧩 Widget
+          </a>
+          <a
+            href="/meeting-planner"
+            target="_blank"
+            class="block px-4 py-3 hover:bg-gray-100 dark:hover:bg-white/10 text-sm font-medium rounded-b-xl"
+          >
+            📅 Meeting Planner
+          </a>
+        </div>
+      </div>
+
+
+  
+  <div class="relative group">
+    <a href="/blog" target="_blank" class="text-lg font-semibold tracking-tight">📚</a>
+    <div class="tooltip">Blog</div>
+  </div>
+  <div class="relative group">
+    <a href="https://coff.ee/thekusaldarshana" target="_blank" class="text-lg font-semibold tracking-tight">❤️</a>
+    <div class="tooltip">Support</div>
+  </div>
+</div>
+</header>
+
+    <!-- Layout with Sidebar Ad -->
+    <div class="flex flex-col lg:flex-row gap-6 px-4 mt-6 animate-fadeIn">
+      <!-- Main Content -->
+      <main class="flex-1">
+        <slot />
+      </main>
+
+      <!-- Sponsored Ad Sidebar -->
+<!-- Disabled
+      <aside id="sponsored-sidebar" class="w-full lg:w-72">
+        <div class="bg-yellow-50 dark:bg-gray-900 border border-yellow-300 dark:border-white/10 rounded-lg p-4 shadow text-sm text-gray-800 dark:text-gray-200">
+          <p class="font-semibold mb-2 text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">
+            Sponsored
+          </p>
+          <div id="sponsor-ad-slot" class="text-center min-h-[380px]"></div>
+        </div>
+      </aside>
+ -->
+    </div>
+
+    <!-- 🟨 Sponsored Inline Ad Card -->
+<!-- Disabled
+<div class="mt-8 mb-10 px-4">
+  <div class="bg-yellow-50 dark:bg-gray-900 border border-yellow-300 dark:border-white/10 rounded-lg p-4 shadow text-sm text-gray-800 dark:text-gray-200">
+    <p class="font-semibold mb-2 text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">
+      Sponsored
+    </p>
+    <div class="text-center min-h-[180px]">
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6381695271630022"
+     crossorigin="anonymous"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-f7+5u+4t-da+6l"
+     data-ad-client="ca-pub-6381695271630022"
+     data-ad-slot="6356086362"></ins>
+<script defer>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+    </div>
+  </div>
+</div>
+ -->
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-200 dark:border-white/10 bg-slate-900 text-sm py-10 px-4 md:px-12 mt-10">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-6 text-gray-600 dark:text-gray-400">
+        <div>
+          <a href="/" class="font-bold text-gray-800 dark:text-white mb-2">⏱ What's The Time</a>
+          <p class="max-w-md">Modern time converter helping global citizens work, meet, and plan across time zones. <span> <a href="/">© 2025 whatsthetime.</a> </span> Made with ❤️ and ⚡ in Sri Lanka.</p>
+        </div>
+        <div class="flex gap-6 flex-wrap">
+          <div>
+            <p class="font-semibold text-gray-700 dark:text-white mb-1">Quick Links</p>
+            <ul class="space-y-1">
+              <li><a href="/" class="hover:underline">Converter</a></li>
+              <li><a href="/blog" class="hover:underline">Blog</a></li>
+              <li><a href="/popular" class="hover:underline">Popular</a></li>
+              <li><a href="/embed" class="hover:underline">Embed</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="font-semibold text-gray-700 dark:text-white mb-1">Follow</p>
+            <ul class="space-y-1">
+              <li><a href="https://www.github.com/thekusaldarshana/whatsthetime" target="_blank" class="hover:underline">GitHub</a></li>
+              <li><a href="https://www.x.com/KusalDarshana75" class="hover:underline">X (Twitter)</a></li>
+              <li><a href="https://www.linkedin.com/in/kusaldarshana" class="hover:underline">Linkedin</a></li>
+              <li><a href="https://whatsthetime.hashnode.dev" target = "_blank" class="hover:underline">Hashnode</a></li>
+              <li><a href="https://www.coff.ee/thekusaldarshana" class="hover:underline">Support US</a></li>
+            </ul>
+          </div>
+        </div>
+        
+
+        <!-- Share -->
+        <div class="mt-10">
+        <label class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">Share Now</label>
+        <script src="https://cdn.commoninja.com/sdk/latest/commonninja.js" defer></script>
+<div class="commonninja_component pid-592a7477-6acb-4336-8e8e-38271c7b5e5b max-w-60"></div>
+      </div>
+    </footer>
+
+    <!-- Dark Mode Script -->
+    <script defer>
+      const root = document.documentElement;
+      const themeToggle = document.getElementById('theme-toggle');
+      const userTheme = localStorage.getItem('theme');
+      const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+      if (userTheme === 'dark' || (!userTheme && systemPrefersDark)) {
+        root.classList.add('dark');
+      }
+
+      themeToggle?.addEventListener('click', () => {
+        root.classList.toggle('dark');
+        localStorage.setItem('theme', root.classList.contains('dark') ? 'dark' : 'light');
+      });
+    </script>
+
+    
+
+    <style>
+      body::before {
+        content: '';
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80vw;
+        height: 80vw;
+        background: radial-gradient(circle, rgba(0, 255, 150, 0.08), transparent 60%);
+        z-index: 0;
+        pointer-events: none;
+      }
+
+      select:focus, input:focus, button:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.6);
+        border-color: rgba(34, 197, 94, 1);
+      }
+    </style>
+
+    <script defer data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="thekusaldarshana" data-description="Support me on Buy me a coffee!" data-message="Glad to See you Here! Thank you for Visiting." data-color="#40DCA5" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+
+    <Feedback />
+    <Analytics />
+    <SpeedInsights />
+  </body>
+
+  <!-- 🕹️ Delayed Ad Loading -->
+    <script>
+      let adLoaded = false;
+      function loadSidebarAd() {
+        if (adLoaded) return;
+        adLoaded = true;
+
+        const adScript = document.createElement('script');
+        adScript.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6381695271630022";
+        adScript.async = true;
+        adScript.crossOrigin = "anonymous";
+        document.head.appendChild(adScript);
+
+        const adSlot = document.createElement('ins');
+        adSlot.className = "adsbygoogle";
+        adSlot.style.display = "block";
+        adSlot.setAttribute("data-ad-client", "ca-pub-6381695271630022");
+        adSlot.setAttribute("data-ad-slot", "7062749097");
+        adSlot.setAttribute("data-ad-format", "auto");
+        adSlot.setAttribute("data-full-width-responsive", "true");
+
+        document.getElementById("sponsor-ad-slot").appendChild(adSlot);
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      }
+
+      window.addEventListener("scroll", loadSidebarAd, { once: true });
+      window.addEventListener("pointermove", loadSidebarAd, { once: true });
+    </script>
+</html>
+

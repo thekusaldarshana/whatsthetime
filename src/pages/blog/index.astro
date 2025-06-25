@@ -1,0 +1,393 @@
+---
+import { getCollection } from 'astro:content';
+import "../../styles/global.css";
+import Feedback from "../../components/Feedback.astro";
+const posts = (await getCollection('blog'))
+  .filter(post => post.data.pubDate) // ensure all have a pubDate
+  .sort((a, b) => {
+    const dateA = new Date(a.data.pubDate);
+    const dateB = new Date(b.data.pubDate);
+    return dateB.getTime() - dateA.getTime(); // Newest first
+  });
+
+import Analytics from '@vercel/analytics/astro'
+import SpeedInsights from "@vercel/speed-insights/astro"
+---
+
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Official Blog | What's The Time | Everything you should know about What's The Time and Modern Time converting. Join our blog to Discover more interests.</title>
+  <meta name="description" content="Convert time zones instantly with the world's most elegant and accurate global time converter. Fast, modern, and mobile-friendly." />
+  <meta name="robots" content="index, follow" />
+  <meta name="google-site-verification" content="gKcYaMKLR1jRCwqQfkI-tf-7WGvBxfFvjliDoRtAV8o" />
+  <meta name="theme-color" content="#fde047" />
+  <meta name="google-adsense-account" content="ca-pub-6381695271630022" />
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" href="/public/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/public/favicon.svg" />
+<link rel="shortcut icon" href="/public/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/public/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="whatsthetime" />
+<link rel="manifest" href="/public/site.webmanifest" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="What's The Time – Global Time Converter" />
+  <meta property="og:description" content="A modern, beautiful global time converter with a sunny UI and powerful features." />
+  <meta property="og:image" content="/og-preview.png" />
+  <meta property="og:url" content="https://whatsthetime.online/" />
+  <meta property="og:type" content="website" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="What's The Time – Global Time Converter" />
+  <meta name="twitter:description" content="Convert time zones beautifully with a sunny, mobile-first experience." />
+  <meta name="twitter:image" content="/og-preview.png" />
+
+  <!-- Scrollbar Styling -->
+  <style>
+    ::-webkit-scrollbar {
+      display: none;
+    }
+    html {
+      -ms-overflow-style: none; /* IE & Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+  </style>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "What's The Time",
+      "url": "https://whatsthetime.online",
+      "description": "Official Blog of What's The Time. Everything you should know about What's The Time and Modern Time converting. Join our blog to Discover more interests.",
+      "applicationCategory": "Utility",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript",
+      "inLanguage": "en",
+      "author": {
+        "@type": "Person",
+        "name": "thekusaldarshana"
+      }
+    }
+  </script>
+
+  <!-- Ad Script -->
+<!-- Disabled
+  <script data-noptimize="1" data-cfasync="false" data-wpfc-render="false">
+    (function () {
+      var script = document.createElement("script");
+      script.async = 1;
+      script.src = 'https://mn-tz.com/NDI0NDE2.js?t=424416';
+      document.head.appendChild(script);
+    })();
+  </script>
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6381695271630022"
+     crossorigin="anonymous"></script>
+ -->
+
+</head>
+
+  <body class="bg-white dark:bg-[#0f0f0f] text-gray-900 dark:text-white transition-colors duration-300 font-sans">
+      <!-- Navbar -->
+      <nav class="flex justify-between items-center px-6 py-4 shadow-lg sticky top-0 backdrop-blur-md z-50 bg-white/30 dark:bg-black/30">
+  <!-- Title -->
+  <a href="/" class="text-2xl font-bold tracking-tight">⏱ What's The Time</a>
+
+  <!-- Desktop Nav Buttons -->
+  <div class="p-2 grid md:grid-cols-5 gap-10 items-center bg-white/10 rounded-full border border-white/50 bg-white/10
+              hidden md:grid absolute md:static bottom-4 left-1/2 transform md:transform-none -translate-x-1/2 md:translate-x-0
+              w-[95%] md:w-auto mx-auto backdrop-blur-lg backdrop-saturate-150 shadow-lg md:shadow-none">
+    <a href="/landing" target="blank" class="text-lg font-semibold tracking-tight text-center">About</a>
+    <a href="/popular" target="blank" class="text-lg font-semibold tracking-tight text-center">Popular</a>
+    
+    <!-- Desktop Tools Dropdown -->
+      <div class="relative group cursor-pointer">
+        <button class="flex items-center gap-1 text-lg font-semibold tracking-tight">
+          Tools
+          <svg
+            class="w-4 h-4 transform transition-transform duration-300 group-hover:rotate-180"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+
+        <div
+          class="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 bg-white dark:bg-zinc-900 backdrop-blur-md border border-white/20 rounded-xl shadow-xl scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transform transition-all duration-300 origin-top z-50"
+        >
+          <a
+            href="/landing#embed"
+            target="_blank"
+            class="block px-4 py-3 hover:bg-gray-100 dark:hover:bg-white/10 text-sm font-medium rounded-t-xl"
+          >
+            ⏱ Converter
+          </a>
+          <a
+            href="/landing#embed"
+            target="_blank"
+            class="block px-4 py-3 hover:bg-gray-100 dark:hover:bg-white/10 text-sm font-medium rounded-t-xl"
+          >
+            🧩 Widget
+          </a>
+          <a
+            href="/meeting-planner"
+            target="_blank"
+            class="block px-4 py-3 hover:bg-gray-100 dark:hover:bg-white/10 text-sm font-medium rounded-b-xl"
+          >
+            📅 Meeting Planner
+          </a>
+        </div>
+      </div>
+
+
+
+    <a href="/blog" class="text-lg font-semibold tracking-tight text-center">Blog</a>
+    <a href="https://www.coff.ee/thekusaldarshana" target="blank" class="text-lg font-semibold tracking-tight text-center">Support</a>
+  </div>
+
+  <div class="flex gap-3">
+  <!-- Live Clock -->
+  <div class="flex items-center space-x-6">
+    <span id="live-time" class="text-2xl font-mono bg-white/10 hover:bg-white/20 p-2 rounded-lg">--:--:--</span>
+  </div>
+
+  <button id="theme-toggle" class="p-2 rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-black text-black dark:text-white shadow-md">
+          🌓
+  </button>
+</div>
+</nav>
+
+<!-- Mobile Bottom Nav Buttons -->
+<div class="fixed bottom-10 mb-4 mx-auto left-1/2 transform -translate-x-1/2 z-50 md:hidden px-4 py-2 bg-white/20 backdrop-blur-md border border-whites/40 rounded-full flex gap-6 text-lg font-semibold tracking-tight shadow-lg">
+  <a href="/landing" target="blank" class="text-lg font-semibold tracking-tight text-center">About</a>
+    <a href="/popular" target="blank" class="text-lg font-semibold tracking-tight text-center">Popular</a>
+    
+    <!-- Tools Dropdown Button for Mobile -->
+      <div class="relative">
+        <button
+          onclick="toggleMobileToolsDropdown()"
+          class="flex items-center gap-1 text-lg font-semibold tracking-tight"
+        >
+          Tools
+          <svg
+            id="mobileToolsArrow"
+            class="w-4 h-4 transform transition-transform duration-300"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+
+        <div
+          id="mobileToolsDropdown"
+          class="hidden flex-col absolute bottom-full left-1/2 -translate-x-1/2 bg-white/80 dark:bg-zinc-900 backdrop-blur-md border border-white/30 rounded-xl shadow-lg text-center z-50 transform transition-all duration-300"
+        >
+          <a
+            href="/landing#embed"
+            target="_blank"
+            class="px-4 py-3 text-sm font-medium rounded-xl"
+          >
+            Converter
+          </a>
+          <a
+            href="/landing#embed"
+            target="_blank"
+            class="px-4 py-3 text-sm font-medium rounded-xl"
+          >
+            Widget
+          </a>
+          <a
+            href="/meeting-planner"
+            target="_blank"
+            class="px-2 py-3 text-sm font-medium rounded-xl mt-2"
+          >
+            MeetingPlanner
+          </a>
+        </div>
+      </div>
+
+
+    <a href="/blog" class="text-lg font-semibold tracking-tight text-center">Blog</a>
+</div>
+
+<script defer is:inline>
+  let mobileToolsOpen = false;
+  function toggleMobileToolsDropdown() {
+    const dropdown = document.getElementById("mobileToolsDropdown");
+    const arrow = document.getElementById("mobileToolsArrow");
+    mobileToolsOpen = !mobileToolsOpen;
+    dropdown.classList.toggle("hidden", !mobileToolsOpen);
+    dropdown.classList.toggle("scale-100", mobileToolsOpen);
+    dropdown.classList.toggle("opacity-100", mobileToolsOpen);
+    arrow.classList.toggle("rotate-180", mobileToolsOpen);
+  }
+</script>
+
+
+<div class="my-10 flex justify-center">
+  <input
+    id="searchInput"
+    type="text"
+    placeholder="🔍 Search..."
+    class="w-full max-w-lg px-4 py-2 rounded-xl border border-gray-300 dark:border-white/20 bg-white/80 dark:bg-zinc-900 text-zinc-800 dark:text-white focus:outline-none focus:ring-sm focus:ring-blue-400"
+  />
+</div>
+
+        
+
+    <!-- Blog Posts -->
+    <main class="mx-auto px-4 md:px-12 mt-7 pb-20">
+      <div id="postContainer" class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {posts.map((post) => (
+          <a
+            href={`/blog/${post.slug}/`}
+            class="group rounded-2xl p-6 bg-white/70 dark:bg-white/10 shadow-xl backdrop-blur-md transition hover:scale-[1.02] border border-gray-200 dark:border-white/10"
+            data-title={post.data.title.toLowerCase() + ' ' + post.data.description.toLowerCase()}
+          >
+
+          {post.data.image && (
+    <img 
+      src={post.data.image} 
+      alt={post.data.title} 
+      class="mb-4 w-full h-40 object-cover rounded-lg"
+      loading="lazy"
+    />
+  )}
+            <h2 class="text-xl font-semibold mb-2 group-hover:underline">{post.data.title}</h2>
+            <p class="text-gray-600 dark:text-gray-400 text-sm mb-1">{post.data.description}</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">{post.data.pubDate}</p>
+            <div class="mt-2 flex flex-wrap gap-2">
+              {post.data.tags.map(tag => (
+                <span class="text-xs bg-gray-100 dark:bg-white/10 text-gray-600 dark:text-gray-300 px-2 py-0.5 rounded-full">
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          </a>
+        ))}
+      </div>
+</div>
+    </main>
+
+    <!-- 🟨 Sponsored Inline Ad Card -->
+<!-- Disabled
+<div class="mt-8 mb-10 px-4">
+  <div class="bg-yellow-50 dark:bg-gray-900 border border-yellow-300 dark:border-white/10 rounded-lg p-4 shadow text-sm text-gray-800 dark:text-gray-200">
+    <p class="font-semibold mb-2 text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">
+      Sponsored
+    </p>
+    <div class="text-center min-h-[280px]">
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6381695271630022"
+        crossorigin="anonymous"></script>
+      <ins class="adsbygoogle"
+        style="display:block; text-align:center;"
+        data-ad-layout="in-article"
+        data-ad-format="fluid"
+        data-ad-client="ca-pub-6381695271630022"
+        data-ad-slot="7477596347"></ins>
+      <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  </div>
+</div>
+ -->
+
+<Feedback />
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-[#111] text-sm py-10 px-4 md:px-12">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-6 text-gray-600 dark:text-gray-400">
+        <div>
+          <p class="font-bold text-gray-800 dark:text-white mb-2">⏱ What's The Time</p>
+          <p class="max-w-md">Modern time converter helping global citizens work, meet, and plan across time zones. © 2025 whatsthetime. Made with ❤️ and ⚡ in Sri Lanka.</p>
+        </div>
+        <div class="flex gap-6 flex-wrap">
+          <div>
+            <p class="font-semibold text-gray-700 dark:text-white mb-1">Quick Links</p>
+            <ul class="space-y-1">
+              <li><a href="/" class="hover:underline">Home</a></li>
+              <li><a href="/blog" class="hover:underline">Blog</a></li>
+              <li><a href="/about" class="hover:underline">About</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="font-semibold text-gray-700 dark:text-white mb-1">Follow</p>
+            <ul class="space-y-1">
+              <li><a href="https://www.github.com/thekusaldarshana/whatsthetime" target="_blank" class="hover:underline">GitHub</a></li>
+              <li><a href="https://www.x.com/KusalDarshana75" class="hover:underline">X (Twitter)</a></li>
+              <li><a href="https://www.linkedin.com/in/kusaldarshana" class="hover:underline">Linkedin</a></li>
+              <li><a href="https://whatsthetime.hashnode.dev" target = "_blank" class="hover:underline">Hashnode</a></li>
+              <li><a href="https://www.coff.ee/thekusaldarshana" class="hover:underline">Support US</a></li>
+            </ul>
+          </div>
+        </div>
+        <!-- share -->
+        <div class="mt-10">
+        <label class="block text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">Share Now</label>
+        <script src="https://cdn.commoninja.com/sdk/latest/commonninja.js" defer></script>
+<div class="commonninja_component pid-592a7477-6acb-4336-8e8e-38271c7b5e5b max-w-60"></div>
+      </div>
+    </footer>
+
+    <!-- JS -->
+    <script>
+      // Theme toggle
+      const toggle = document.getElementById('theme-toggle');
+      toggle?.addEventListener('click', () => {
+        const html = document.documentElement;
+        const isDark = html.classList.toggle('dark');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      });
+
+      // Init theme from localStorage
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'dark') document.documentElement.classList.add('dark');
+
+      // Blog search
+      const searchInput = document.getElementById('searchInput');
+      const cards = document.querySelectorAll('#postContainer > a');
+
+      searchInput?.addEventListener('input', () => {
+        const query = searchInput.value.toLowerCase();
+        cards.forEach(card => {
+          const text = card.dataset.title;
+          card.style.display = text.includes(query) ? 'block' : 'none';
+        });
+      });
+    </script>
+
+    <!-- Live Clock Script -->
+    <script is:inline>
+      function updateLiveTime() {
+        const el = document.getElementById("live-time");
+        const now = new Date();
+        el.textContent = now.toLocaleTimeString();
+      }
+
+      updateLiveTime();
+      setInterval(updateLiveTime, 1000);
+    </script>
+
+    <script defer data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="thekusaldarshana" data-description="Support me on Buy me a coffee!" data-message="Glad to See you Here! Thank you for Visiting." data-color="#40DCA5" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+
+    <!-- Analytics components -->
+  <Analytics />
+  <SpeedInsights />
+  </body>
+</html>
