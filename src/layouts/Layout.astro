@@ -2,6 +2,7 @@
 import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from "@vercel/speed-insights/astro";
 import Feedback from "../components/Feedback.astro";
+import ChargeDoseBanner from "../components/ChargeDoseBanner.astro";
 import "../styles/global.css";
 
 const {
@@ -260,6 +261,8 @@ const {
   </div>
 </div>
 </header>
+
+<ChargeDoseBanner />
 
     <!-- Layout with Sidebar Ad -->
     <div class="flex flex-col lg:flex-row gap-6 px-4 mt-6 animate-fadeIn">
