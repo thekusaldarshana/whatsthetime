@@ -1,0 +1,76 @@
+---
+// No props needed for now
+---
+
+<style>
+  #chargedose-banner {
+    width: 100%;
+    background: #1f1f1f;
+    color: white;
+    text-align: center;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    position: relative;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #333;
+  }
+
+  #chargedose-banner a {
+    color: #00e0ff;
+    text-decoration: underline;
+    margin-left: 0.35rem;
+  }
+
+  #chargedose-close {
+    margin-left: auto;
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0 1rem;
+  }
+
+  @media (max-width: 480px) {
+    #chargedose-banner {
+      font-size: 0.85rem;
+      padding: 0.5rem 0.75rem;
+    }
+
+    #chargedose-close {
+      padding: 0 0.75rem;
+    }
+  }
+</style>
+
+<script>
+  if (typeof window !== 'undefined') {
+    // Prevent banner from showing again once closed
+    window.addEventListener('DOMContentLoaded', () => {
+      const banner = document.getElementById('chargedose-banner');
+      const closeBtn = document.getElementById('chargedose-close');
+      if (localStorage.getItem('hideChargeDoseBanner') === '1') {
+        banner?.remove();
+      }
+      closeBtn?.addEventListener('click', () => {
+        localStorage.setItem('hideChargeDoseBanner', '1');
+        banner?.remove();
+      });
+    });
+  }
+</script>
+
+<div id="chargedose-banner">
+  🚀 <span style="margin-left: 0.5rem;">
+    <strong>New:</strong>
+    <a href="https://chargedose.whatsthetime.online" target="_blank">
+      ChargeDose for Windows
+    </a> — Smart battery reminders!
+  </span>
+  <button id="chargedose-close" aria-label="Close banner">&times;</button>
+</div>
