@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import "../../styles/global.css";
 import Feedback from "../../components/Feedback.astro";
+import ChargeDoseBanner from "../../components/ChargeDoseBanner.astro";
 const posts = (await getCollection('blog'))
   .filter(post => post.data.pubDate) // ensure all have a pubDate
   .sort((a, b) => {
@@ -237,6 +238,8 @@ import SpeedInsights from "@vercel/speed-insights/astro"
     arrow.classList.toggle("rotate-180", mobileToolsOpen);
   }
 </script>
+
+<ChargeDoseBanner />
 
 
 <div class="my-10 flex justify-center">
