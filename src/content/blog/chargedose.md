@@ -1,7 +1,7 @@
 ---
 title: "Introducing ChargeDose: The Smart Battery Reminder for Windows Users"
 description: "From the creators of What's The Time, ChargeDose is here to protect your laptop battery health with intelligent charge notifications. Download version 2.0 now!"
-pubDate: "2025-06-28"
+pubDate: "2025-06-29"
 author: "What's The Time Team"
 tags: ["chargedose", "battery health", "windows tools", "laptop care", "infinity minds"]
 image: "/blog/assets/battery.webp"
@@ -69,20 +69,6 @@ No ads. No spyware. Just mindful tech.
 
 ---
 
-## 🧠 Designed by Thinkers, for Thinkers
-
-At Infinity Minds, we’re not just building tools. We’re building *daily mindfulness companions* that guide people gently, not addict them.
-
-ChargeDose is a tiny step in that direction — a product designed for **meaningful interaction**, not dopamine spikes.
-
-Like our vision for [Remein](https://whatsthetime.online/comingsoon), ChargeDose brings value through:
-
-- ⚖️ Balance: plug/unplug only when needed  
-- ⚙️ Simplicity: no clunky UIs  
-- 🤝 Trust: 100% offline, no background data mining  
-
----
-
 ## 🌐 A Product From the What's The Time Universe
 
 If you've been using our tools like:
@@ -115,7 +101,6 @@ We’re just getting started. Here’s what the roadmap looks like:
 - ⌨️ **Custom thresholds** for power users
 - 🔔 Smarter notifications (time-based, sleep-aware)
 - 🧪 MacOS/Linux versions (experimental)
-- 🧰 Add it to [InfinityMinds.online](https://whatsthetime.online/comingsoon) in the future
 
 
 ---
@@ -146,4 +131,4 @@ and give your battery a second life.
 
 ---
 
-*Built by dreamers at Infinity Minds. Crafted in Sri Lanka 🇱🇰.*
+*Built byt Infinity Minds (Creators of whatsthetime). Crafted in Sri Lanka 🇱🇰.*
