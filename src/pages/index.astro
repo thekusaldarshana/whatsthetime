@@ -3,6 +3,7 @@ import TimeConverter from "../components/TimeConverter.astro";
 import NewsFeed from '../components/NewsFeed.astro';
 import Feedback from "../components/Feedback.astro";
 import WorldClockCards from '../components/WorldClockCards.astro';
+import ChargeDoseBanner from "../components/ChargeDoseBanner.astro";
 import "../styles/global.css";
 import Analytics from '@vercel/analytics/astro'
 import  SpeedInsights  from "@vercel/speed-insights/astro"
@@ -267,6 +268,8 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
   </div>
 </div>
 </header>
+
+<ChargeDoseBanner />
 
     <!-- Converter + Ad Layout -->
     <div class="flex flex-col lg:flex-row gap-6 px-4 mt-6 animate-fadeIn">
