@@ -1,7 +1,7 @@
 ---
 title: "Top 10 Productivity Hacks for Remote Teams Across Time Zones (2025 Update) ⏱️"
 description: "Discover practical, updated productivity hacks to help remote teams thrive across time zones in 2025. Work smarter, meet better, and get more done—globally."
-pubDate: "2025-08-15"
+pubDate: "2025-06-28"
 author: "What's The Time Team"
 tags: ["remote work", "productivity", "global teams", "time zones", "asynchronous", "work hacks", "2025 trends"]
 image: "/blog/assets/productivity-hacks-remote-2025.webp"
