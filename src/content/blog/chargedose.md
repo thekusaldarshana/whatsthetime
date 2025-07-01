@@ -1,5 +1,5 @@
 ---
-title: "Introducing ChargeDose: The Smart Battery Reminder for Windows Users"
+title: "Introducing ChargeDose: The Smart Battery Reminder for Windows Users | by whatsthetime"
 description: "From the creators of What's The Time, ChargeDose is here to protect your laptop battery health with intelligent charge notifications. Download version 2.0 now!"
 pubDate: "2025-06-29"
 author: "What's The Time Team"
