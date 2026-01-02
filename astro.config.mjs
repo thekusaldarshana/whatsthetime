@@ -6,7 +6,7 @@ import react from '@astrojs/react';
 
 
 export default defineConfig({
-  site: "https://whatsthetime.online",
+  site: "https://whatsthetime.top",
   integrations: [
     tailwind(),
     sitemap(),
