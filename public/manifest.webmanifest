@@ -1,6 +1,6 @@
 {
   "name": "What's The Time",
-  "short_name": "WhatTime",
+  "short_name": "whatsthetime",
   "description": "No #1 Fastest & Modern Global Time Converter",
   "start_url": "/",
   "display": "standalone",
