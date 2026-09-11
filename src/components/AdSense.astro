@@ -1,0 +1,59 @@
+---
+// AdSense account tag + loader. Include exactly once, inside <head>.
+import { ADSENSE_CLIENT } from '../lib/ads.js';
+---
+
+<meta name="google-adsense-account" content={ADSENSE_CLIENT} />
+
+<link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin />
+<link rel="preconnect" href="https://googleads.g.doubleclick.net" crossorigin />
+<link rel="preconnect" href="https://tpc.googlesyndication.com" crossorigin />
+
+<script
+  async
+  is:inline
+  src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
+  crossorigin="anonymous"></script>
+
+<script is:inline>
+  (function () {
+    window.adsbygoogle = window.adsbygoogle || [];
+
+    var filled = false;
+
+    function fillAll() {
+      if (filled) return;
+      filled = true;
+      // Slots are filled in document order: adsbygoogle.push() always targets
+      // the next uninitialised <ins> on the page.
+      var units = document.querySelectorAll('ins.adsbygoogle:not([data-adsbygoogle-status])');
+      for (var i = 0; i < units.length; i++) {
+        try {
+          window.adsbygoogle.push({});
+        } catch (e) {
+          break;
+        }
+      }
+    }
+
+    function schedule() {
+      var events = ['scroll', 'pointermove', 'touchstart', 'keydown'];
+      function onInteract() {
+        events.forEach(function (name) {
+          window.removeEventListener(name, onInteract);
+        });
+        fillAll();
+      }
+      events.forEach(function (name) {
+        window.addEventListener(name, onInteract, { once: true, passive: true });
+      });
+      setTimeout(fillAll, 2500);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', schedule);
+    } else {
+      schedule();
+    }
+  })();
+</script>

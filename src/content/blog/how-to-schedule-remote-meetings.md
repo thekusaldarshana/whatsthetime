@@ -24,7 +24,7 @@ Common issues:
 ## 🔧 Tools to Make It Easier
 
 These tools simplify the process:
-- [whatsthetime.online](https://whatsthetime.online) — convert and compare time zones beautifully.
+- [whatsthetime.top](https://whatsthetime.top) — convert and compare time zones beautifully.
 - Google Calendar – auto-adjusts time zones.
 - World Time Buddy or Every Time Zone – visual overlap planners.
 
@@ -37,7 +37,7 @@ These tools simplify the process:
 
 ## 📆 Pro-Tip: Use Time Zone-Friendly Scheduling
 
-At [whatsthetime.online](https://whatsthetime.online), you can quickly preview everyone’s time with **World Clock Cards** and **share links**. No guesswork. No confusion.
+At [whatsthetime.top](https://whatsthetime.top), you can quickly preview everyone’s time with **World Clock Cards** and **share links**. No guesswork. No confusion.
 
 ---
 

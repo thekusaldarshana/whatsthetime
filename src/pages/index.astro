@@ -4,22 +4,70 @@ import NewsFeed from '../components/NewsFeed.astro';
 import Feedback from "../components/Feedback.astro";
 import WorldClockCards from '../components/WorldClockCards.astro';
 import ChargeDoseBanner from "../components/ChargeDoseBanner.astro";
+import AdSense from "../components/AdSense.astro";
+import AdUnit from "../components/AdUnit.astro";
+import Seo from "../components/Seo.astro";
 import "../styles/global.css";
 import Analytics from '@vercel/analytics/astro'
 import  SpeedInsights  from "@vercel/speed-insights/astro"
+import { AD_SLOTS } from "../lib/ads.js";
+import { SITE_URL, absoluteUrl, faqPage } from "../lib/site.js";
+
+const title = "Time Zone Converter & Meeting Planner | What's The Time";
+const description = "Instantly convert between time zones, check the current local time anywhere in the world, and schedule international meetings with our accurate and easy-to-use world clock.";
+
+const faqs = [
+  {
+    question: "How do I convert a time between two time zones?",
+    answer: "Pick the source city or time zone in the \u201CFrom\u201D field, pick the destination in the \u201CTo\u201D field and set a time. What's The Time instantly shows the converted local time, including the current UTC offset and daylight saving changes."
+  },
+  {
+    question: "Is What's The Time free to use?",
+    answer: "Yes. The time zone converter, world clock and meeting planner are free, need no account and work on any device."
+  },
+  {
+    question: "Does it handle daylight saving time (DST)?",
+    answer: "Yes. Conversions use the IANA time zone database, so daylight saving transitions are applied automatically for every city and date you choose."
+  },
+  {
+    question: "How do I find a meeting time that works across time zones?",
+    answer: "Open the Meeting Planner, add every participant's city and the planner highlights the hours that fall inside working hours for everyone."
+  },
+  {
+    question: "Can I embed the world clock on my own site?",
+    answer: "Yes. The /embed page is an iframe-ready widget you can drop into any website free of charge."
+  }
+];
+
+const webApplication = {
+  "@type": "WebApplication",
+  "@id": `${SITE_URL}/#webapp`,
+  name: "What's The Time",
+  url: `${SITE_URL}/`,
+  description,
+  applicationCategory: "UtilitiesApplication",
+  operatingSystem: "All",
+  browserRequirements: "Requires JavaScript and a modern web browser.",
+  inLanguage: "en-US",
+  screenshot: absoluteUrl("/og-preview.png"),
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  featureList: [
+    "Global Time Zone Conversion",
+    "World Clock Display",
+    "Meeting Scheduler Across Time Zones",
+    "Daylight Saving Time Awareness"
+  ],
+  publisher: { "@id": `${SITE_URL}/#organization` }
+};
 ---
 
 <html lang="en" class="scroll-smooth dark">
   <head>
   <!-- Primary Meta -->
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Time Zone Converter & Meeting Planner | What's The Time</title>
-  <meta name="description" content="Instantly convert between time zones, check the current local time anywhere in the world, and schedule international meetings with our accurate and easy‑to‑use world clock." />
-  <link rel="canonical" href="https://whatsthetime.top/" />
-  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
-  <meta name="keywords" content="meeting planner,meeting time planner,time zone meeting planner,world meeting planner,meeting planner time zones,meeting planner time zone,time zone meeting scheduler,timezone meeting planner,time and date meeting planner,meeting timezone planner,meeting time zone planner,online meeting planner,international meeting planner,time zones meeting planner,time zone planner,world time zone converter meeting planner,time zones planner,time planner,world time meeting planner,date and time meeting planner,time zone converter meeting planner,time zone calculator meeting,global meeting planner,time and meeting planner,global meeting planning,international meeting scheduler,world time converter meeting planner,time zone scheduler,meeting planner barcelona,world meeting planning,meeting planer,meeting planner time and date,meeting times planner,meeting scheduler time zones,world meeting time planner,world time planner,meeting and time planner,time date meeting planner,global meeting times,time zone scheduling,global time planner,world clock meeting planner, scheduler, schedule, zone, converter, new york to tokyo, to, from, world time zone meeting planner,time planner meeting,worldwide meeting planner,time meeting planner,meeting scheduler time zone,time zones calculator meeting planner,time converter meeting planner,meeting time planner time zones,worldmeetingplanner,timezone scheduler,date and time planner,world meeting clock planner,world timezone meeting planner,meeting and date planner,meetingsplaner,plan a meeting time zones,global time zone meeting planner,timeanddate meeting planner,timezone meeting scheduler,time zone event planner,timezone planner,world time clock meeting planner,global meeting scheduler,meeting planner world clock,meeting time zone calculator,time date planner,world meeting planner clock,meeting planner global,meeting planner time,international time zone meeting planner,world meeting planner time zone,meeting planner zeitzonen,meeting planner worldwide,meetingplaner,international clock meeting planner,meeting time and date planner,world time zones meeting planner,time zone planning,meeting planner time zone converter,meeting planner online,meeting planning time zone,time and date planner,time zone meeting,schedule time zones,global meeting time,international time zones meeting planner,meeting time zones planner,meeting planner timezone,time planner online,schedule meeting time zone,time zones scheduler,date time meeting planner,time zone conference planner,meeting planning time zones,meeting time scheduler,meetings planner,meetingplanner,world time and date meeting planner,time zone comparison meeting planner,time, timeanddate, timeis, worldtimebuddy, wtd, world, buddy, calendar, zoom, ms, teams, webinar, conference, online, travel, tools, timeand date meeting planner,meeting timezone scheduler" />
+  <Seo title={title} description={description} graph={[webApplication, faqPage(faqs)]} />
 
   <!-- Favicons & Manifest -->
   <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
@@ -34,68 +82,9 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
     href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.3/dist/css/splide.min.css"
   />
 
-  <!-- Theme + Verification + Ads -->
+  <!-- Theme + Verification -->
   <meta name="theme-color" content="#fde047" />
   <meta name="google-site-verification" content="gKcYaMKLR1jRCwqQfkI-tf-7WGvBxfFvjliDoRtAV8o" />
-  <meta name="google-adsense-account" content="ca-pub-6381695271630022" />
-
-  <!-- Open Graph for social sharing -->
-  <meta property="og:title" content="Time Zone Converter & Meeting Planner | What's The Time" />
-  <meta property="og:description" content="Instantly convert time zones and schedule international meetings with our accurate and easy‑to‑use world clock." />
-  <meta property="og:url" content="https://whatsthetime.top/" />
-  <meta property="og:site_name" content="What's The Time" />
-  <meta property="og:type" content="website" />
-  <meta property="og:locale" content="en_US" />
-  <meta property="og:image" content="https://whatsthetime.top/og-preview.png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="A preview of the What's The Time global time converter interface." />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Time Zone Converter & World Clock | What's The Time" />
-  <meta name="twitter:description" content="Instantly convert time zones and schedule international meetings with our accurate and easy‑to‑use world clock." />
-  <meta name="twitter:image" content="https://whatsthetime.top/og-preview.png" />
-  <meta name="twitter:image:alt" content="A preview of the What's The Time global time converter interface." />
-
-  <!-- Structured Data (JSON-LD) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "What's The Time",
-    "url": "https://whatsthetime.top/",
-    "description": "An accurate and easy‑to‑use time zone converter and world clock to schedule international meetings and check local times globally.",
-    "applicationCategory": "Utilities",
-    "operatingSystem": "All",
-    "browserRequirements": "Requires JavaScript and a modern web browser.",
-    "inLanguage": "en-US",
-    "screenshot": "https://whatsthetime.top/og-preview.png",
-    "featureList": [
-      "Global Time Zone Conversion",
-      "World Clock Display",
-      "Meeting Scheduler Across Time Zones",
-      "Daylight Saving Time Awareness"
-    ],
-    "author": {
-      "@type": "Organization",
-      "name": "What's The Time",
-      "url": "https://whatsthetime.top/"
-    },
-    "mainEntity": {
-      "@type": "WebSite",
-      "url": "https://whatsthetime.top/",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": {
-          "@type": "EntryPoint",
-          "urlTemplate": "https://whatsthetime.top/?search={search_term_string}"
-        },
-        "query-input": "required name=search_term_string"
-      }
-    }
-  }
-  </script>
 
   <!-- Preconnects for better third-party performance -->
   <link rel="preconnect" href="https://mn-tz.com" crossorigin />
@@ -105,16 +94,17 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
 
 
   <!-- Async Ad & Consent Scripts -->
-<script async src="https://mn-tz.com/NDI0NDE2.js?t=424416" data-noptimize="1" data-cfasync="false" data-wpfc-render="false"></script>
-<script async src="https://cmp.gatekeeperconsent.com/min.js"  data-cfasync="false"></script>
-<script async src="https://the.gatekeeperconsent.com/cmp.min.js" data-cfasync="false"></script>
-<script async src="//www.ezojs.com/ezoic/sa.min.js"></script>
-<script>
+<script async is:inline src="https://mn-tz.com/NDI0NDE2.js?t=424416" data-noptimize="1" data-cfasync="false" data-wpfc-render="false"></script>
+<script async is:inline src="https://cmp.gatekeeperconsent.com/min.js"  data-cfasync="false"></script>
+<script async is:inline src="https://the.gatekeeperconsent.com/cmp.min.js" data-cfasync="false"></script>
+<script async is:inline src="//www.ezojs.com/ezoic/sa.min.js"></script>
+<script is:inline>
   window.ezstandalone = window.ezstandalone || {};
-  ezstandalone.cmd     = ezstandalone.cmd || [];
+  window.ezstandalone.cmd = window.ezstandalone.cmd || [];
 </script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6381695271630022"
-        crossorigin="anonymous"></script>
+
+<!-- Google AdSense -->
+<AdSense />
 
 
 
@@ -292,12 +282,7 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
 
       <!-- Sponsored Ad Sidebar -->
       <aside id="sponsored-sidebar" class="w-full lg:w-72">
-        <div class="bg-yellow-50 dark:bg-gray-900 border border-yellow-300 dark:border-white/10 rounded-lg p-4 shadow text-sm text-gray-800 dark:text-gray-200">
-          <p class="font-semibold mb-2 text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">
-            Sponsored
-          </p>
-          <div id="sponsor-ad-slot" class="text-center min-h-[380px]"></div>
-        </div>
+        <AdUnit slot={AD_SLOTS.sidebar} minHeight="380px" />
       </aside>
     </div>
 
@@ -306,28 +291,15 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
         <NewsFeed />
       </section>
 
-      <!-- 🟨 Sponsored Inline Ad Card -->
-<div class="mt-8 mb-10 px-4">
-  <div class="bg-yellow-50 dark:bg-gray-900 border border-yellow-300 dark:border-white/10 rounded-lg p-4 shadow text-sm text-gray-800 dark:text-gray-200">
-    <p class="font-semibold mb-2 text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">
-      Sponsored
-    </p>
-    <div class="text-center min-h-[180px]">
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6381695271630022"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-format="fluid"
-     data-ad-layout-key="-f7+5u+4t-da+6l"
-     data-ad-client="ca-pub-6381695271630022"
-     data-ad-slot="6356086362"></ins>
-<script defer>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-    </div>
-  </div>
-</div>
-
+      <!-- Sponsored Inline Ad Card -->
+      <div class="mt-8 mb-10 px-4">
+        <AdUnit
+          slot={AD_SLOTS.inline}
+          format="fluid"
+          layoutKey="-f7+5u+4t-da+6l"
+          minHeight="180px"
+        />
+      </div>
 
       <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.3/dist/js/splide.min.js"></script>
 <script>
@@ -375,35 +347,6 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
       });
     </script>
 
-    <!-- Delay Load Ad Script -->
-    <script>
-      let adLoaded = false;
-      function loadSidebarAd() {
-        if (adLoaded) return;
-        adLoaded = true;
-
-        const adScript = document.createElement('script');
-        adScript.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6381695271630022";
-        adScript.async = true;
-        adScript.crossOrigin = "anonymous";
-        document.head.appendChild(adScript);
-
-        const adSlot = document.createElement('ins');
-        adSlot.className = "adsbygoogle";
-        adSlot.style.display = "block";
-        adSlot.setAttribute("data-ad-client", "ca-pub-6381695271630022");
-        adSlot.setAttribute("data-ad-slot", "7062749097");
-        adSlot.setAttribute("data-ad-format", "auto");
-        adSlot.setAttribute("data-full-width-responsive", "true");
-
-        document.getElementById("sponsor-ad-slot").appendChild(adSlot);
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      }
-
-      window.addEventListener("scroll", loadSidebarAd, { once: true });
-      window.addEventListener("pointermove", loadSidebarAd, { once: true });
-    </script>
-
     <style>
       body::before {
         content: '';
@@ -428,8 +371,18 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
     </style>
 
 
-    <Feedback/>
-  </body>
+    <!-- FAQ (matches FAQPage structured data above) -->
+    <section id="faq" class="max-w-3xl mx-auto px-4 mt-12 mb-10">
+      <h2 class="text-2xl font-bold mb-6 text-center">Frequently Asked Questions</h2>
+      <div class="space-y-3">
+        {faqs.map((faq) => (
+          <details class="group bg-white/70 dark:bg-gray-900 border border-yellow-300 dark:border-white/10 rounded-lg p-4">
+            <summary class="cursor-pointer font-semibold marker:content-none">{faq.question}</summary>
+            <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </section>
 
   <!-- Footer -->
     <footer class="border-t border-gray-200 dark:border-white/10 bg-slate-900 text-sm py-10 px-4 md:px-12 mt-10">
@@ -469,6 +422,12 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
     </footer>
 
   <script defer data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="thekusaldarshana" data-description="Support me on Buy me a coffee!" data-message="Glad to See you Here! Thank you for Visiting." data-color="#40DCA5" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+
+    <Feedback/>
+  </body>
+
+
 </html>
+
 
 

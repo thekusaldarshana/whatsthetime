@@ -64,7 +64,7 @@ This isn't just trivia — it has real-world consequences for:
 - **Global Coordination:** Anyone working across these zones needs to be aware of the shift.
 
 Need to check the current, exact difference right now?
-Use [What's The Time](https://whatsthetime.online) for a real-time conversion that accounts for all these rules automatically.
+Use [What's The Time](https://whatsthetime.top) for a real-time conversion that accounts for all these rules automatically.
 
 ---
 
@@ -74,5 +74,5 @@ Something as simple as "what's the time" can reveal hidden layers of national po
 
 This shifting time gap is a powerful reminder that timekeeping isn’t just about numbers — it's about **context**.
 
-For automatic conversions and to stay ahead of these changes, explore [What's The Time](https://whatsthetime.online).
+For automatic conversions and to stay ahead of these changes, explore [What's The Time](https://whatsthetime.top).
 It’s time, made simple.

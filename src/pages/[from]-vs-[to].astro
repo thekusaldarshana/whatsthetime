@@ -7,6 +7,9 @@ import Layout from '../layouts/Layout.astro';
 import TimeConverter from '../components/TimeConverter.astro';
 import { popular } from '../lib/popular.js';
 import { toSlug, fromSlug, toTitleCase } from '../lib/helpers.js';
+import AdUnit from '../components/AdUnit.astro';
+import { AD_SLOTS } from '../lib/ads.js';
+import { breadcrumbs, faqPage } from '../lib/site.js';
 
 // Static path generator
 export async function getStaticPaths() {
@@ -50,9 +53,47 @@ const minutes = absMinutes % 60;
 const direction = diffMinutes > 0 ? 'ahead of' : 'behind';
 
 const diffText = `${to} is ${hours ? `${hours} hour${hours !== 1 ? 's' : ''}` : ''}${minutes ? ` and ${minutes} minute${minutes !== 1 ? 's' : ''}` : ''} ${direction} ${from}`;
+
+const sameTime = diffMinutes === 0;
+const differenceAnswer = sameTime
+  ? `${from} and ${to} are currently in the same time zone offset, so there is no time difference between them.`
+  : `${diffText}. When it is 9:00 AM in ${from}, it is ${now.setZone(fromZone).set({ hour: 9, minute: 0 }).setZone(toZone).toFormat('h:mm a')} in ${to}.`;
+
+const pageTitle = `Time in ${from} vs ${to} – Time Difference & Converter`;
+const pageDescription = `${differenceAnswer} Check the live local time in ${from} (${fromZone}) and ${to} (${toZone}) and convert any time between the two cities.`;
+
+const slugPath = `/${toSlug(from)}-vs-${toSlug(to)}`;
+
+const faqs = [
+  {
+    question: `What is the time difference between ${from} and ${to}?`,
+    answer: differenceAnswer
+  },
+  {
+    question: `What time zone is ${to} in?`,
+    answer: `${to} uses the ${toZone} time zone, currently UTC${toTime.toFormat('ZZ')}.`
+  },
+  {
+    question: `What time zone is ${from} in?`,
+    answer: `${from} uses the ${fromZone} time zone, currently UTC${fromTime.toFormat('ZZ')}.`
+  },
+  {
+    question: `Does the ${from} to ${to} time difference change with daylight saving time?`,
+    answer: `Yes. Both cities are converted with the IANA time zone database, so the difference shown here always reflects the daylight saving rules in force on the current date.`
+  }
+];
+
+const graph = [
+  faqPage(faqs),
+  breadcrumbs([
+    { name: 'Home', path: '/' },
+    { name: 'Popular conversions', path: '/popular' },
+    { name: `${from} vs ${to}`, path: slugPath }
+  ])
+];
 ---
 
-<Layout title={`Time in ${from} vs ${to}`} description={`Compare current time in ${from} and ${to}.`}>
+<Layout title={pageTitle} description={pageDescription} graph={graph}>
   <div class="p-6 max-w-2xl mx-auto bg-glass backdrop-blur-md rounded-xl border border-yellow-300 dark:border-white/10 transition-all duration-500">
     <div class="p-6 bg-gray-400 backdrop-blur-md rounded-xl shadow-red border border-gray-300 dark:border-white/10">
       <h1 class="text-3xl font-bold text-center text-black/80">🕒 Time in {from} vs {to}</h1>
@@ -67,35 +108,34 @@ const diffText = `${to} is ${hours ? `${hours} hour${hours !== 1 ? 's' : ''}` : 
       </div>
     </div>
 
-    <!-- 🟨 Sponsored Inline Ad Card -->
-<div class="mt-8 mb-10 px-4">
-  <div class="bg-yellow-50 dark:bg-gray-900 border border-yellow-300 dark:border-white/10 rounded-lg p-4 shadow text-sm text-gray-800 dark:text-gray-200">
-    <p class="font-semibold mb-2 text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">
-      Sponsored
-    </p>
-    <div class="text-center min-h-[180px]">
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6381695271630022"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-format="fluid"
-     data-ad-layout-key="-f7+5u+4t-da+6l"
-     data-ad-client="ca-pub-6381695271630022"
-     data-ad-slot="6356086362"></ins>
-<script defer>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+    <p class="mt-6 text-center text-base text-gray-700 dark:text-gray-300">{differenceAnswer}</p>
+
+    <!-- Sponsored Inline Ad Card -->
+    <div class="mt-8 mb-10">
+      <AdUnit slot={AD_SLOTS.inline} format="fluid" layoutKey="-f7+5u+4t-da+6l" minHeight="180px" />
     </div>
-  </div>
-</div>
 
     <div class="mt-10 border-t pt-6">
       <h2 class="text-xl font-semibold text-center mb-4">🛠️ Try Your Own Conversion</h2>
       <TimeConverter />
     </div>
 
+    <section class="mt-10 border-t pt-6">
+      <h2 class="text-xl font-semibold text-center mb-4">{from} &amp; {to} time questions</h2>
+      <div class="space-y-3">
+        {faqs.map((faq) => (
+          <details class="bg-white/70 dark:bg-gray-900 border border-yellow-300 dark:border-white/10 rounded-lg p-4">
+            <summary class="cursor-pointer font-semibold">{faq.question}</summary>
+            <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">{faq.answer}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
     <div class="text-sm text-center text-gray-600 dark:text-gray-400 mt-5">
-      <a href="/" class="underline">← Back to homepage</a>
+      <a href="/" class="underline">← Back to homepage</a> ·
+      <a href="/popular" class="underline">More time comparisons</a> ·
+      <a href="/meeting-planner" class="underline">Plan a meeting</a>
     </div>
   </div>
 

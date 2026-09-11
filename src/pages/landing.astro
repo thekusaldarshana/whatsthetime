@@ -6,6 +6,56 @@ import ChargeDoseBanner from "../components/ChargeDoseBanner.astro";
 import Feedback from "../components/Feedback.astro";
 import Analytics from '@vercel/analytics/astro';
 import  SpeedInsights  from "@vercel/speed-insights/astro"
+import AdSense from "../components/AdSense.astro";
+import AdUnit from "../components/AdUnit.astro";
+import Seo from "../components/Seo.astro";
+import { AD_SLOTS } from "../lib/ads.js";
+import { SITE_URL, breadcrumbs, faqPage } from "../lib/site.js";
+
+const title = "What's The Time – Global Time Converter, World Clock & Meeting Planner";
+const description = "Convert time zones instantly, see the current time anywhere in the world and schedule international meetings with a fast, modern and mobile-friendly world clock.";
+
+const faqs = [
+  {
+    question: "What is whatsthetime.top?",
+    answer: "It is a modern time conversion tool that visually adapts to the real world \u2014 your time, your place, your vibe. It is mobile friendly, so global time is always in your pocket."
+  },
+  {
+    question: "How is it different from other time converters?",
+    answer: "It brings together UX, real-time visuals and contextual information such as weather and emoji \u2014 all in one place."
+  },
+  {
+    question: "Is this tool free to use?",
+    answer: "Yes, it is 100% free and ad-light (we only use ethical sponsorships)."
+  },
+  {
+    question: "Do you store any of my data?",
+    answer: "No personal data is stored. Zone detection is purely local/IP-based."
+  },
+  {
+    question: "Can I share a time conversion?",
+    answer: "Soon you will be able to share conversions via short links."
+  },
+  {
+    question: "Do I need to install anything?",
+    answer: "No installation is required. It works instantly in your browser on any device."
+  },
+  {
+    question: "Will more features be added?",
+    answer: "Yes. AI-based suggestions, shared links and travel info are on the roadmap."
+  }
+];
+
+const softwareApplication = {
+  "@type": "SoftwareApplication",
+  name: "What's The Time",
+  url: `${SITE_URL}/`,
+  description,
+  applicationCategory: "UtilitiesApplication",
+  operatingSystem: "All",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  publisher: { "@id": `${SITE_URL}/#organization` }
+};
 ---
 
 <html lang="en" class="dark">
@@ -13,13 +63,21 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>The Ultimate Time Zone Companion - WhatsTheTime.online | World's No 1 Global Time Converter, World clock & Meeting Planner.</title>
-  <meta name="description" content="Convert time zones instantly, Plan & Scheduler International Meetings with the world's most elegant and accurate global time tool. Fast, modern, and mobile-friendly." />
-  <meta name="robots" content="index, follow" />
+  <Seo
+    title={title}
+    description={description}
+    graph={[
+      softwareApplication,
+      faqPage(faqs),
+      breadcrumbs([
+        { name: "Home", path: "/" },
+        { name: "About", path: "/landing" }
+      ])
+    ]}
+  />
+
   <meta name="google-site-verification" content="gKcYaMKLR1jRCwqQfkI-tf-7WGvBxfFvjliDoRtAV8o" />
   <meta name="theme-color" content="#fde047" />
-  <meta name="google-adsense-account" content="ca-pub-6381695271630022" />
-  <meta name="keywords" content="meeting planner,meeting time planner,time zone meeting planner,world meeting planner,meeting planner time zones,meeting planner time zone,time zone meeting scheduler,timezone meeting planner,time and date meeting planner,meeting timezone planner,meeting time zone planner,online meeting planner,international meeting planner,time zones meeting planner,time zone planner,world time zone converter meeting planner,time zones planner,time planner,world time meeting planner,date and time meeting planner,time zone converter meeting planner,time zone calculator meeting,global meeting planner,time and meeting planner,global meeting planning,international meeting scheduler,world time converter meeting planner,time zone scheduler,meeting planner barcelona,world meeting planning,meeting planer,meeting planner time and date,meeting times planner,meeting scheduler time zones,world meeting time planner,world time planner,meeting and time planner,time date meeting planner,global meeting times,time zone scheduling,global time planner,world clock meeting planner,world time zone meeting planner,time planner meeting,worldwide meeting planner,time meeting planner,meeting scheduler time zone,time zones calculator meeting planner,time converter meeting planner,meeting time planner time zones,worldmeetingplanner,timezone scheduler,date and time planner,world meeting clock planner,world timezone meeting planner,meeting and date planner,meetingsplaner,plan a meeting time zones,global time zone meeting planner,timeanddate meeting planner,timezone meeting scheduler,time zone event planner,timezone planner,world time clock meeting planner,global meeting scheduler,meeting planner world clock,meeting time zone calculator,time date planner,world meeting planner clock,meeting planner global,meeting planner time,international time zone meeting planner,world meeting planner time zone,meeting planner zeitzonen,meeting planner worldwide,meetingplaner,international clock meeting planner,meeting time and date planner,world time zones meeting planner,time zone planning,meeting planner time zone converter,meeting planner online,meeting planning time zone,time and date planner,time zone meeting,schedule time zones,global meeting time,international time zones meeting planner,meeting time zones planner,meeting planner timezone,time planner online,schedule meeting time zone,time zones scheduler,date time meeting planner,time zone conference planner,meeting planning time zones,meeting time scheduler,meetings planner,meetingplanner,world time and date meeting planner,time zone comparison meeting planner,timeand date meeting planner,meeting timezone scheduler" />
 
   <!-- Favicons -->
   <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
@@ -28,19 +86,6 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-title" content="whatsthetime" />
 <link rel="manifest" href="/site.webmanifest" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="The Ultimate Time Zone Companion - WhatsTheTime.online | World's No 1 Global Time Converter, World clock & Meeting Planner.r" />
-  <meta property="og:description" content="Convert time zones instantly, Plan & Scheduler International Meetings with the world's most elegant and accurate global time tool. Fast, modern, and mobile-friendly." />
-  <meta property="og:image" content="/og-preview.png" />
-  <meta property="og:url" content="https://whatsthetime.online/" />
-  <meta property="og:type" content="website" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="The Ultimate Time Zone Companion - WhatsTheTime.online | World's No 1 Global Time Converter, World clock & Meeting Planner." />
-  <meta name="twitter:description" content="Convert time zones instantly, Plan & Scheduler International Meetings with the world's most elegant and accurate global time tool. Fast, modern, and mobile-friendly." />
-  <meta name="twitter:image" content="/og-preview.png" />
 
   <!-- Scrollbar Styling -->
   <style>
@@ -69,27 +114,8 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
   }
   </style>
 
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "The Ultimate Time Zone Companion - WhatsTheTime.online | World's No 1 Global Time Converter, World clock & Meeting Planner.",
-      "url": "https://whatsthetime.online",
-      "description": "Convert time zones instantly, Plan & Scheduler International Meetings with the world's most elegant and accurate global time tool. Fast, modern, and mobile-friendly.",
-      "applicationCategory": "Utility",
-      "operatingSystem": "All",
-      "browserRequirements": "Requires JavaScript",
-      "inLanguage": "en",
-      "author": {
-        "@type": "Person",
-        "name": "thekusaldarshana"
-      }
-    }
-  </script>
-
-  <!-- Ad Script -->
-  <script data-noptimize="1" data-cfasync="false" data-wpfc-render="false">
+  <!-- Ad Scripts -->
+  <script is:inline data-noptimize="1" data-cfasync="false" data-wpfc-render="false">
     (function () {
       var script = document.createElement("script");
       script.async = 1;
@@ -98,8 +124,7 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
     })();
   </script>
 
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6381695271630022"
-     crossorigin="anonymous"></script>
+  <AdSense />
 
 </head>
 
@@ -442,7 +467,7 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
 
       <script is:inline>
         function copyEmbed(btn) {
-          const embedCode = `<iframe src='https://whatsthetime.online/embed' width='100%' height='400' style='border:none;' loading='lazy'></iframe>`;
+          const embedCode = `<iframe src='https://whatsthetime.top/embed' width='100%' height='400' style='border:none;' loading='lazy'></iframe>`;
           navigator.clipboard.writeText(embedCode)
             .then(() => {
               const originalText = btn.textContent;
@@ -465,7 +490,7 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
       <pre class="text-md text-yellow- pt-8 whitespace-pre-wrap">
         <code>
           &lt;iframe 
-              src="https://whatsthetime.online/embed"
+              src="https://whatsthetime.top/embed"
               width="100%" 
               height="100%" 
               style="border:none;" 
@@ -505,7 +530,7 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
 
       <script is:inline>
         function copyEmbed(btn) {
-          const embedCode = `<iframe src='https://whatsthetime.online/metEmbed' width='100%' height='400' style='border:none;' loading='lazy'></iframe>`;
+          const embedCode = `<iframe src='https://whatsthetime.top/metEmbed' width='100%' height='400' style='border:none;' loading='lazy'></iframe>`;
           navigator.clipboard.writeText(embedCode)
             .then(() => {
               const originalText = btn.textContent;
@@ -528,7 +553,7 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
       <pre class="text-md text-yellow- pt-8 whitespace-pre-wrap">
         <code>
           &lt;iframe 
-              src="https://whatsthetime.online/metEmbed"
+              src="https://whatsthetime.top/metEmbed"
               width="100%" 
               height="100%" 
               style="border:none;" 
@@ -554,7 +579,7 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
           <h2 class="text-3xl font-bold text-center mb-10">❓ Frequently Asked Questions</h2>
           <div class="space-y-4">
             <details class="bg-white/5 p-4 rounded-xl">
-              <summary class="font-semibold cursor-pointer">What is whatsthetime.online?</summary>
+              <summary class="font-semibold cursor-pointer">What is whatsthetime.top?</summary>
               <p class="mt-2 text-sm text-gray-300">It’s a modern time conversion tool that visually adapts to the real world — your time, your place, your vibe. Specially, It's a Great Mobile Friendly tool, You have access to the Global time while it's in your Pocket.</p>
             </details>
             <details class="bg-white/5 p-4 rounded-xl">
@@ -572,17 +597,23 @@ import  SpeedInsights  from "@vercel/speed-insights/astro"
             <details class="bg-white/5 p-4 rounded-xl">
               <summary class="font-semibold cursor-pointer">Can I share a time conversion?</summary>
               <p class="mt-2 text-sm text-gray-300">Soon you'll be able to share conversions via short links. Stay tuned!</p>
-            </details><details class="bg-white/5 p-4 rounded-xl">
+            </details>
+            <details class="bg-white/5 p-4 rounded-xl">
               <summary class="font-semibold cursor-pointer">Do I need to install anything?</summary>
               <p class="mt-2 text-sm text-gray-300">No installation required. It works instantly in your browser on any device.</p>
             </details>
-          </details><details class="bg-white/5 p-4 rounded-xl">
+            <details class="bg-white/5 p-4 rounded-xl">
               <summary class="font-semibold cursor-pointer">Will more features be added?</summary>
               <p class="mt-2 text-sm text-gray-300">Absolutely. AI-based suggestions, shared links, and even travel info are on the roadmap.</p>
             </details>
           </div>
         </div>
       </section>
+
+      <!-- Sponsored -->
+      <div class="max-w-4xl mx-auto px-6 py-10">
+        <AdUnit slot={AD_SLOTS.inline} format="fluid" layoutKey="-f7+5u+4t-da+6l" minHeight="180px" />
+      </div>
 
       <!-- CTA -->
       <section id="end" class="text-center py-16 bg-gradient-to-r from-indigo-600 to-green-600 text-white">

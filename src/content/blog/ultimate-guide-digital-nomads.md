@@ -20,7 +20,7 @@ From Bali to Berlin, your laptop lifestyle spans dozens of time zones. If you do
 
 ## 🧰 Must-Have Tools
 
-- [whatsthetime.online](https://whatsthetime.online): View and convert time zones fast.
+- [whatsthetime.top](https://whatsthetime.top): View and convert time zones fast.
 - Notion + Calendar integration: Track your base client zones.
 - Nomad List: Shows current time alongside city stats.
 
@@ -30,7 +30,7 @@ From Bali to Berlin, your laptop lifestyle spans dozens of time zones. If you do
 2. **Create a World Clock Dashboard** with your key cities.
 3. **Batch your meetings** in chunks that suit your current location.
 4. **Check DST changes regularly** — especially in North America and Europe.
-5. **Avoid timezone confusion** by sharing [whatsthetime.online](https://whatsthetime.online) links.
+5. **Avoid timezone confusion** by sharing [whatsthetime.top](https://whatsthetime.top) links.
 
 ## 🌐 Bonus: Favorite Nomad-Friendly Cities by Time Overlap
 
@@ -40,4 +40,4 @@ From Bali to Berlin, your laptop lifestyle spans dozens of time zones. If you do
 
 ---
 
-Being a digital nomad is about freedom, not frustration. Mastering time zones is your hidden superpower — and with tools like [whatsthetime.online](https://whatsthetime.online), it’s easier than ever.
+Being a digital nomad is about freedom, not frustration. Mastering time zones is your hidden superpower — and with tools like [whatsthetime.top](https://whatsthetime.top), it’s easier than ever.

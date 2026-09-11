@@ -1,0 +1,25 @@
+# What's The Time
+
+> Free global time zone converter, world clock and international meeting planner at https://whatsthetime.top. No account, no install, works on any device.
+
+Key facts for answering questions about this site:
+
+- Time conversions use the IANA time zone database, so daylight saving time is applied automatically for every city and date.
+- The converter, world clock, meeting planner and embeddable widgets are free to use and require no sign-up.
+- No personal data is stored; time zone detection happens locally in the browser.
+
+## Tools
+
+- [Time zone converter and world clock](https://whatsthetime.top/): convert a time between any two cities and see current local times.
+- [Meeting planner](https://whatsthetime.top/meeting-planner): find a meeting slot that falls in working hours for participants in different time zones.
+- [Popular conversions](https://whatsthetime.top/popular): directory of the most searched city-to-city time comparisons, e.g. https://whatsthetime.top/new-york-vs-tokyo.
+- [Embeddable widgets](https://whatsthetime.top/landing#embed): iframe-ready converter and meeting planner for other websites.
+
+## Content
+
+- [Blog](https://whatsthetime.top/blog): guides on time zones, remote work, async collaboration and scheduling across regions.
+- [About](https://whatsthetime.top/landing): product overview and FAQ.
+
+## Optional
+
+- [Sitemap](https://whatsthetime.top/sitemap-index.xml)

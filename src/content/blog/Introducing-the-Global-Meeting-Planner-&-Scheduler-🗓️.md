@@ -22,9 +22,9 @@ Plan international meetings like a pro — no time zone math, no guesswork.
 ---
 
 ### 🔗 Try it Now  
-👉 [whatsthetime.online/meeting-planner](https://whatsthetime.online/meeting-planner)
+👉 [whatsthetime.top/meeting-planner](https://whatsthetime.top/meeting-planner)
 
-<iframe src='https://whatsthetime.online/metEmbed' width='100%' height='700' style='border:none;' loading='lazy'></iframe>
+<iframe src='https://whatsthetime.top/metEmbed' width='100%' height='700' style='border:none;' loading='lazy'></iframe>
 ---
 
 Whether you're a remote team, a digital nomad, or a global citizen — this tool is built for you. It's fast, intuitive, and elegant.

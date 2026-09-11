@@ -33,7 +33,7 @@ This gives everyone time to digest and respond during their natural work hours.
 
 ## 2. Use a Shared World Clock Dashboard
 
-Avoid mental math forever. Tools like [What’s The Time](https://whatsthetime.online), WorldTimeBuddy, or Timezone.io let teams create shared dashboards showing key cities.
+Avoid mental math forever. Tools like [What’s The Time](https://whatsthetime.top), WorldTimeBuddy, or Timezone.io let teams create shared dashboards showing key cities.
 
 This way, everyone is aware of teammates' current local times.
 
@@ -47,17 +47,12 @@ Use this time for urgent decisions or meetings. Outside of it, let async work fl
 
 ---
 <!-- disabled
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6381695271630022"
-     crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
      data-ad-format="fluid"
      data-ad-client="ca-pub-6381695271630022"
      data-ad-slot="2167329849"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
  -->
 
 ---
@@ -68,7 +63,7 @@ Using a global meeting planner that considers everyone’s working hours is a ga
 
 Try tools like:
 
-- [What’s The Time Global Meeting Planner](https://whatsthetime.online/meeting-planner)
+- [What’s The Time Global Meeting Planner](https://whatsthetime.top/meeting-planner)
 - Calendly with time zone detection
 - Reclaim AI for auto-scheduling
 
@@ -144,17 +139,12 @@ This creates a self-updating knowledge base and reduces the fear of missing out 
 
 ---
 <!-- disabled
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6381695271630022"
-     crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
      data-ad-format="fluid"
      data-ad-client="ca-pub-6381695271630022"
      data-ad-slot="2167329849"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
  -->
 ---
 
@@ -180,7 +170,7 @@ Productivity in remote teams is no longer about clocking in. It’s about coordi
 
 Time zones can be frustrating, but with the right tools and mindset, they become a strength — not a blocker.
 
-📌 If your team is struggling to plan meetings or track time zones, try our [Global Meeting Planner](https://whatsthetime.online/meeting-planner). It’s built for this exact challenge — fast, mobile-friendly, and made for humans, not spreadsheets.
+📌 If your team is struggling to plan meetings or track time zones, try our [Global Meeting Planner](https://whatsthetime.top/meeting-planner). It’s built for this exact challenge — fast, mobile-friendly, and made for humans, not spreadsheets.
 
 The future of work is asynchronous, inclusive, and global. Let’s make it productive too.
 

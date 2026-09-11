@@ -3,11 +3,20 @@ import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from "@vercel/speed-insights/astro";
 import Feedback from "../components/Feedback.astro";
 import ChargeDoseBanner from "../components/ChargeDoseBanner.astro";
+import AdSense from "../components/AdSense.astro";
+import AdUnit from "../components/AdUnit.astro";
+import Seo from "../components/Seo.astro";
 import "../styles/global.css";
+import { AD_SLOTS } from "../lib/ads.js";
 
 const {
   title = "What's The Time – Global Time Converter, World Clock Meeting Planner & Scheduler",
-  description = "Easily convert time zones and view current times anywhere in the world with the No #1 Fastest Global Time Converter"
+  description = "Easily convert time zones and view current times anywhere in the world with the No #1 Fastest Global Time Converter",
+  keywords,
+  image,
+  type = "website",
+  noindex = false,
+  graph = []
 } = Astro.props;
 ---
 
@@ -16,14 +25,18 @@ const {
   <!-- Primary Meta -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>{title}</title>
-  <meta name="description" content={description} />
-  <link rel="canonical" href="https://whatsthetime.online/" />
-  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
 
-  <meta name="keywords" content="meeting planner,meeting time planner,time zone meeting planner,world meeting planner,meeting planner time zones,meeting planner time zone,time zone meeting scheduler,timezone meeting planner,time and date meeting planner,meeting timezone planner,meeting time zone planner,online meeting planner,international meeting planner,time zones meeting planner,time zone planner,world time zone converter meeting planner,time zones planner,time planner,world time meeting planner,date and time meeting planner,time zone converter meeting planner,time zone calculator meeting,global meeting planner,time and meeting planner,global meeting planning,international meeting scheduler,world time converter meeting planner,time zone scheduler,meeting planner barcelona,world meeting planning,meeting planer,meeting planner time and date,meeting times planner,meeting scheduler time zones,world meeting time planner,world time planner,meeting and time planner,time date meeting planner,global meeting times,time zone scheduling,global time planner,world clock meeting planner,world time zone meeting planner,time planner meeting,worldwide meeting planner,time meeting planner,meeting scheduler time zone,time zones calculator meeting planner,time converter meeting planner,meeting time planner time zones,worldmeetingplanner,timezone scheduler,date and time planner,world meeting clock planner,world timezone meeting planner,meeting and date planner,meetingsplaner,plan a meeting time zones,global time zone meeting planner,timeanddate meeting planner,timezone meeting scheduler,time zone event planner,timezone planner,world time clock meeting planner,global meeting scheduler,meeting planner world clock,meeting time zone calculator,time date planner,world meeting planner clock,meeting planner global,meeting planner time,international time zone meeting planner,world meeting planner time zone,meeting planner zeitzonen,meeting planner worldwide,meetingplaner,international clock meeting planner,meeting time and date planner,world time zones meeting planner,time zone planning,meeting planner time zone converter,meeting planner online,meeting planning time zone,time and date planner,time zone meeting,schedule time zones,global meeting time,international time zones meeting planner,meeting time zones planner,meeting planner timezone,time planner online,schedule meeting time zone,time zones scheduler,date time meeting planner,time zone conference planner,meeting planning time zones,meeting time scheduler,meetings planner,meetingplanner,blog,world time and date meeting planner,time zone comparison meeting planner,timeand date meeting planner,meeting timezone scheduler" />
+  <Seo
+    title={title}
+    description={description}
+    keywords={keywords}
+    image={image}
+    type={type}
+    noindex={noindex}
+    graph={graph}
+  />
 
-  <!-- Favicons & Manifest (no /public) -->
+  <!-- Favicons & Manifest -->
   <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="shortcut icon" href="/favicon.ico" />
@@ -31,68 +44,9 @@ const {
   <meta name="apple-mobile-web-app-title" content="whatsthetime" />
   <link rel="manifest" href="/site.webmanifest" />
 
-  <!-- Theme + Verification + Ads -->
+  <!-- Theme + Verification -->
   <meta name="theme-color" content="#fde047" />
   <meta name="google-site-verification" content="gKcYaMKLR1jRCwqQfkI-tf-7WGvBxfFvjliDoRtAV8o" />
-  <meta name="google-adsense-account" content="ca-pub-6381695271630022" />
-
-  <!-- Open Graph for Social Sharing -->
-  <meta property="og:title" content={title} />
-  <meta property="og:description" content={description} />
-  <meta property="og:url" content="https://whatsthetime.online/" />
-  <meta property="og:site_name" content="What's The Time" />
-  <meta property="og:type" content="WebApplication" />
-  <meta property="og:locale" content="en_US" />
-  <meta property="og:image" content="https://whatsthetime.online/og-preview.png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="A preview of the What's The Time global time converter interface." />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={title} />
-  <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content="https://whatsthetime.online/og-preview.png" />
-  <meta name="twitter:image:alt" content="A preview of the What's The Time global time converter interface." />
-
-  <!-- JSON-LD Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "What's The Time",
-    "url": "https://whatsthetime.online/",
-    "description": "An accurate and easy‑to‑use time zone converter, international meeting planner & scheduler and world clock to check local times globally. Mobile optimized, Compatible with any device.",
-    "applicationCategory": "Utilities",
-    "operatingSystem": "All",
-    "browserRequirements": "Requires JavaScript and a modern web browser.",
-    "inLanguage": "en-US",
-    "screenshot": "https://whatsthetime.online/og-preview.png",
-    "featureList": [
-      "Global Time Zone Conversion",
-      "World Clock Display",
-      "Meeting Scheduler Across Time Zones",
-      "Daylight Saving Time Awareness"
-    ],
-    "author": {
-      "@type": "Organization",
-      "name": "What's The Time",
-      "url": "https://whatsthetime.online/"
-    },
-    "mainEntity": {
-      "@type": "WebSite",
-      "url": "https://whatsthetime.online/",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": {
-          "@type": "EntryPoint",
-          "urlTemplate": "https://whatsthetime.online/?search={search_term_string}"
-        },
-        "query-input": "required name=search_term_string"
-      }
-    }
-  }
-  </script>
 
   <!-- Preconnects -->
   <link rel="preconnect" href="https://mn-tz.com" crossorigin />
@@ -101,17 +55,17 @@ const {
   <link rel="preconnect" href="//www.ezojs.com" crossorigin />
 
   <!-- Async Ads & Consent -->
-  <script async src="https://mn-tz.com/NDI0NDE2.js?t=424416" data-noptimize="1" data-cfasync="false" data-wpfc-render="false"></script>
-  <script async src="https://cmp.gatekeeperconsent.com/min.js" data-cfasync="false"></script>
-  <script async src="https://the.gatekeeperconsent.com/cmp.min.js" data-cfasync="false"></script>
-  <script async src="//www.ezojs.com/ezoic/sa.min.js"></script>
-  <script>
+  <script async is:inline src="https://mn-tz.com/NDI0NDE2.js?t=424416" data-noptimize="1" data-cfasync="false" data-wpfc-render="false"></script>
+  <script async is:inline src="https://cmp.gatekeeperconsent.com/min.js" data-cfasync="false"></script>
+  <script async is:inline src="https://the.gatekeeperconsent.com/cmp.min.js" data-cfasync="false"></script>
+  <script async is:inline src="//www.ezojs.com/ezoic/sa.min.js"></script>
+  <script is:inline>
     window.ezstandalone = window.ezstandalone || {};
-    ezstandalone.cmd = ezstandalone.cmd || [];
+    window.ezstandalone.cmd = window.ezstandalone.cmd || [];
   </script>
 
   <!-- Google AdSense -->
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6381695271630022" crossorigin="anonymous"></script>
+  <AdSense />
 </head>
 
 
@@ -279,36 +233,19 @@ const {
 
       <!-- Sponsored Ad Sidebar -->
       <aside id="sponsored-sidebar" class="w-full lg:w-72">
-        <div class="bg-yellow-50 dark:bg-gray-900 border border-yellow-300 dark:border-white/10 rounded-lg p-4 shadow text-sm text-gray-800 dark:text-gray-200">
-          <p class="font-semibold mb-2 text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">
-            Sponsored
-          </p>
-          <div id="sponsor-ad-slot" class="text-center min-h-[380px]"></div>
-        </div>
+        <AdUnit slot={AD_SLOTS.sidebar} minHeight="380px" />
       </aside>
     </div>
 
-    <!-- 🟨 Sponsored Inline Ad Card -->
-<div class="mt-8 mb-10 px-4">
-  <div class="bg-yellow-50 dark:bg-gray-900 border border-yellow-300 dark:border-white/10 rounded-lg p-4 shadow text-sm text-gray-800 dark:text-gray-200">
-    <p class="font-semibold mb-2 text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">
-      Sponsored
-    </p>
-    <div class="text-center min-h-[180px]">
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6381695271630022"
-     crossorigin="anonymous"></script>
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-format="fluid"
-     data-ad-layout-key="-f7+5u+4t-da+6l"
-     data-ad-client="ca-pub-6381695271630022"
-     data-ad-slot="6356086362"></ins>
-<script defer>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
+    <!-- Sponsored Inline Ad Card -->
+    <div class="mt-8 mb-10 px-4">
+      <AdUnit
+        slot={AD_SLOTS.inline}
+        format="fluid"
+        layoutKey="-f7+5u+4t-da+6l"
+        minHeight="180px"
+      />
     </div>
-  </div>
-</div>
 
     <!-- Footer -->
     <footer class="border-t border-gray-200 dark:border-white/10 bg-slate-900 text-sm py-10 px-4 md:px-12 mt-10">
@@ -395,33 +332,5 @@ const {
     <SpeedInsights />
   </body>
 
-  <!-- 🕹️ Delayed Ad Loading -->
-    <script>
-      let adLoaded = false;
-      function loadSidebarAd() {
-        if (adLoaded) return;
-        adLoaded = true;
-
-        const adScript = document.createElement('script');
-        adScript.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6381695271630022";
-        adScript.async = true;
-        adScript.crossOrigin = "anonymous";
-        document.head.appendChild(adScript);
-
-        const adSlot = document.createElement('ins');
-        adSlot.className = "adsbygoogle";
-        adSlot.style.display = "block";
-        adSlot.setAttribute("data-ad-client", "ca-pub-6381695271630022");
-        adSlot.setAttribute("data-ad-slot", "7062749097");
-        adSlot.setAttribute("data-ad-format", "auto");
-        adSlot.setAttribute("data-full-width-responsive", "true");
-
-        document.getElementById("sponsor-ad-slot").appendChild(adSlot);
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      }
-
-      window.addEventListener("scroll", loadSidebarAd, { once: true });
-      window.addEventListener("pointermove", loadSidebarAd, { once: true });
-    </script>
 </html>
 

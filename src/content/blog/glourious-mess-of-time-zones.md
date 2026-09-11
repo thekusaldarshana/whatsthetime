@@ -78,4 +78,4 @@ Have you ever missed a meeting or deadline because of a time mix-up?
 
 ---
 
-*Need to convert time zones fast and beautifully? Try [whatsthetime.online](https://whatsthetime.online) — your modern, ad-lite global time converter with shareable links and smart suggestions.*
+*Need to convert time zones fast and beautifully? Try [whatsthetime.top](https://whatsthetime.top) — your modern, ad-lite global time converter with shareable links and smart suggestions.*
