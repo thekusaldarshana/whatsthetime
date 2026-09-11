@@ -43,9 +43,17 @@ placements go through `src/components/AdSense.astro` (one loader per page) and
 
 ## Ads
 
-The deployed site runs Google AdSense. The publisher ID in `src/lib/ads.js` belongs to this
-project — if you fork the repo, replace it with your own or remove the `AdUnit` usages.
-Serving ads under someone else's publisher ID violates the AdSense program policies.
+The deployed site runs Google AdSense, configured entirely through one environment variable:
+
+```bash
+cp .env.example .env
+# PUBLIC_ADSENSE_CLIENT=ca-pub-xxxxxxxxxxxxxxxx
+```
+
+When `PUBLIC_ADSENSE_CLIENT` is empty — the default for forks and local development — no
+AdSense script, account meta tag or ad slot is rendered. Use your own publisher ID; serving
+ads under someone else's violates the AdSense program policies. Slot IDs live in
+`src/lib/ads.js` and `public/ads.txt` must list your own seller line.
 
 ## Contributing
 

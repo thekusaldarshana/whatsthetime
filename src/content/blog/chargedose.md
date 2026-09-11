@@ -34,12 +34,6 @@ Once installed, ChargeDose runs quietly in your system tray. It checks your batt
 No heavy GUI, no system bloat — just a minimal, respectful assistant for battery care.
 
 <!-- AdSense Ad Slot 1 -->
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-6381695271630022"
-     data-ad-slot="2167329843"></ins>
 ---
 
 ## ✨ What's New in Version 2.0
@@ -77,12 +71,6 @@ Then you already know we focus on speed, clarity, and clean UX. ChargeDose bring
 ChargeDose fits in our growing family of purpose-driven digital tools.
 
 <!-- AdSense Ad Slot 2 -->
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-6381695271630022"
-     data-ad-slot="2167329843"></ins>
 ---
 
 ## 🔮 What’s Next for ChargeDose?
