@@ -9,6 +9,7 @@ import AdUnit from "../../components/AdUnit.astro";
 import Seo from "../../components/Seo.astro";
 import { AD_SLOTS } from "../../lib/ads.js";
 import { SITE_URL, absoluteUrl, breadcrumbs } from "../../lib/site.js";
+import SourceButton from "../../components/SourceButton.astro";
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -305,6 +306,9 @@ const blogPosting = {
 
     <!-- Footer -->
     <footer class="border-t border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-[#111] text-sm py-10 px-4 md:px-12">
+      <div class="max-w-7xl mx-auto mb-6 flex justify-center md:justify-start">
+        <SourceButton />
+      </div>
       <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-6 text-gray-600 dark:text-gray-400">
         <div>
           <p class="font-bold text-gray-800 dark:text-white mb-2">🌐 What's The Time</p>

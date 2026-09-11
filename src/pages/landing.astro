@@ -10,6 +10,7 @@ import AdUnit from "../components/AdUnit.astro";
 import Seo from "../components/Seo.astro";
 import { AD_SLOTS } from "../lib/ads.js";
 import { SITE_URL, breadcrumbs, faqPage } from "../lib/site.js";
+import SourceButton from "../components/SourceButton.astro";
 
 const title = "What's The Time – Global Time Converter, World Clock & Meeting Planner";
 const description = "Convert time zones instantly, see the current time anywhere in the world and schedule international meetings with a fast, modern and mobile-friendly world clock.";
@@ -623,6 +624,9 @@ const softwareApplication = {
 
       <!-- Footer -->
     <footer class="border-t border-gray-200 dark:border-white/10 bg-black text-sm py-10 px-4 md:px-12">
+      <div class="max-w-7xl mx-auto mb-6 flex justify-center md:justify-start">
+        <SourceButton />
+      </div>
       <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-6 text-gray-600 dark:text-gray-400">
         <div>
           <a href="/" class="font-bold text-gray-800 dark:text-white mb-2">⏱ What's The Time</a>
