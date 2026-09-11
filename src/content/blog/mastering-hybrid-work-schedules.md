@@ -41,12 +41,6 @@ One of the key skills of successful hybrid teams today is **time zone awareness*
 
 ---
 <!-- Disabled
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-6381695271630022"
-     data-ad-slot="2167329849"></ins>
  -->
 
 ---
@@ -115,12 +109,6 @@ As work becomes more distributed, **TimeOps may become as essential as DevOps**.
 
 ---
 <!-- Disabled
-<ins class="adsbygoogle"
-     style="display:block; text-align:center;"
-     data-ad-layout="in-article"
-     data-ad-format="fluid"
-     data-ad-client="ca-pub-6381695271630022"
-     data-ad-slot="2167329849"></ins>
 -->
 ---
 

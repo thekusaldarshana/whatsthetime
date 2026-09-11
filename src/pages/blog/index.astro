@@ -17,6 +17,7 @@ import AdUnit from "../../components/AdUnit.astro";
 import Seo from "../../components/Seo.astro";
 import { AD_SLOTS } from "../../lib/ads.js";
 import { absoluteUrl, breadcrumbs } from "../../lib/site.js";
+import SourceButton from "../../components/SourceButton.astro";
 
 const title = "Blog | Time Zones, Remote Work & Meeting Scheduling – What's The Time";
 const description = "Guides and insights on time zones, world clocks, remote collaboration and scheduling international meetings, from the team behind What's The Time.";
@@ -310,6 +311,9 @@ const blogSchema = {
 
     <!-- Footer -->
     <footer class="border-t border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-[#111] text-sm py-10 px-4 md:px-12">
+      <div class="max-w-7xl mx-auto mb-6 flex justify-center md:justify-start">
+        <SourceButton />
+      </div>
       <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-6 text-gray-600 dark:text-gray-400">
         <div>
           <p class="font-bold text-gray-800 dark:text-white mb-2">⏱ What's The Time</p>

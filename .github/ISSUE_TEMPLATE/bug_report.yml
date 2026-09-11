@@ -1,0 +1,29 @@
+name: Bug report
+description: Something on whatsthetime.top is wrong or broken
+labels: ["bug"]
+body:
+  - type: input
+    id: url
+    attributes:
+      label: Page URL
+      placeholder: https://whatsthetime.top/tokyo-vs-new-york
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you expect, and what did you see instead?
+    validations:
+      required: true
+  - type: input
+    id: timezone
+    attributes:
+      label: Your time zone and browser
+      placeholder: Asia/Colombo, Chrome 140 on Android
+    validations:
+      required: true
+  - type: textarea
+    id: extra
+    attributes:
+      label: Screenshots or console errors
