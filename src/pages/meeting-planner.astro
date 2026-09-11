@@ -1,14 +1,62 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import MeetingPlanner from '../components/MeetingPlanner.jsx';
+import { SITE_URL, breadcrumbs, faqPage } from '../lib/site.js';
+
+const faqs = [
+  {
+    question: 'How do I schedule a meeting across multiple time zones?',
+    answer: 'Add every participant\u2019s city to the planner. It lines up their local hours side by side and highlights the slots that fall inside working hours for everyone, so you can pick a time that suits the whole group.'
+  },
+  {
+    question: 'Is the meeting planner free?',
+    answer: 'Yes. The meeting planner is free, needs no sign-up and works on desktop and mobile.'
+  },
+  {
+    question: 'Does the planner account for daylight saving time?',
+    answer: 'Yes. Every city is resolved through the IANA time zone database, so daylight saving shifts on the chosen date are applied automatically.'
+  }
+];
+
+const graph = [
+  {
+    '@type': 'WebApplication',
+    name: "What's The Time Meeting Planner",
+    url: `${SITE_URL}/meeting-planner`,
+    applicationCategory: 'BusinessApplication',
+    operatingSystem: 'All',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    publisher: { '@id': `${SITE_URL}/#organization` }
+  },
+  faqPage(faqs),
+  breadcrumbs([
+    { name: 'Home', path: '/' },
+    { name: 'Meeting planner', path: '/meeting-planner' }
+  ])
+];
 ---
 
-<Layout title="Meeting Planner & Scheduler across time zones – What's The Time"
-description="Plan and Schedule meetings across time zones effortlessly, anywhere in the world with the No #1 Best and Modern Global Meeting Planner. Compatible with Any Device">
+<Layout
+  title="Meeting Planner & Scheduler Across Time Zones – What's The Time"
+  description="Plan and schedule international meetings across time zones in seconds. Compare working hours for every participant on any device, free and without sign-up."
+  graph={graph}
+>
   <section class="p-4 max-w-screen-xl mx-auto">
     <h1 class="text-3xl font-bold mb-4">🗓️ Global Meeting Planner</h1>
     <p class="mb-6 text-gray-400">Plan & Schedule International Meetings across time zones effortlessly.</p>
     <MeetingPlanner client:load />
+  </section>
+
+  <section class="p-4 max-w-screen-xl mx-auto">
+    <h2 class="text-2xl font-bold mb-4">Meeting planner FAQ</h2>
+    <div class="space-y-3">
+      {faqs.map((faq) => (
+        <details class="bg-white/70 dark:bg-gray-900 border border-yellow-300 dark:border-white/10 rounded-lg p-4">
+          <summary class="cursor-pointer font-semibold">{faq.question}</summary>
+          <p class="mt-2 text-sm text-gray-700 dark:text-gray-300">{faq.answer}</p>
+        </details>
+      ))}
+    </div>
   </section>
 </Layout>
 

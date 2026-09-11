@@ -96,7 +96,7 @@ Let’s explore the best times to post on each major platform in 2025.
 ## 🌐 Bonus: Convert Times Across Time Zones
 
 Have an international audience?  
-Use [What's The Time](https://whatsthetime.online) to find the best posting time in **their** local time — from anywhere.
+Use [What's The Time](https://whatsthetime.top) to find the best posting time in **their** local time — from anywhere.
 
 For example:
 
@@ -111,7 +111,7 @@ For example:
 Posting at the right time isn’t a hack — it’s **respect for your audience’s rhythm**.  
 Use this 2025 guide, watch your analytics, and test what works best.
 
-For automatic conversions, suggestions, and more — explore [What's The Time](https://whatsthetime.online).  
+For automatic conversions, suggestions, and more — explore [What's The Time](https://whatsthetime.top).  
 It’s time, reimagined.
 
 ---

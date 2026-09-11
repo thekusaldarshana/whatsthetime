@@ -37,21 +37,16 @@ Coordinating global teams is often like solving a Rubik’s cube with time. A ma
 
 One of the key skills of successful hybrid teams today is **time zone awareness**. That’s why many are turning to tools like the [Global Meeting Planner](/meeting-planner) — which helps identify the best meeting time for all participants.
 
-<iframe src='https://whatsthetime.online/metEmbed' width='100%' height='500' style='border:none;' loading='lazy'></iframe>
+<iframe src='https://whatsthetime.top/metEmbed' width='100%' height='500' style='border:none;' loading='lazy'></iframe>
 
 ---
 <!-- Disabled
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6381695271630022"
-     crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
      data-ad-format="fluid"
      data-ad-client="ca-pub-6381695271630022"
      data-ad-slot="2167329849"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
  -->
 
 ---
@@ -83,9 +78,9 @@ Some teams establish 2–4 overlapping hours across time zones as their daily �
 - 🕒 **World Clock dashboards** built into tools like Teams, Slack, and browser extensions help employees stay aware of distributed coworkers.
 - 📆 **Smart calendar overlays** allow side-by-side views of everyone’s availability.
 
-Don’t forget to explore free tools like [What’s The Time Converter](https://whatsthetime.online) to quickly compare any two cities or time zones in seconds.
+Don’t forget to explore free tools like [What’s The Time Converter](https://whatsthetime.top) to quickly compare any two cities or time zones in seconds.
 
-<iframe src='https://whatsthetime.online/embed' width='100%' height='400' style='border:none;' loading='lazy'></iframe>
+<iframe src='https://whatsthetime.top/embed' width='100%' height='400' style='border:none;' loading='lazy'></iframe>
 
 ---
 
@@ -120,17 +115,12 @@ As work becomes more distributed, **TimeOps may become as essential as DevOps**.
 
 ---
 <!-- Disabled
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6381695271630022"
-     crossorigin="anonymous"></script>
 <ins class="adsbygoogle"
      style="display:block; text-align:center;"
      data-ad-layout="in-article"
      data-ad-format="fluid"
      data-ad-client="ca-pub-6381695271630022"
      data-ad-slot="2167329849"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
 -->
 ---
 

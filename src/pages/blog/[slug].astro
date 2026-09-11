@@ -5,6 +5,11 @@ import Feedback from "../../components/Feedback.astro";
 import ChargeDoseBanner from "../../components/ChargeDoseBanner.astro";
 import  SpeedInsights  from "@vercel/speed-insights/astro"
 import Analytics from '@vercel/analytics/astro'
+import AdSense from "../../components/AdSense.astro";
+import AdUnit from "../../components/AdUnit.astro";
+import Seo from "../../components/Seo.astro";
+import { AD_SLOTS } from "../../lib/ads.js";
+import { SITE_URL, absoluteUrl, breadcrumbs } from "../../lib/site.js";
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -18,40 +23,58 @@ const post = await getEntryBySlug('blog', slug);
 if (!post) throw new Error(`Post not found for slug: ${slug}`);
 
 const { Content } = await post.render();
+
+const canonical = `/blog/${post.slug}`;
+const image = post.data.image ?? '/og-preview.png';
+const author = post.data.author ?? 'Kusal Darshana';
+
+const blogPosting = {
+  "@type": "BlogPosting",
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.pubDate,
+  dateModified: post.data.pubDate,
+  image: absoluteUrl(image),
+  keywords: post.data.tags.join(', '),
+  inLanguage: "en",
+  mainEntityOfPage: { "@type": "WebPage", "@id": absoluteUrl(canonical) },
+  author: { "@type": "Person", name: author },
+  publisher: { "@id": `${SITE_URL}/#organization` }
+};
 ---
 
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{post.data.title}</title>
-    <link rel="stylesheet" href="/styles/global.css" /><meta name="robots" content="index, follow" />
+    <Seo
+      title={`${post.data.title} | What's The Time`}
+      description={post.data.description}
+      keywords={post.data.tags.join(', ')}
+      image={image}
+      type="article"
+      canonical={canonical}
+      publishedTime={post.data.pubDate}
+      graph={[
+        blogPosting,
+        breadcrumbs([
+          { name: "Home", path: "/" },
+          { name: "Blog", path: "/blog" },
+          { name: post.data.title, path: canonical }
+        ])
+      ]}
+    />
+
   <meta name="google-site-verification" content="gKcYaMKLR1jRCwqQfkI-tf-7WGvBxfFvjliDoRtAV8o" />
   <meta name="theme-color" content="#fde047" />
-  <meta name="google-adsense-account" content="ca-pub-6381695271630022" />
-
-  <meta name="keywords" content="meeting planner,meeting time planner,time zone meeting planner,world meeting planner,meeting planner time zones,meeting planner time zone,time zone meeting scheduler,timezone meeting planner,time and date meeting planner,meeting timezone planner,meeting time zone planner,online meeting planner,international meeting planner,time zones meeting planner,time zone planner,world time zone converter meeting planner,time zones planner,time planner,world time meeting planner,date and time meeting planner,time zone converter meeting planner,time zone calculator meeting,global meeting planner,time and meeting planner,global meeting planning,international meeting scheduler,world time converter meeting planner,time zone scheduler,meeting planner barcelona,world meeting planning,meeting planer,meeting planner time and date,meeting times planner,meeting scheduler time zones,world meeting time planner,world time planner,meeting and time planner,time date meeting planner,global meeting times,time zone scheduling,global time planner,world clock meeting planner,world time zone meeting planner,time planner meeting,worldwide meeting planner,time meeting planner,meeting scheduler time zone,time zones calculator meeting planner,time converter meeting planner,meeting time planner time zones,worldmeetingplanner,timezone scheduler,date and time planner,world meeting clock planner,world timezone meeting planner,meeting and date planner,meetingsplaner,plan a meeting time zones,global time zone meeting planner,timeanddate meeting planner,timezone meeting scheduler,time zone event planner,timezone planner,world time clock meeting planner,global meeting scheduler,meeting planner world clock,meeting time zone calculator,time date planner,world meeting planner clock,meeting planner global,meeting planner time,international time zone meeting planner,world meeting planner time zone,meeting planner zeitzonen,meeting planner worldwide,meetingplaner,international clock meeting planner,meeting time and date planner,world time zones meeting planner,time zone planning,meeting planner time zone converter,meeting planner online,meeting planning time zone,time and date planner,time zone meeting,schedule time zones,global meeting time,international time zones meeting planner,meeting time zones planner,meeting planner timezone,time planner online,schedule meeting time zone,time zones scheduler,date time meeting planner,time zone conference planner,meeting planning time zones,meeting time scheduler,meetings planner,meetingplanner,world time and date meeting planner,blog,time zone comparison meeting planner,timeand date meeting planner,meeting timezone scheduler" />
 
   <!-- Favicons -->
-  <link rel="icon" type="image/png" href="/public/favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/svg+xml" href="/public/favicon.svg" />
-<link rel="shortcut icon" href="/public/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="/public/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 <meta name="apple-mobile-web-app-title" content="whatsthetime" />
-<link rel="manifest" href="/public/site.webmanifest" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="What's The Time – Global Time Converter" />
-  <meta property="og:description" content="A modern, beautiful global time converter with a sunny UI and powerful features." />
-  <meta property="og:image" content="/og-preview.png" />
-  <meta property="og:url" content="https://whatsthetime.online/" />
-  <meta property="og:type" content="website" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="What's The Time – Global Time Converter" />
-  <meta name="twitter:description" content="Convert time zones beautifully with a sunny, mobile-first experience." />
-  <meta name="twitter:image" content="/og-preview.png" />
+<link rel="manifest" href="/site.webmanifest" />
 
   <!-- Scrollbar Styling -->
   <style>
@@ -64,27 +87,8 @@ const { Content } = await post.render();
     }
   </style>
 
-  <!-- Structured Data -->
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "What's The Time",
-      "url": "https://whatsthetime.online",
-      "description": "Official Blog of What's The Time. Everything you should know about What's The Time and Modern Time converting. Join our blog to Discover more interests.",
-      "applicationCategory": "Utility",
-      "operatingSystem": "All",
-      "browserRequirements": "Requires JavaScript",
-      "inLanguage": "en",
-      "author": {
-        "@type": "Person",
-        "name": "thekusaldarshana"
-      }
-    }
-  </script>
-
-  <!-- Ad Script -->
-  <script data-noptimize="1" data-cfasync="false" data-wpfc-render="false">
+  <!-- Ad Scripts -->
+  <script is:inline data-noptimize="1" data-cfasync="false" data-wpfc-render="false">
     (function () {
       var script = document.createElement("script");
       script.async = 1;
@@ -93,8 +97,7 @@ const { Content } = await post.render();
     })();
   </script>
 
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6381695271630022"
-     crossorigin="anonymous"></script>
+  <AdSense />
 
 </head>
 
@@ -254,10 +257,16 @@ const { Content } = await post.render();
 
 
     <main class="prose prose-lg dark:prose-invert max-w-4xl mx-auto px-4 py-10">
+      <nav aria-label="Breadcrumb" class="text-sm text-gray-500 dark:text-gray-400 not-prose mb-4">
+        <a href="/" class="hover:underline">Home</a> ›
+        <a href="/blog" class="hover:underline">Blog</a> ›
+        <span>{post.data.title}</span>
+      </nav>
+
       <article>
         <h1>{post.data.title}</h1>
         <p class="text-sm text-gray-500 dark:text-gray-400">
-          <em>{post.data.date}</em>
+          <em>By {author} · <time datetime={post.data.pubDate}>{post.data.pubDate}</time></em>
         </p>
 
         <!-- ✅ This renders the Markdown-formatted content -->
@@ -272,12 +281,7 @@ const { Content } = await post.render();
 
     <!-- Sponsored Ad Sidebar -->
       <aside id="sponsored-sidebar" class="w-full lg:w-72">
-        <div class="bg-yellow-50 dark:bg-gray-900 border border-yellow-300 dark:border-white/10 rounded-lg p-4 shadow text-sm text-gray-800 dark:text-gray-200">
-          <p class="font-semibold mb-2 text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">
-            Sponsored
-          </p>
-          <div id="sponsor-ad-slot" class="text-center min-h-[380px]"></div>
-        </div>
+        <AdUnit slot={AD_SLOTS.sidebar} minHeight="380px" />
       </aside>
     </div>
 
@@ -288,27 +292,15 @@ const { Content } = await post.render();
   </div>
 
 
-  <!-- 🟨 Sponsored Inline Ad Card -->
-<div class="mt-8 mb-10 px-4 w-md">
-  <div class="bg-yellow-50 dark:bg-gray-900 border border-yellow-300 dark:border-white/10 rounded-lg p-4 shadow text-sm text-gray-800 dark:text-gray-200">
-    <p class="font-semibold mb-2 text-xs uppercase tracking-wider text-gray-500 dark:text-gray-400">
-      Sponsored
-    </p>
-    <div class="text-center min-h-[280px]">
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6381695271630022"
-        crossorigin="anonymous"></script>
-      <ins class="adsbygoogle"
-        style="display:block; text-align:center;"
-        data-ad-layout="in-article"
-        data-ad-format="fluid"
-        data-ad-client="ca-pub-6381695271630022"
-        data-ad-slot="7477596347"></ins>
-      <script>
-        (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
-    </div>
+  <!-- Sponsored Inline Ad Card -->
+  <div class="mt-8 mb-10 px-4 max-w-4xl mx-auto">
+    <AdUnit
+      slot={AD_SLOTS.inArticle}
+      format="fluid"
+      layout="in-article"
+      minHeight="280px"
+    />
   </div>
-</div>
 
 <Feedback />
 

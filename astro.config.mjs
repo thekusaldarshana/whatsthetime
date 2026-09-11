@@ -9,7 +9,9 @@ export default defineConfig({
   site: "https://whatsthetime.top",
   integrations: [
     tailwind(),
-    sitemap(),
+    sitemap({
+      filter: (page) => !/\/(embed|metEmbed)\/?$/.test(page),
+    }),
     react(),
   ],
 });

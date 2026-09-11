@@ -3,13 +3,16 @@
 import Analytics from '@vercel/analytics/astro';
 import SpeedInsights from "@vercel/speed-insights/astro";
 import MeetingPlanner from '../components/MeetingPlanner.jsx';
+import { absoluteUrl } from '../lib/site.js';
 ---
 <html lang="en" class="scroll-smooth dark">
-  <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>What's The Time | Global Time Converter</title>
+    <title>Embeddable Meeting Planner Widget | What's The Time</title>
+    <meta name="description" content="Free embeddable international meeting planner widget for your website." />
+    <meta name="robots" content="noindex, follow" />
+    <link rel="canonical" href={absoluteUrl('/metEmbed')} />
   </head>
 
 
@@ -35,7 +38,7 @@ import MeetingPlanner from '../components/MeetingPlanner.jsx';
 
 
   <div class="mt-10 text-center text-sm text-gray-600 dark:text-gray-400 py-3 border-t border-gray-200 dark:border-white/10">
-    <a href="whatsthetime.online/landing">Made with ❤️ by &copy;whatsthetime.</a>
+    <a href="/landing">Made with ❤️ by &copy;whatsthetime.</a>
   </div>
 
 </div>

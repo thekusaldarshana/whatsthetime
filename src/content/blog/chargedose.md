@@ -8,7 +8,7 @@ image: "/blog/assets/battery.webp"
 ---
 
 **Tired of forgetting when to unplug your laptop? Worried about damaging your battery over time?**  
-Introducing **ChargeDose**, a mindful battery care tool built by the team behind [What’s The Time](https://whatsthetime.online).
+Introducing **ChargeDose**, a mindful battery care tool built by the team behind [What’s The Time](https://whatsthetime.top).
 
 With the launch of **ChargeDose v2.0**, we're expanding from timezones into your laptop's **lifespan** — quite literally.
 
@@ -40,10 +40,6 @@ No heavy GUI, no system bloat — just a minimal, respectful assistant for batte
      data-ad-format="fluid"
      data-ad-client="ca-pub-6381695271630022"
      data-ad-slot="2167329843"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 ---
 
 ## ✨ What's New in Version 2.0
@@ -54,7 +50,7 @@ ChargeDose v1.0 was released as a quick AHK-based experiment. But now, v2.0 is f
 - ✅ Clean `.exe` installer with auto-start
 - ✅ System tray icon + lightweight
 - ✅ Built for **Windows 10/11**
-- ✅ Developed with love by Infinity Minds (Creators of whatsthetime.online)
+- ✅ Developed with love by Infinity Minds (Creators of whatsthetime.top)
 
 ---
 
@@ -87,10 +83,6 @@ ChargeDose fits in our growing family of purpose-driven digital tools.
      data-ad-format="fluid"
      data-ad-client="ca-pub-6381695271630022"
      data-ad-slot="2167329843"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
-</script>
-
 ---
 
 ## 🔮 What’s Next for ChargeDose?

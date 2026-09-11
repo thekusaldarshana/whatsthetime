@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { popular as conversions } from '../lib/popular.js';
+import { breadcrumbs } from '../lib/site.js';
 
 
 
@@ -9,7 +10,16 @@ function toSlug(name) {
 }
 ---
 
-<Layout title="Popular Time Conversions" description="Browse most searched time conversions between cities.">
+<Layout
+  title="Popular Time Zone Conversions Between Cities – What's The Time"
+  description="Browse the most searched time zone conversions between world cities, with live local times and the exact time difference for each pair."
+  graph={[
+    breadcrumbs([
+      { name: 'Home', path: '/' },
+      { name: 'Popular conversions', path: '/popular' }
+    ])
+  ]}
+>
   <div class="max-w-3xl mx-auto px-4 py-8">
     <h1 class="text-3xl font-bold mb-6 text-center">🌍 Popular Time Conversions</h1>
 
