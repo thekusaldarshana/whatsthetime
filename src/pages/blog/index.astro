@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
 import "../../styles/global.css";
-import Feedback from "../../components/Feedback.astro";
 import ChargeDoseBanner from "../../components/ChargeDoseBanner.astro";
 const posts = (await getCollection('blog'))
   .filter(post => post.data.pubDate) // ensure all have a pubDate
@@ -308,7 +307,6 @@ const blogSchema = {
       />
     </div>
 
-<Feedback />
 
     <!-- Footer -->
     <footer class="border-t border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-[#111] text-sm py-10 px-4 md:px-12">
